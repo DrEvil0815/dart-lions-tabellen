@@ -412,13 +412,49 @@ function showHistory(spiele) {
 
     item.appendChild(top);
 
-    item.appendChild(
-      create(
-        "div",
-        "history-teams",
-        spiel.heim + " – " + spiel.gast
-      )
-    );
+    
+const teams = create("div", "history-teams");
+
+teams.style.display = "flex";
+teams.style.alignItems = "center";
+teams.style.justifyContent = "space-between";
+teams.style.gap = "12px";
+teams.style.flexWrap = "wrap";
+
+const homeTeam = createClub(spiel.heim);
+const awayTeam = createClub(spiel.gast);
+
+[homeTeam, awayTeam].forEach(function(club) {
+  club.style.display = "flex";
+  club.style.alignItems = "center";
+  club.style.gap = "10px";
+  club.style.flex = "1 1 180px";
+  club.style.textAlign = "left";
+
+  const img = club.querySelector(".club-logo");
+  const placeholder = club.querySelector(".logo-placeholder");
+
+  if (img) {
+    img.style.width = "42px";
+    img.style.height = "42px";
+    img.style.margin = "0";
+    img.style.flexShrink = "0";
+  }
+
+  if (placeholder) {
+    placeholder.style.width = "42px";
+    placeholder.style.height = "42px";
+    placeholder.style.margin = "0";
+    placeholder.style.fontSize = "7px";
+    placeholder.style.flexShrink = "0";
+  }
+});
+
+teams.appendChild(homeTeam);
+teams.appendChild(awayTeam);
+
+item.appendChild(teams);
+
 
     const link = createReportLink(
       spiel,
