@@ -1,0 +1,26 @@
+
+name: Ergebnisse Dart Lions III testen
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: NuLiga-Seite herunterladen
+        run: |
+          curl -f -L --retry 2 \
+            --max-time 40 \
+            -A "Mozilla/5.0" \
+            -o nuliga-iii.html \
+            "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415"
+
+          test -s nuliga-iii.html
+
+      - name: Testdatei bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: ergebnisse-dart-lions-iii
+          path: nuliga-iii.html
