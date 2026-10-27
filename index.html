@@ -2,28 +2,121 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dart Lions – Ligatabellen</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dart Lions II – Ligatabelle</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px 12px;
+  background:#121827;color:white;
+  font-family:Arial,sans-serif
+}
+h1{
+  text-align:center;color:#D5A53B;
+  font-size:28px
+}
+#liga{text-align:center;color:#ccc}
+.wrapper{overflow-x:auto}
+table{
+  width:100%;border-collapse:collapse;
+  background:#202638;
+  font-size:14px;white-space:nowrap
+}
+th,td{
+  padding:12px 9px;
+  border-bottom:1px solid #444;
+  text-align:center
+}
+th{background:#32394d;color:#D5A53B}
+th:nth-child(2),td:nth-child(2){text-align:left}
+tr.lions{
+  background:#66411e;
+  color:#ffdb73;
+  font-weight:bold
+}
+footer{margin-top:15px;color:#aaa;font-size:12px}
+a{color:#D5A53B}
+</style>
 </head>
-<body style="
-  background:#121827;
-  color:white;
-  font-family:Arial,sans-serif;
-  text-align:center;
-  padding:40px 20px;">
+<body>
+<h1>DART LIONS GRÄFENBERG II</h1>
+<p id="liga">Aktuelle Ligatabelle wird geladen ...</p>
 
-  <h1 style="color:#D5A53B;">
-    DART LIONS GRÄFENBERG
-  </h1>
+<div class="wrapper">
+<table id="tabelle" hidden>
+<thead>
+<tr>
+<th>Pl.</th><th>Mannschaft</th>
+<th>Beg.</th><th>S</th><th>U</th><th>N</th>
+<th>Spiele</th><th>+/-</th><th>Legs</th><th>Punkte</th>
+</tr>
+</thead>
+<tbody id="daten"></tbody>
+</table>
+</div>
 
-  <h2>Unsere Ligatabellen</h2>
+<p id="status">Daten werden geladen ...</p>
+<footer>
+<span id="stand"></span>
+<p><a id="quelle" href="https://bdv-dart.liga.nu/">
+Quelle: BDV NuLiga
+</a></p>
+</footer>
 
-  <p>Die Tabellen-Webseite funktioniert!</p>
+<script>
+async function laden(){
+ try{
+  const antwort=await fetch(
+    "./data/dart-lions-ii.json",
+    {cache:"no-store"}
+  );
+  if(!antwort.ok)throw new Error("Datenabruf fehlgeschlagen");
+  const daten=await antwort.json();
+  if(!Array.isArray(daten.rows)||!daten.rows.length)
+    throw new Error("Keine Tabelle vorhanden");
 
-  <p style="color:#D5A53B;">
-    Game On!
-  </p>
+  document.getElementById("liga").textContent=
+    daten.liga+" – Saison 2026/27";
 
+  const tbody=document.getElementById("daten");
+  tbody.replaceChildren();
+
+  const felder=[
+    "platz","team","begegnungen","siege",
+    "unentschieden","niederlagen",
+    "spiele","differenz","legs","punkte"
+  ];
+
+  daten.rows.forEach(team=>{
+    const zeile=document.createElement("tr");
+    if(team.team===daten.team)zeile.className="lions";
+
+    felder.forEach(feld=>{
+      const zelle=document.createElement("td");
+      zelle.textContent=team[feld]??"-";
+      zeile.appendChild(zelle);
+    });
+    tbody.appendChild(zeile);
+  });
+
+  document.getElementById("tabelle").hidden=false;
+  document.getElementById("status").hidden=true;
+  if(daten.stand){
+    const datum=new Date(daten.stand);
+    document.getElementById("stand").textContent=
+      "Datenabruf: "+datum.toLocaleString("de-DE");
+  }
+  if(daten.quelle)
+    document.getElementById("quelle").href=daten.quelle;
+
+ }catch(fehler){
+  document.getElementById("status").textContent=
+    "Die Tabelle ist momentan nicht verfügbar.";
+  console.error(fehler);
+ }
+}
+laden();
+</script>
 </body>
 </html>
