@@ -25,15 +25,21 @@ jobs:
       - name: Abhängigkeiten installieren
         run: pip install requests beautifulsoup4
 
-      - name: Ligatabelle aktualisieren
-        run: python update_table.py
+
+      - name: Ligatabellen aktualisieren
+        run: |
+          python update_table.py
+          python update_table_i.py
+
 
       - name: Neue Daten speichern
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/dart-lions-ii.json
+
+          git add data/dart-lions-ii.json data/dart-lions-i.json
+
 
           if ! git diff --cached --quiet; then
             git commit -m "NuLiga-Tabelle aktualisieren"
