@@ -1,0 +1,104 @@
+{
+  "liga": "Oberfranken 2026/27 – Staffel 211415",
+  "team": "Dart Lions Gräfenberg III",
+  "stand": "2026-10-27T18:56+00:00",
+  "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
+  "rows": [
+    {
+      "platz": 1,
+      "team": "Dartclub Steinbach",
+      "begegnungen": "2",
+      "siege": "2",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "33:3",
+      "differenz": "+30",
+      "legs": "102:27",
+      "punkte": "4:0"
+    },
+    {
+      "platz": 2,
+      "team": "SV Hetzles II",
+      "begegnungen": "2",
+      "siege": "2",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "24:12",
+      "differenz": "+12",
+      "legs": "79:60",
+      "punkte": "4:0"
+    },
+    {
+      "platz": 3,
+      "team": "Bollnberch Bomber Maigisch II",
+      "begegnungen": "2",
+      "siege": "2",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "21:15",
+      "differenz": "+6",
+      "legs": "75:63",
+      "punkte": "4:0"
+    },
+    {
+      "platz": 4,
+      "team": "DC Gallier Pettensiedel",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "14:22",
+      "differenz": "-8",
+      "legs": "62:77",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 5,
+      "team": "DJK \"Creek Steelers\" Wimmelbach IV",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "12:24",
+      "differenz": "-12",
+      "legs": "48:86",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 6,
+      "team": "DC Full Bulls Neunkirchen",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "16:20",
+      "differenz": "-4",
+      "legs": "67:75",
+      "punkte": "0:4"
+    },
+    {
+      "platz": 7,
+      "team": "Spickersportclub Pinzberg",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "15:21",
+      "differenz": "-6",
+      "legs": "68:71",
+      "punkte": "0:4"
+    },
+    {
+      "platz": 8,
+      "team": "Dart Lions Gräfenberg III",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "9:27",
+      "differenz": "-18",
+      "legs": "47:89",
+      "punkte": "0:4"
+    }
+  ]
+}
