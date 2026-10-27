@@ -9,18 +9,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: NuLiga-Seite herunterladen
+      - name: Mannschaftsportrait herunterladen
         run: |
           curl -f -L --retry 2 \
             --max-time 40 \
             -A "Mozilla/5.0" \
-            -o nuliga-iii.html \
-            "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415"
+            -o mannschaft-iii.html \
+            "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528157&championship=OFr+2026%2F27&group=211415"
 
-          test -s nuliga-iii.html
+          test -s mannschaft-iii.html
+
+          echo "Dateigroesse:"
+          wc -c mannschaft-iii.html
+
+          echo "Pruefe Mannschaft:"
+          grep -oi "Dart Lions Gräfenberg III" \
+            mannschaft-iii.html | head -1 || true
 
       - name: Testdatei bereitstellen
         uses: actions/upload-artifact@v4
         with:
-          name: ergebnisse-dart-lions-iii
-          path: nuliga-iii.html
+          name: mannschaft-dart-lions-iii
+          path: mannschaft-iii.html
