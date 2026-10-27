@@ -125,8 +125,14 @@ function safeLink(url){
   }catch{return null;}
 }
 
+
 function logo(team){
-  if(team.startsWith("Dart Lions Gräfenberg")){
+  if(team.includes("Dart Lions")){
+    return "https://drevil0815.github.io/dart-lions-tabellen/logos/dart-lions.png";
+  }
+  return null;
+}
+
 
 return "https://drevil0815.github.io/dart-lions-tabellen/logos/dart-lions.png?v=2";
 
