@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dart Lions III – Ergebnisse</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:20px;
+  background:#121827;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+h1,h2{text-align:center;color:#D5A53B}
+h1{font-size:26px}
+h2{font-size:20px;margin-top:30px}
+.subtitle{text-align:center;color:#bcc3d0}
+.hero{
+  background:linear-gradient(140deg,#2a3041,#141923);
+  border:1px solid #604820;
+  border-radius:15px;
+  padding:30px 16px;
+  margin-top:24px;
+}
+.tag{
+  text-align:center;
+  color:#D5A53B;
+  font-size:13px;
+  letter-spacing:2px;
+  font-weight:bold;
+}
+.teams{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  gap:12px;
+  align-items:center;
+  margin:25px 0;
+}
+.club{text-align:center;min-width:0}
+.club img{
+  width:85px;height:85px;
+  object-fit:contain;
+  margin-bottom:12px;
+}
+.club strong{
+  display:block;
+  overflow-wrap:anywhere;
+}
+.score{
+  color:#F0C45A;
+  font-size:clamp(28px,6vw,54px);
+  font-weight:900;
+  white-space:nowrap;
+}
+.date{text-align:center;color:#c6cad3}
+.link{
+  display:block;
+  text-align:center;
+  color:#F0C45A;
+  margin-top:18px;
+}
+.archive{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.match{
+  background:#242c3c;
+  padding:15px;
+  border-radius:9px;
+  display:grid;
+  grid-template-columns:100px minmax(0,1fr) auto;
+  gap:14px;
+  align-items:center;
+}
+.match .result{
+  color:#F0C45A;
+  font-weight:bold;
+  font-size:20px;
+}
+.match a{color:#F0C45A}
+.muted{color:#aab4c3;font-size:13px}
+footer{
+  text-align:center;
+  color:#aab4c3;
+  font-size:12px;
+  margin-top:24px;
+}
+@media(max-width:600px){
+  body{padding:12px}
+  .club img{width:55px;height:55px}
+  .club strong{font-size:12px}
+  .teams{gap:5px}
+  .match{
+    grid-template-columns:1fr auto;
+    gap:6px;
+  }
+  .match .muted{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+
+<h1>DART LIONS GRÄFENBERG III</h1>
+<p class="subtitle">Unsere Ligaergebnisse 2026/27</p>
+
+<section id="latest"></section>
+
+<h2>WEITERE SPIELERGEBNISSE</h2>
+<div class="archive" id="archive"></div>
+
+<footer id="stand"></footer>
+
+<script>
+const teamName="Dart Lions Gräfenberg III";
+
+function safeLink(url){
+  try{
+    const parsed=new URL(url);
+    return ["https:","http:"].includes(parsed.protocol)
+      ? parsed.href : null;
+  }catch{return null;}
+}
+
+function logo(team){
+  if(team.startsWith("Dart Lions Gräfenberg")){
+    return "logos/dart-lions.png";
+  }
+  return null;
+}
+
+function teamBox(name){
+  const div=document.createElement("div");
+  div.className="club";
+
+  const image=logo(name);
+  if(image){
+    const img=document.createElement("img");
+    img.src=image;
+    img.alt="Originalwappen Dart Lions";
+    img.onerror=()=>img.remove();
+    div.append(img);
+  }
+
+  const title=document.createElement("strong");
+  title.textContent=name;
+  div.append(title);
+  return div;
+}
+
+function reportLink(spiel){
+  const url=safeLink(spiel.spielbericht);
+  if(!url)return null;
+  const link=document.createElement("a");
+  link.href=url;
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+  link.textContent="Spielbericht ansehen";
+  return link;
+}
+
+async function laden(){
+  try{
+    const response=await fetch(
+      "./data/ergebnisse-iii.json",
+      {cache:"no-store"}
+    );
+    if(!response.ok)throw Error("Abruf fehlgeschlagen");
+
+    const data=await response.json();
+    const spiele=data.spiele||[];
+    if(!spiele.length)throw Error("Keine Ergebnisse");
+
+    spiele.sort((a,b)=>
+      b.datum_iso.localeCompare(a.datum_iso)
+    );
+
+    const spiel=spiele[0];
+    const hero=document.createElement("div");
+    hero.className="hero";
+
+    const tag=document.createElement("div");
+    tag.className="tag";
+    tag.textContent="LETZTES LIGASPIEL";
+    hero.append(tag);
+
+    const teams=document.createElement("div");
+    teams.className="teams";
+    teams.append(teamBox(spiel.heim));
+
+    const score=document.createElement("div");
+    score.className="score";
+    score.textContent=spiel.ergebnis;
+    teams.append(score);
+
+    teams.append(teamBox(spiel.gast));
+    hero.append(teams);
+
+    const date=document.createElement("div");
+    date.className="date";
+    date.textContent=spiel.datum;
+    hero.append(date);
+
+    const link=reportLink(spiel);
+    if(link){
+      link.className="link";
+      hero.append(link);
+    }
+    document.getElementById("latest").append(hero);
+
+    const archiv=document.getElementById("archive");
+    spiele.slice(1).forEach(s=>{
+      const row=document.createElement("div");
+      row.className="match";
+
+      const datum=document.createElement("span");
+      datum.className="muted";
+      datum.textContent=s.datum;
+
+      const name=document.createElement("div");
+      name.textContent=s.heim+" – "+s.gast;
+
+      const result=document.createElement("div");
+      result.className="result";
+      result.textContent=s.ergebnis;
+
+      row.append(datum,name,result);
+      const report=reportLink(s);
+      if(report){
+        const item=document.createElement("div");
+        item.className="muted";
+        item.append(report);
+        row.append(item);
+      }
+      archiv.append(row);
+    });
+
+    document.getElementById("stand").textContent=
+      "Letzter Datenabruf: "+
+      new Date(data.stand).toLocaleString("de-DE");
+  }catch(error){
+    document.getElementById("latest").textContent=
+      "Ergebnisse momentan nicht verfügbar.";
+    console.error(error);
+  }
+}
+laden();
+</script>
+</body>
+</html>
