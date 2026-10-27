@@ -1,0 +1,104 @@
+{
+  "liga": "4. Bezirksliga Oberfranken G",
+  "team": "Dart Lions Gräfenberg",
+  "stand": "2026-10-27T18:42+00:00",
+  "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
+  "rows": [
+    {
+      "platz": 1,
+      "team": "DJK \"Creek Steelers\" Wimmelbach II",
+      "begegnungen": "2",
+      "siege": "2",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "32:4",
+      "differenz": "+28",
+      "legs": "101:31",
+      "punkte": "4:0"
+    },
+    {
+      "platz": 2,
+      "team": "Bollnberch Bomber Maigisch",
+      "begegnungen": "2",
+      "siege": "2",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "22:14",
+      "differenz": "+8",
+      "legs": "81:60",
+      "punkte": "4:0"
+    },
+    {
+      "platz": 3,
+      "team": "DJK-SpVgg Effeltrich III",
+      "begegnungen": "1",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "0",
+      "spiele": "9:9",
+      "differenz": "0",
+      "legs": "37:33",
+      "punkte": "1:1"
+    },
+    {
+      "platz": 4,
+      "team": "Spickersportclub Pinzberg  II",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "16:20",
+      "differenz": "-4",
+      "legs": "65:78",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 5,
+      "team": "Dart Lions Gräfenberg",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "12:24",
+      "differenz": "-12",
+      "legs": "54:82",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 6,
+      "team": "DJK Walberla Bulls Schlaifhausen II",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "1",
+      "spiele": "17:19",
+      "differenz": "-2",
+      "legs": "68:75",
+      "punkte": "1:3"
+    },
+    {
+      "platz": 7,
+      "team": "DC Hellsboch III",
+      "begegnungen": "1",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "8:10",
+      "differenz": "-2",
+      "legs": "32:38",
+      "punkte": "0:2"
+    },
+    {
+      "platz": 8,
+      "team": "DSG Langensendelbach/Marloffstein II",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "10:26",
+      "differenz": "-16",
+      "legs": "50:91",
+      "punkte": "0:4"
+    }
+  ]
+}
