@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dart Lions II – Ligatabelle</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#121827;color:#f7f7f7;font:16px system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1100px;margin:auto;padding:24px 12px}h1{text-align:center;color:#d5a53b;font-size:clamp(1.3rem,3vw,2rem);margin:0 0 8px}.sub{text-align:center;color:#c6cbd4;margin-bottom:24px}.table-wrap{overflow:auto;border:1px solid #434b5b;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:580px}th,td{padding:12px 10px;text-align:left;border-bottom:1px solid #303847}th{background:#242c3a;color:#d5a53b}tr:nth-child(even){background:#1b2230}tr.lions{background:#42231f;color:#ffdc78;font-weight:700}.notice{padding:24px;text-align:center;background:#1c2534;border-radius:10px;margin:12px 0}.muted{color:#acb3c1;font-size:.8rem;margin-top:16px;text-align:center}a{color:#e4b648}
+</style>
+</head>
+<body><main>
+<h1>DART LIONS II – LIGATABELLE</h1>
+<div class="sub">Saison 2026/2027 · Oberfranken</div>
+<div id="content" class="notice" role="status">Die automatische NuLiga-Datenanbindung wird eingerichtet. Noch keine aktuellen Tabellenwerte vorhanden.</div>
+<p class="muted">Quelle: <a href="https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&amp;group=211414" target="_blank" rel="noopener noreferrer">NuLiga – offizielle Ligatabelle</a></p>
+</main>
+<script>
+(async()=>{
+ try {
+  const r=await fetch('tabelle-2.json',{cache:'no-store'}); if(!r.ok) return;
+  const d=await r.json(); if(!Array.isArray(d.rows)||!d.rows.length)return;
+  const box=document.querySelector('#content');box.className='table-wrap';box.textContent='';
+  const table=document.createElement('table');
+  const header=document.createElement('tr');
+  for(const s of ['Platz','Mannschaft','Spiele','Punkte']){const th=document.createElement('th');th.textContent=s;header.append(th)}
+  const thead=document.createElement('thead');thead.append(header);table.append(thead);
+  const body=document.createElement('tbody');
+  for(const row of d.rows){const tr=document.createElement('tr');if(String(row.team||'').toLowerCase().includes('dart lions'))tr.className='lions';for(const value of [row.rank,row.team,row.matches,row.points]){const td=document.createElement('td');td.textContent=value??'–';tr.append(td)}body.append(tr)}
+  table.append(body);box.append(table);
+  if(d.updated){const p=document.createElement('p');p.className='muted';p.textContent='Stand: '+d.updated;box.after(p)}
+ }catch(e){/* Keep transparent placeholder while source integration is not configured. */}
+})();
+</script>
+</body></html>
