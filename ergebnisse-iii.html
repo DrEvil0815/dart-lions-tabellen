@@ -140,17 +140,36 @@ return "https://drevil0815.github.io/dart-lions-tabellen/logos/dart-lions.png?v=
   return null;
 }
 
-function teamBox(name){
-  const div=document.createElement("div");
-  div.className="club";
 
-  const image=logo(name);
-  if(image){
-    const img=document.createElement("img");
-    img.src=image;
-    img.alt="Originalwappen Dart Lions";
-    img.onerror=()=>img.remove();
-    div.append(img);
+function teamBox(name){
+  const div = document.createElement("div");
+  div.className = "club";
+
+  if(name.includes("Dart Lions")){
+    const img = document.createElement("img");
+    img.src = "https://drevil0815.github.io/dart-lions-tabellen/logos/dart-lions.png";
+    img.alt = "Originalwappen Dart Lions";
+    img.style.width = "85px";
+    img.style.height = "85px";
+    img.style.objectFit = "contain";
+    img.style.display = "block";
+    img.style.margin = "0 auto 12px";
+
+    img.onerror = function(){
+      this.alt = "Logo konnte nicht geladen werden";
+      this.style.border = "2px solid red";
+    };
+
+    div.appendChild(img);
+  }
+
+  const title = document.createElement("strong");
+  title.textContent = name;
+  div.appendChild(title);
+
+  return div;
+}
+
   }
 
   const title=document.createElement("strong");
