@@ -155,7 +155,9 @@ function teamBox(name){
     img.style.display = "block";
     img.style.margin = "0 auto 12px";
 
-    img.onerror = function(){
+ 
+img.onerror=()=>{img.style.border="3px solid red";img.alt="LOGO-LADEFEHLER";};
+
       this.alt = "Logo konnte nicht geladen werden";
       this.style.border = "2px solid red";
     };
