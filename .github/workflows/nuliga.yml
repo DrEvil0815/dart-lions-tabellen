@@ -30,6 +30,7 @@ jobs:
         run: |
           python update_table.py
           python update_table_i.py
+          python update_table_iii.py
 
 
       - name: Neue Daten speichern
@@ -38,7 +39,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
 
-          git add data/dart-lions-ii.json data/dart-lions-i.json
+          git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json
 
 
           if ! git diff --cached --quiet; then
