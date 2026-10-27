@@ -1,0 +1,35 @@
+
+name: NuLiga Datenabruf
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 * * *"
+
+jobs:
+  abrufen:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: NuLiga-Tabelle abrufen
+        run: |
+          curl -f -L --retry 2 \
+            --max-time 30 \
+            -A "Mozilla/5.0" \
+            -o nuliga.html \
+            "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr%202026%2F27&group=211414"
+
+          echo "Download abgeschlossen."
+          echo "Dateigroesse:"
+          wc -c nuliga.html
+
+          echo "Pruefe Mannschaftsname:"
+          grep -oi "Dart Lions Gräfenberg II" nuliga.html \
+            | head -1 \
+            || true
+
+      - name: HTML als Testdatei bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuliga-test
+          path: nuliga.html
