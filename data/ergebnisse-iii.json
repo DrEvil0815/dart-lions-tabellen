@@ -1,0 +1,25 @@
+{
+  "team": "Dart Lions Gräfenberg III",
+  "liga": "4. Bezirksliga Oberfranken H",
+  "saison": "2026/27",
+  "stand": "2026-10-27T19:43+00:00",
+  "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528157&championship=OFr+2026%2F27&group=211415",
+  "spiele": [
+    {
+      "datum": "16.10.2026",
+      "datum_iso": "2026-10-16",
+      "heim": "Dart Lions Gräfenberg III",
+      "gast": "Bollnberch Bomber Maigisch II",
+      "ergebnis": "8:10",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106679&championship=OFr+2026%2F27&group=211415"
+    },
+    {
+      "datum": "18.09.2026",
+      "datum_iso": "2026-09-18",
+      "heim": "Dart Lions Gräfenberg III",
+      "gast": "Dartclub Steinbach",
+      "ergebnis": "1:17",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106671&championship=OFr+2026%2F27&group=211415"
+    }
+  ]
+}
