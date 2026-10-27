@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dart Lions III – Ligatabelle</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px 12px;
+  background:#121827;color:white;
+  font-family:Arial,sans-serif
+}
+h1{
+  text-align:center;color:#D5A53B;
+  font-size:28px
+}
+#liga{text-align:center;color:#ccc}
+.wrapper{overflow-x:auto}
+table{
+  width:100%;border-collapse:collapse;
+  background:#202638;font-size:14px;
+  white-space:nowrap
+}
+th,td{
+  padding:12px 9px;
+  border-bottom:1px solid #444;
+  text-align:center
+}
+th{background:#32394d;color:#D5A53B}
+th:nth-child(2),td:nth-child(2){text-align:left}
+tr.lions{
+  background:#66411e;color:#ffdb73;
+  font-weight:bold
+}
+footer{margin-top:15px;color:#aaa;font-size:12px}
+a{color:#D5A53B}
+</style>
+</head>
+<body>
+
+<h1>DART LIONS GRÄFENBERG III</h1>
+<p id="liga">Ligatabelle wird geladen ...</p>
+
+<div class="wrapper">
+<table id="tabelle" hidden>
+<thead>
+<tr>
+<th>Pl.</th><th>Mannschaft</th>
+<th>Beg.</th><th>S</th><th>U</th><th>N</th>
+<th>Spiele</th><th>+/-</th><th>Legs</th><th>Punkte</th>
+</tr>
+</thead>
+<tbody id="daten"></tbody>
+</table>
+</div>
+
+<p id="status">Daten werden geladen ...</p>
+
+<footer>
+<span id="stand"></span>
+<p><a id="quelle" href="https://bdv-dart.liga.nu/">
+Quelle: BDV NuLiga</a></p>
+</footer>
+
+<script>
+async function laden(){
+ try{
+  const response=await fetch(
+    "./data/dart-lions-iii.json",
+    {cache:"no-store"}
+  );
+  if(!response.ok)throw new Error("Abruf fehlgeschlagen");
+  const daten=await response.json();
+
+  if(!Array.isArray(daten.rows)||!daten.rows.length)
+    throw new Error("Keine Tabelle vorhanden");
+
+  document.getElementById("liga").textContent=
+    daten.liga+" – Saison 2026/27";
+
+  const tbody=document.getElementById("daten");
+  tbody.replaceChildren();
+
+  const felder=[
+    "platz","team","begegnungen","siege",
+    "unentschieden","niederlagen",
+    "spiele","differenz","legs","punkte"
+  ];
+
+  daten.rows.forEach(team=>{
+    const tr=document.createElement("tr");
+
+    if(team.team===daten.team)
+      tr.className="lions";
+
+    felder.forEach(feld=>{
+      const td=document.createElement("td");
+      td.textContent=team[feld]??"-";
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("tabelle").hidden=false;
+  document.getElementById("status").hidden=true;
+
+  if(daten.stand){
+    document.getElementById("stand").textContent=
+      "Datenabruf: "+
+      new Date(daten.stand).toLocaleString("de-DE");
+  }
+
+  if(daten.quelle)
+    document.getElementById("quelle").href=daten.quelle;
+
+ }catch(error){
+  document.getElementById("status").textContent=
+    "Die Tabelle ist momentan nicht verfügbar.";
+  console.error(error);
+ }
+}
+laden();
+</script>
+</body>
+</html>
