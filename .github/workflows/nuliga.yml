@@ -45,7 +45,7 @@ jobs:
 
 
           
-          git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json data/ergebnisse-iii.json data/ergebnisse-i.json
+          git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json data/ergebnisse-i.json data/ergebnisse-ii.json data/ergebnisse-iii.json
 
 
 
