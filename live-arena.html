@@ -54,7 +54,7 @@ body.projector{height:100dvh;overflow:hidden}.projector .shell{height:100dvh;max
 <body class="projector mode-competition">
 <div class="shell">
 <header class="top"><div class="identity"><img class="logo" src="logos/dart-lions.PNG" alt="Dart Lions Gräfenberg – Original-Logo"><div><div class="tag">DART LIONS GRÄFENBERG</div><div class="heading">LIVE-ARENA</div></div></div><div class="state"><span class="lamp" id="lamp"></span><span id="state">Suche Veranstaltungen …</span></div></header>
-<div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="reload">↻ Verbinden</button></div></div>
+<div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="reload">↻ Verbinden</button><button class="btn" id="league-data">Liga-Daten prüfen</button></div></div>
 <main class="stage" id="stage" aria-live="polite"><div class="blank">Suche gestartete Darthelfer-Veranstaltungen …</div></main>
 <footer class="bottom"><span id="updated">Verbindung wird vorbereitet</span><span>Öffentliche Darthelfer-Live-Daten · Game On!</span></footer>
 </div>
@@ -171,6 +171,46 @@ async function discover(){try{let active=[];if(manualIds.length){active=manualId
 const selected=active.filter(x=>x&&x.id).sort((a,b)=>league(a)===league(b)?0:league(a)?-1:1);const key=selected.map(e=>e.id).join('|');if(key!==prevKey){prevKey=key;const old=new Map(events.map(e=>[e.id,e]));events=selected.map(e=>({...e,games:old.get(e.id)?.games||[],data:old.get(e.id)?.data||null}));rejoin();}else if(!connected&&events.length&&!timer)rejoin();else render();}catch(err){status('Turniersuche nicht erreichbar',false,true);byId('updated').textContent='Turniersuche fehlgeschlagen: '+err.message;render();}}
 function setMode(m){chosen=m;qs.set('modus',m);history.replaceState(null,'',location.pathname+'?'+qs.toString());render();}
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+// Einmaliger Datencheck aus einem bereits abgeschlossenen öffentlichen Ligaspiel.
+// Es werden ausschließlich Spielinformationen und Feldnamen exportiert;
+// keine Administratoren, Kontaktdaten, Turnierteilnehmerlisten oder Zugangsdaten.
+byId('league-data').addEventListener('click',async()=>{
+ const btn=byId('league-data');const old=btn.textContent;
+ btn.disabled=true;btn.textContent='Lade Ligadaten …';
+ try{
+  const chosenLeague=events.find(e=>league(e));
+  const id=chosenLeague?.id||'aa3b0e5b-3cc0-4e09-a05f-454e87c5b7df';
+  const r=await fetch(BASE+'/api/public/tournament/'+id+'?t='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('Darthelfer HTTP '+r.status);
+  const d=await r.json();
+  const main=d.turnierMain||d.turnierGruppe||{};
+  const entries=main.tournamentLeagueGameEntities||[];
+  const results=main.tournamentErgebnisEntities||[];
+  const out={
+   hinweis:'Öffentliche Ligaspiel-Diagnose. Keine privaten Personen- oder Admin-Daten enthalten.',
+   tournamentId:id,
+   turnierName:main.bezeichnung||chosenLeague?.bezeichnung||null,
+   turniersystem:main.turniersystem||null,
+   mannschaftHeim:main.mannschaftHeim||null,
+   mannschaftGast:main.mannschaftGast||null,
+   keysLigaSpiel:entries[0]?Object.keys(entries[0]):[],
+   ligaSpiele:entries.map(x=>({
+    id:x.id,spieler1:x.spieler1,spieler2:x.spieler2,
+    spieler1Id:x.spieler1Id,spieler2Id:x.spieler2Id,
+    anzahlSpieler1:x.anzahlSpieler1,anzahlSpieler2:x.anzahlSpieler2,
+    heim:x.heim,gast:x.gast,ergebnisVomScorer:x.ergebnisVomScorer,
+    feld:x.feld,spielnummer:x.spielnummer,
+    ...Object.fromEntries(Object.entries(x).filter(([k])=>/home|away|heim|gast|punkt|ergebnis|winner|gewinn|status|team|mannschaft|spielnummer/i.test(k)))
+   })),
+   keysErgebnis:results[0]?Object.keys(results[0]):[],
+   ergebnisse:results.slice(0,25).map(x=>Object.fromEntries(Object.entries(x).filter(([k])=>/spieler|anzahl|punkt|ergebnis|gewinn|status|team|mannschaft|spielnummer|feld/i.test(k))))
+  };
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='dart-lions-liga-datencheck.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+  status('Liga-Datencheck heruntergeladen',true);
+ }catch(e){status('Liga-Datencheck: '+e.message,false,true);alert('Datencheck nicht möglich: '+e.message);}
+ finally{btn.disabled=false;btn.textContent=old;}
+});
 byId('reload').addEventListener('click',()=>{if(events.length)rejoin();else discover();});
 byId('screen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}});
 discover();if(!manualIds.length)setInterval(discover,60000);
