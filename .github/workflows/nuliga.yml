@@ -33,7 +33,7 @@ jobs:
           python update_table_i.py
           python update_table_iii.py
           python update_ergebnisse_iii.py
-
+          python update_ergebnisse_i.py
 
 
       - name: Neue Daten speichern
@@ -43,7 +43,7 @@ jobs:
 
 
           
-          git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json data/ergebnisse-iii.json
+          git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json data/ergebnisse-iii.json data/ergebnisse-i.json
 
 
 
