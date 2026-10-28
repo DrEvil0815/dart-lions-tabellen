@@ -110,16 +110,35 @@ function teamNames(e){
  const parts=eventName(e).split(/\s+(?:vs\.?|gegen|[-–])\s+/i);
  return parts.length===2?parts:[eventName(e),''];
 }
-// Nur eindeutig gewertete Einzelmatches aus dem Ligaspieltag zählen.
-// Ohne überprüfbare Zuordnung der Heimmannschaft zu Spieler 1/2 NICHT raten.
+// Jedes gewonnene Einzel bzw. Doppel zählt als EIN Mannschaftspunkt.
+// Entscheidend ist die Heim-/Gast-Markierung des tatsächlichen Gewinners,
+// NICHT die wechselnde Position Spieler 1 oder Spieler 2.
+// Darthelfer meldet in abgeschlossenen Altspielen teilweise complete:false.
+// Deshalb gelten nur Matches mit erkennbarem Sieger und dem Endstand (z.B. 3 Legs).
 function leagueScore(e){
  const d=e?.data?.turnierMain||e?.data?.turnierGruppe;
  if(!d)return null;
- let a=d.tournamentLeagueGameEntities;
- if(!Array.isArray(a)||!a.length)return null;
- // Eine automatische Zuordnung Spieler1=Heim ist für jedes Ligaformat NICHT garantiert.
- // Bis zur Prüfung eines echten Liga-Datensatzes bleibt der Mannschaftsstand deshalb offen.
- return null;
+ const matches=d.tournamentLeagueGameEntities;
+ const players=d.tournamentPlayerEntities;
+ if(!Array.isArray(matches)||!Array.isArray(players))return null;
+ const homeById=new Map(players.filter(p=>typeof p.heimmannschaft==='boolean').map(p=>[p.id,p.heimmannschaft]));
+ const unique=new Set();let home=0,away=0,ambiguous=0;
+ const mode=(d.tournamentModusEntities||[]).find(x=>x.bestOfLegs);
+ const bestOf=Number(mode?.bestOfLegs)||5;
+ const needed=Math.ceil(bestOf/2);
+ for(const g of matches){
+  if(!g||!g.id||unique.has(g.id))continue;
+  unique.add(g.id);
+  const a=Number(g.anzahlPlayer1),b=Number(g.anzahlPlayer2);
+  if(g.anzahlPlayer1==null||g.anzahlPlayer2==null||!Number.isFinite(a)||!Number.isFinite(b))continue;
+  if(a===b||Math.max(a,b)<needed)continue; // nicht abgeschlossen
+  const winnerId=a>b?g.player1Id:g.player2Id;
+  const loserId=a>b?g.player2Id:g.player1Id;
+  const winHome=homeById.get(winnerId),loseHome=homeById.get(loserId);
+  if(typeof winHome!=='boolean'||typeof loseHome!=='boolean'||winHome===loseHome){ambiguous++;continue;}
+  if(winHome)home++;else away++;
+ }
+ return {home,away,played:home+away,ambiguous};
 }
 function visibleGames(e,max){
  const gs=(e?.games||[]).filter(g=>g&&!g.abgeschlossen&&!g.startssoon);
@@ -131,7 +150,7 @@ function sectionHeader(e,m,i){
  if(m==='competition')return `<div class="event-bar"><div><div class="event-small">COMPETITION · LIVE</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">6 BOARDS · 501 DOUBLE OUT</div></div>`;
  if(!e)return `<div class="event-bar"><div><div class="event-small">${m==='double'?'LIGASPIEL '+(i+1):'LIGA'}</div><div class="event-title">Noch keine gestartete Ligabegegnung</div></div><div class="match-number">– : –</div></div>`;
  const teams=teamNames(e),score=leagueScore(e);
- return `<div class="event-bar"><div><div class="event-small">${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · HEIMSPIELTAG'}</div><div class="event-title">${safe(teams[0])}${teams[1]?' <span style="color:#d8b97f">vs.</span> '+safe(teams[1]):''}</div></div><div class="match-score"><div class="match-label">MANNSCHAFTS-<br>SPIELSTAND${score?'':'<br>(NOCH NICHT BESTÄTIGT)'}</div><div class="match-number">${score?score.home+' : '+score.away:'– : –'}</div></div></div>`;
+ return `<div class="event-bar"><div><div class="event-small">${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · HEIMSPIELTAG'}</div><div class="event-title">${safe(teams[0])}${teams[1]?' <span style="color:#d8b97f">vs.</span> '+safe(teams[1]):''}</div></div><div class="match-score"><div class="match-label">MANNSCHAFTS-<br>SPIELSTAND${score?'':'<br>(DATEN FEHLEN)'}</div><div class="match-number">${score?score.home+' : '+score.away:'– : –'}</div></div></div>`;
 }
 function eventSection(e,m,i,allowExpand){
  const max=m==='competition'?6:2;
@@ -168,7 +187,7 @@ function rejoin(){const token=++cycle;clearTimeout(timer);if(client){try{client.
 try{sock=new SockJS(BASE+'/api/websocket');client=Stomp.over(sock);client.debug=()=>{};client.heartbeat.outgoing=0;client.heartbeat.incoming=0;client.connect({},()=>{if(token!==cycle)return;connected=true;status('Live verbunden',true);for(const e of events){const id=e.id;const s1=client.subscribe('/topic/public/tournament/game/infos/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);if(Array.isArray(d.gameShortInfos)){e.games=d.gameShortInfos;lastMessage=Date.now();render();status('Live-Daten empfangen',true);}}catch(err){console.warn('Game-Daten',err)}});const s2=client.subscribe('/topic/public/tournament/publicview/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);e.data=d;lastMessage=Date.now();render();}catch(err){console.warn('Turnier-Daten',err)}});subscriptions.set(id,[s1,s2]);}render();},()=>{if(token!==cycle)return;connected=false;status('Verbindung unterbrochen',false,true);timer=setTimeout(rejoin,8000);});const original=sock.onclose;sock.onclose=ev=>{if(typeof original==='function')original(ev);if(token===cycle){connected=false;status('Verbindung unterbrochen',false,true);clearTimeout(timer);timer=setTimeout(rejoin,8000);}};}catch(err){status('Verbindung fehlgeschlagen',false,true);timer=setTimeout(rejoin,8000);}}
 async function discover(){try{let active=[];if(manualIds.length){active=manualIds.map((id,i)=>({id,bezeichnung:qs.get('test')==='1'?'Testturnier':`Veranstaltung ${i+1}`,turniersystem:chosen==='single'||chosen==='double'?'LIGASPIELTAG':'SCHWEIZERSYSTEM'}));}else{const res=await fetch(BASE+'/api/public/eventoperator/'+ORGANIZER+'?t='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const d=await res.json();active=Array.isArray(d.allTournamentsStarted)?d.allTournamentsStarted:[];}
 // Keine laufenden Events fallen nicht automatisch auf künftige oder bereits beendete Events zurück.
-const selected=active.filter(x=>x&&x.id).sort((a,b)=>league(a)===league(b)?0:league(a)?-1:1);const key=selected.map(e=>e.id).join('|');if(key!==prevKey){prevKey=key;const old=new Map(events.map(e=>[e.id,e]));events=selected.map(e=>({...e,games:old.get(e.id)?.games||[],data:old.get(e.id)?.data||null}));rejoin();}else if(!connected&&events.length&&!timer)rejoin();else render();}catch(err){status('Turniersuche nicht erreichbar',false,true);byId('updated').textContent='Turniersuche fehlgeschlagen: '+err.message;render();}}
+const selected=active.filter(x=>x&&x.id).sort((a,b)=>league(a)===league(b)?0:league(a)?-1:1);const key=selected.map(e=>e.id).join('|');if(key!==prevKey){prevKey=key;const old=new Map(events.map(e=>[e.id,e]));events=selected.map(e=>({...e,games:old.get(e.id)?.games||[],data:old.get(e.id)?.data||null}));rejoin();for(const ev of events){if(!ev.data)fetch(BASE+'/api/public/tournament/'+ev.id+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(!d)return;const current=events.find(x=>x.id===ev.id);if(current&&!current.data){current.data=d;render();}}).catch(()=>{});}}else if(!connected&&events.length&&!timer)rejoin();else render();}catch(err){status('Turniersuche nicht erreichbar',false,true);byId('updated').textContent='Turniersuche fehlgeschlagen: '+err.message;render();}}
 function setMode(m){chosen=m;qs.set('modus',m);history.replaceState(null,'',location.pathname+'?'+qs.toString());render();}
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 // Einmaliger Datencheck aus einem bereits abgeschlossenen öffentlichen Ligaspiel.
