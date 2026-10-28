@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  podium-test:
+  sonderfall-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,153 +17,105 @@ jobs:
       - name: Requests installieren
         run: pip install requests
 
-      - name: Alle Competition-Podien pruefen
+      - name: Zehnte Steeldart Competition untersuchen
         shell: bash
         run: |
           python - <<'PY'
-          import re
-          import time
           import requests
 
-          BASE = "https://www.darthelfer.de/api/public"
-          OPERATOR = (
-              "7a088d28-63ee-49ac-a1fc-fe726056ddbe"
+          ID = "ddcec65f-33e5-438f-80a0-94f9c8019e5d"
+
+          url = (
+              "https://www.darthelfer.de/api/public/"
+              "tournament/" + ID
           )
 
-          session = requests.Session()
-          session.headers["Accept"] = "application/json"
+          response = requests.get(url, timeout=45)
+          response.raise_for_status()
+          data = response.json()
 
-          def fetch(url):
-              response = session.get(url, timeout=45)
-              response.raise_for_status()
-              return response.json()
+          main = data.get("turnierMain") or {}
+          ko = data.get("turnierKO") or {}
 
-          def regular(name):
-              return bool(re.fullmatch(
-                  r"(?:\d+\.\s*Competition\s*26|"
-                  r"\d+\.\s*Steeldart Competition(?:\(1\))?)",
-                  str(name or "").strip(),
-                  re.IGNORECASE
-              ))
+          print("=== TURNIER ===")
+          print("Name:", main.get("bezeichnung"))
+          print("Datum:", main.get("beginnString"))
+          print("Status:", main.get("tournamentstatus"))
 
-          operator = fetch(
-              BASE + "/eventoperator/" + OPERATOR
+          print("\n=== TURNIERPHASEN ===")
+          for key in [
+              "turnierMain",
+              "turnierGruppe",
+              "turnierKO",
+              "turnierBronze",
+              "turnierSilber"
+          ]:
+              phase = data.get(key)
+              if isinstance(phase, dict):
+                  print(
+                      key,
+                      "| Name:", phase.get("bezeichnung"),
+                      "| Modus:",
+                      phase.get("tournamentModus"),
+                      "| Ergebnisse:",
+                      len(
+                          phase.get(
+                              "tournamentErgebnisEntities"
+                          ) or []
+                      )
+                  )
+              else:
+                  print(key, "| Nicht vorhanden")
+
+          print("\n=== KO-SPIELPLAN ===")
+          for node in data.get("modelKO") or []:
+              print({
+                  "feld": node.get("feld"),
+                  "finale": node.get("finale"),
+                  "endknoten": node.get("endknoten"),
+                  "child": node.get("child")
+              })
+
+          players = (
+              ko.get("tournamentPlayerEntities") or []
           )
 
-          events = {
-              e["id"]: e
-              for e in operator.get(
-                  "allTournamentsClosed", []
-              )
-              if e.get("id")
-              and regular(e.get("bezeichnung"))
+          names = {
+              p["id"]: p.get("name", "Unbekannt")
+              for p in players
+              if p.get("id")
           }
 
-          print("Gefundene Competitions:", len(events))
-
-          successful = 0
-          problems = []
-
-          for event in events.values():
-              name = event.get("bezeichnung")
-              tid = event["id"]
-
-              try:
-                  data = fetch(
-                      BASE + "/tournament/" + tid
+          print("\n=== KO-ERGEBNISSE ===")
+          for game in (
+              ko.get("tournamentErgebnisEntities") or []
+          ):
+              print(
+                  "Feld:", game.get("feld"),
+                  "|",
+                  names.get(
+                      game.get("spieler1Id"),
+                      "Unbekannt"
+                  ),
+                  game.get("anzahlSpieler1"),
+                  ":",
+                  game.get("anzahlSpieler2"),
+                  names.get(
+                      game.get("spieler2Id"),
+                      "Unbekannt"
                   )
-                  ko = data.get("turnierKO") or {}
-                  games = ko.get(
-                      "tournamentErgebnisEntities"
-                  ) or []
-                  nodes = data.get("modelKO") or []
-                  players = ko.get(
-                      "tournamentPlayerEntities"
-                  ) or []
+              )
 
-                  names = {
-                      p["id"]: p.get("name", "").strip()
-                      for p in players
-                      if p.get("id")
-                  }
-
-                  finale_fields = {
-                      n.get("feld")
-                      for n in nodes
-                      if n.get("finale") is True
-                  }
-
-                  def outcome(game):
-                      a = game.get("anzahlSpieler1")
-                      b = game.get("anzahlSpieler2")
-                      p1 = names.get(game.get("spieler1Id"))
-                      p2 = names.get(game.get("spieler2Id"))
-
-                      if (
-                          not p1 or not p2
-                          or not isinstance(a, int)
-                          or not isinstance(b, int)
-                          or a == b
-                      ):
-                          return None
-
-                      return (
-                          (p1, p2)
-                          if a > b
-                          else (p2, p1)
+          print("\n=== BESTPLATZIERTE ===")
+          for item in data.get("bestplatzierteDtos") or []:
+              if isinstance(item, dict):
+                  print({
+                      key: value
+                      for key, value in item.items()
+                      if isinstance(
+                          value, (str, int, float, bool)
                       )
+                  })
 
-                  finals = [
-                      g for g in games
-                      if g.get("feld") in finale_fields
-                      and outcome(g)
-                  ]
-
-                  if len(finals) != 1:
-                      raise ValueError(
-                          "Kein eindeutiges Finale: "
-                          + str(len(finals))
-                      )
-
-                  first, second = outcome(finals[0])
-
-                  third_games = [
-                      g for g in games
-                      if str(g.get("feld", "")).lower()
-                      == "spielumplatzdrei"
-                      and outcome(g)
-                  ]
-
-                  third = (
-                      outcome(third_games[0])[0]
-                      if len(third_games) == 1
-                      else "Nicht ermittelt"
-                  )
-
-                  successful += 1
-                  print(
-                      "OK |", name,
-                      "| 1.", first,
-                      "| 2.", second,
-                      "| 3.", third
-                  )
-
-                  if len(third_games) > 1:
-                      problems.append(
-                          (name, "Mehrere Spiele um Platz 3")
-                      )
-
-              except Exception as exc:
-                  problems.append((name, str(exc)))
-                  print("PRUEFEN |", name, "|", exc)
-
-              time.sleep(0.4)
-
-          print("\n=== ZUSAMMENFASSUNG ===")
-          print("Competitions:", len(events))
-          print("Finale erkannt:", successful)
-          print("Auffaelligkeiten:", len(problems))
-
-          for name, reason in problems:
-              print("PRUEFEN:", name, "|", reason)
+          print("\n=== TEST ABGESCHLOSSEN ===")
           PY
