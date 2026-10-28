@@ -5,9 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Dart Lions III – Spielergebnisse</title>
+<title>Dart Lions III – Spielplan und Ergebnisse</title>
 
 <style>
+:root {
+  --bg: #121827;
+  --card: #252d3d;
+  --gold: #d5a53b;
+  --gold-light: #f0c45a;
+  --text: #ffffff;
+  --muted: #b9c5d5;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -15,62 +24,73 @@
 body {
   margin: 0;
   padding: 24px 16px;
-  background: #121827;
-  color: #ffffff;
+  background: var(--bg);
+  color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
-  max-width: 950px;
-  margin: 0 auto;
+  max-width: 1050px;
+  margin: auto;
 }
 
 h1 {
-  color: #d5a53b;
+  color: var(--gold);
   text-align: center;
-  font-size: clamp(23px, 4vw, 34px);
+  font-size: clamp(24px, 4vw, 36px);
   margin: 0 0 12px;
 }
 
 .subtitle {
-  color: #bfc8d6;
   text-align: center;
+  color: var(--muted);
   margin-bottom: 32px;
 }
 
 h2 {
-  font-size: 21px;
-  color: #d5a53b;
-  margin: 32px 0 16px;
+  color: var(--gold);
+  font-size: 22px;
+  margin: 32px 0 18px;
 }
 
-.latest {
-  padding: 25px 18px;
-  border: 1px solid #9b762d;
+/* Karten */
+
+.match-card {
+  padding: 28px 18px;
+  margin-bottom: 25px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #293244, #191f2e);
+  background: linear-gradient(135deg, #293244, #1a2030);
+  border: 1px solid #876628;
 }
 
-.label {
+.next-card {
+  border: 2px solid var(--gold);
+  background: linear-gradient(135deg, #332c22, #1a2232);
+}
+
+.card-label {
   text-align: center;
-  color: #f0c45a;
-  font-size: 13px;
+  color: var(--gold-light);
+  font-size: 14px;
   font-weight: bold;
   letter-spacing: 2px;
 }
 
-.match-date {
+.card-date {
   text-align: center;
-  color: #bac4d3;
-  margin-top: 10px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 16px;
 }
+
+/* Mannschaften */
 
 .scoreboard {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 12px;
   align-items: center;
-  margin: 25px 0;
+  gap: 14px;
+  margin: 28px 0 20px;
 }
 
 .club {
@@ -80,118 +100,161 @@ h2 {
 
 .club-logo {
   display: block;
-  width: 90px;
-  height: 90px;
+  width: 95px;
+  height: 95px;
   object-fit: contain;
-  margin: 0 auto 14px;
+  margin: 0 auto 15px;
 }
 
 .logo-placeholder {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #596274;
+  width: 95px;
+  height: 95px;
+  border: 1px solid #667184;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto 15px;
+  color: var(--muted);
   font-size: 12px;
-  color: #aab4c4;
+  padding: 7px;
 }
 
 .club-name {
-  font-size: 17px;
   font-weight: bold;
+  font-size: 17px;
   overflow-wrap: anywhere;
 }
 
 .score {
-  font-size: clamp(30px, 6vw, 58px);
+  color: var(--gold-light);
+  font-size: clamp(33px, 6vw, 60px);
   font-weight: 900;
-  color: #f0c45a;
   white-space: nowrap;
+}
+
+.vs {
+  font-size: clamp(27px, 5vw, 46px);
+}
+
+.match-time {
+  text-align: center;
+  color: var(--gold-light);
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 14px;
 }
 
 .report-link {
   display: block;
   text-align: center;
-  margin-top: 18px;
-  color: #f0c45a;
-  font-weight: bold;
+  color: var(--gold-light);
   text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
 .report-link:hover {
   text-decoration: underline;
 }
 
+/* Ältere Ergebnisse */
+
 .history {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .history-item {
+  background: var(--card);
+  border-left: 4px solid var(--gold);
+  border-radius: 11px;
   padding: 18px;
-  border-radius: 10px;
-  background: #252d3d;
-  border-left: 3px solid #d5a53b;
 }
 
-.history-top {
+.history-header {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
   align-items: center;
+  gap: 12px;
 }
 
 .history-date {
+  color: var(--muted);
   font-size: 13px;
-  color: #afbbcc;
-}
-
-.history-teams {
-  margin: 10px 0;
-  font-weight: bold;
-  overflow-wrap: anywhere;
 }
 
 .history-score {
-  color: #f0c45a;
-  font-size: 25px;
+  color: var(--gold-light);
+  font-size: 27px;
   font-weight: bold;
-  white-space: nowrap;
+}
+
+.history-teams {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 16px 0;
+}
+
+.history-club {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.history-club .club-logo,
+.history-club .logo-placeholder {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.history-club .logo-placeholder {
+  font-size: 8px;
+}
+
+.history-club .club-name {
+  font-size: 14px;
+  text-align: left;
 }
 
 .history-link {
-  color: #f0c45a;
+  color: var(--gold-light);
   font-size: 13px;
 }
 
 .status {
   text-align: center;
-  color: #afbbcc;
-  padding: 20px;
+  color: var(--muted);
+  padding: 22px;
 }
 
 .footer {
-  margin-top: 28px;
+  color: #99a7ba;
   text-align: center;
-  color: #929fb3;
+  margin-top: 30px;
   font-size: 12px;
 }
 
-@media (max-width: 600px) {
+/* Smartphones */
+
+@media(max-width: 600px) {
+
   body {
     padding: 15px 10px;
   }
 
-  .latest {
-    padding: 20px 10px;
+  .match-card {
+    padding: 22px 10px;
   }
 
   .scoreboard {
-    gap: 6px;
+    gap: 5px;
   }
 
   .club-logo,
@@ -204,9 +267,24 @@ h2 {
     font-size: 12px;
   }
 
-  .history-top {
-    align-items: flex-start;
+  .history-teams {
+    gap: 8px;
   }
+
+  .history-club {
+    gap: 6px;
+  }
+
+  .history-club .club-logo,
+  .history-club .logo-placeholder {
+    width: 35px;
+    height: 35px;
+  }
+
+  .history-club .club-name {
+    font-size: 11px;
+  }
+
 }
 </style>
 </head>
@@ -218,12 +296,22 @@ h2 {
   <h1>DART LIONS GRÄFENBERG III</h1>
 
   <p class="subtitle">
-    Ligaergebnisse – Saison 2026/27
+    Spielplan &amp; Ligaergebnisse – Saison 2026/27
   </p>
+
+  <!-- Nächstes Ligaspiel -->
+
+  <div id="next-match"></div>
+
+  <!-- Letztes Ligaspiel -->
+
+  <h2>LETZTES LIGASPIEL</h2>
 
   <div id="latest" class="status">
     Spielergebnisse werden geladen ...
   </div>
+
+  <!-- Alle älteren Ergebnisse -->
 
   <h2>WEITERE SPIELERGEBNISSE</h2>
 
@@ -236,16 +324,14 @@ h2 {
 <script>
 "use strict";
 
+/* Automatisch aktualisierte NuLiga-Daten */
+
 const DATA_URL = "./data/ergebnisse-iii.json";
 
-
+/* ORIGINALWAPPEN ALLER MANNSCHAFTEN */
 
 const LOGOS = {
-  "Dart Lions Gräfenberg III":
-    "./logos/dart-lions.PNG",
 
-  
-const LOGOS = {
   "Dart Lions Gräfenberg III":
     "./logos/dart-lions.PNG",
 
@@ -269,12 +355,10 @@ const LOGOS = {
 
   "DC Full Bulls Neunkirchen":
     "./logos/neunkirchen.png"
+
 };
 
-
-
-// Hier können wir später die Originalwappen
-// unserer Gegner ergänzen.
+/* Hilfsfunktion für HTML-Elemente */
 
 function create(tag, className, text) {
   const element = document.createElement(tag);
@@ -290,41 +374,47 @@ function create(tag, className, text) {
   return element;
 }
 
+/* Originalwappen einsetzen */
+
 function addLogo(container, teamName) {
+
   const logoUrl = LOGOS[teamName];
 
   if (!logoUrl) {
-    const placeholder = create(
-      "div",
-      "logo-placeholder",
-      "Vereinswappen"
+    container.appendChild(
+      create("div", "logo-placeholder", "Vereinswappen")
     );
-
-    container.appendChild(placeholder);
     return;
   }
 
-  const img = document.createElement("img");
+  const image = document.createElement("img");
 
-  img.className = "club-logo";
-  img.src = logoUrl;
-  img.alt = "Originalwappen " + teamName;
+  image.className = "club-logo";
+  image.src = logoUrl;
+  image.alt = "Wappen " + teamName;
+  image.loading = "lazy";
 
-  img.onerror = function () {
+  image.onerror = function() {
     const placeholder = create(
       "div",
       "logo-placeholder",
       "Wappen nicht geladen"
     );
 
-    img.replaceWith(placeholder);
+    image.replaceWith(placeholder);
   };
 
-  container.appendChild(img);
+  container.appendChild(image);
 }
 
-function createClub(teamName) {
-  const club = create("div", "club");
+/* Mannschaft erstellen */
+
+function createClub(teamName, compact = false) {
+
+  const club = create(
+    "div",
+    compact ? "history-club" : "club"
+  );
 
   addLogo(club, teamName);
 
@@ -335,7 +425,10 @@ function createClub(teamName) {
   return club;
 }
 
+/* Spielbericht-Link */
+
 function createReportLink(spiel, className) {
+
   if (!spiel.spielbericht) {
     return null;
   }
@@ -344,12 +437,11 @@ function createReportLink(spiel, className) {
 
   try {
     url = new URL(spiel.spielbericht);
-  } catch (error) {
+  } catch(error) {
     return null;
   }
 
-  if (url.protocol !== "https:" &&
-      url.protocol !== "http:") {
+  if (!["http:", "https:"].includes(url.protocol)) {
     return null;
   }
 
@@ -366,18 +458,66 @@ function createReportLink(spiel, className) {
   return link;
 }
 
+/* Nächstes Ligaspiel */
+
+function showNextMatch(spiel) {
+
+  const container = document.getElementById(
+    "next-match"
+  );
+
+  container.replaceChildren();
+
+  if (!spiel || !spiel.heim || !spiel.gast) {
+    return;
+  }
+
+  const card = create("div", "match-card next-card");
+
+  card.appendChild(
+    create("div", "card-label", "NÄCHSTES LIGASPIEL")
+  );
+
+  card.appendChild(
+    create("div", "card-date", spiel.datum)
+  );
+
+  const board = create("div", "scoreboard");
+
+  board.appendChild(createClub(spiel.heim));
+
+  board.appendChild(
+    create("div", "score vs", "VS")
+  );
+
+  board.appendChild(createClub(spiel.gast));
+
+  card.appendChild(board);
+
+  if (spiel.uhrzeit) {
+    card.appendChild(
+      create(
+        "div",
+        "match-time",
+        "Spielbeginn: " + spiel.uhrzeit
+      )
+    );
+  }
+
+  container.appendChild(card);
+}
+
+/* Letztes abgeschlossenes Spiel */
+
 function showLatest(spiel) {
+
   const container = document.getElementById("latest");
 
-  container.className = "latest";
+  container.className = "match-card";
   container.replaceChildren();
 
   container.appendChild(
-    create("div", "label", "LETZTES LIGASPIEL")
-  );
-
-  container.appendChild(
-    create("div", "match-date", spiel.datum)
+    create("div", "card-date", spiel.datum)
   );
 
   const board = create("div", "scoreboard");
@@ -392,21 +532,27 @@ function showLatest(spiel) {
 
   container.appendChild(board);
 
-  const link = createReportLink(
+  const report = createReportLink(
     spiel,
     "report-link"
   );
 
-  if (link) {
-    container.appendChild(link);
+  if (report) {
+    container.appendChild(report);
   }
 }
 
+/* Alle älteren Spielergebnisse */
+
 function showHistory(spiele) {
-  const container = document.getElementById("history");
+
+  const container = document.getElementById(
+    "history"
+  );
+
   container.replaceChildren();
 
-  if (spiele.length === 0) {
+  if (!spiele.length) {
     container.appendChild(
       create(
         "div",
@@ -418,81 +564,54 @@ function showHistory(spiele) {
   }
 
   for (const spiel of spiele) {
+
     const item = create("div", "history-item");
 
-    const top = create("div", "history-top");
+    const header = create("div", "history-header");
 
-    top.appendChild(
+    header.appendChild(
       create("span", "history-date", spiel.datum)
     );
 
-    top.appendChild(
+    header.appendChild(
       create("span", "history-score", spiel.ergebnis)
     );
 
-    item.appendChild(top);
+    item.appendChild(header);
 
-    
-const teams = create("div", "history-teams");
+    const teams = create("div", "history-teams");
 
-teams.style.display = "flex";
-teams.style.alignItems = "center";
-teams.style.justifyContent = "space-between";
-teams.style.gap = "12px";
-teams.style.flexWrap = "wrap";
+    teams.appendChild(
+      createClub(spiel.heim, true)
+    );
 
-const homeTeam = createClub(spiel.heim);
-const awayTeam = createClub(spiel.gast);
+    teams.appendChild(
+      createClub(spiel.gast, true)
+    );
 
-[homeTeam, awayTeam].forEach(function(club) {
-  club.style.display = "flex";
-  club.style.alignItems = "center";
-  club.style.gap = "10px";
-  club.style.flex = "1 1 180px";
-  club.style.textAlign = "left";
+    item.appendChild(teams);
 
-  const img = club.querySelector(".club-logo");
-  const placeholder = club.querySelector(".logo-placeholder");
-
-  if (img) {
-    img.style.width = "42px";
-    img.style.height = "42px";
-    img.style.margin = "0";
-    img.style.flexShrink = "0";
-  }
-
-  if (placeholder) {
-    placeholder.style.width = "42px";
-    placeholder.style.height = "42px";
-    placeholder.style.margin = "0";
-    placeholder.style.fontSize = "7px";
-    placeholder.style.flexShrink = "0";
-  }
-});
-
-teams.appendChild(homeTeam);
-teams.appendChild(awayTeam);
-
-item.appendChild(teams);
-
-
-    const link = createReportLink(
+    const report = createReportLink(
       spiel,
       "history-link"
     );
 
-    if (link) {
-      item.appendChild(link);
+    if (report) {
+      item.appendChild(report);
     }
 
     container.appendChild(item);
   }
 }
 
+/* Daten automatisch laden */
+
 async function loadResults() {
+
   const latest = document.getElementById("latest");
 
   try {
+
     const response = await fetch(
       DATA_URL,
       { cache: "no-store" }
@@ -500,7 +619,7 @@ async function loadResults() {
 
     if (!response.ok) {
       throw new Error(
-        "Ergebnisdatei nicht erreichbar: " +
+        "JSON-Datei nicht erreichbar: " +
         response.status
       );
     }
@@ -511,46 +630,73 @@ async function loadResults() {
       throw new Error("Ungültige Ergebnisdaten");
     }
 
+    /* Vorschau aus NuLiga */
+
+    showNextMatch(data.naechstes_spiel);
+
+    /* Fertige Spiele sortieren */
+
     const spiele = data.spiele
-      .filter(function (spiel) {
+      .filter(function(spiel) {
         return spiel &&
           spiel.datum_iso &&
           spiel.heim &&
           spiel.gast &&
           spiel.ergebnis;
       })
-      .sort(function (a, b) {
+      .sort(function(a, b) {
         return b.datum_iso.localeCompare(a.datum_iso);
       });
 
-    if (spiele.length === 0) {
+    if (spiele.length > 0) {
+
+      showLatest(spiele[0]);
+
+      showHistory(spiele.slice(1));
+
+    } else {
+
       latest.textContent =
         "Noch keine abgeschlossenen Ligaspiele.";
-      return;
+
+      showHistory([]);
     }
 
-    showLatest(spiele[0]);
-    showHistory(spiele.slice(1));
+    /* Letzter Datenabruf */
 
     if (data.stand) {
+
       const date = new Date(data.stand);
 
       if (!isNaN(date.getTime())) {
-        document.getElementById("footer").textContent =
+
+        document.getElementById(
+          "footer"
+        ).textContent =
           "Datenstand: " +
-          date.toLocaleString("de-DE");
+          date.toLocaleString("de-DE", {
+            timeZone: "Europe/Berlin"
+          });
+
       }
     }
 
-  } catch (error) {
-    latest.textContent =
-      "Die Spielergebnisse konnten nicht geladen werden.";
+  } catch(error) {
 
-    console.error("Dart Lions Ergebnisfehler:", error);
+    latest.textContent =
+      "Spielergebnisse momentan nicht verfügbar.";
+
+    console.error(
+      "Dart Lions III – Ladefehler:",
+      error
+    );
   }
 }
 
+/* Start */
+
 loadResults();
+
 </script>
 
 </body>
