@@ -17,97 +17,138 @@ jobs:
       - name: Requests installieren
         run: pip install requests
 
-      - name: Spielerzuordnung untersuchen
+      - name: KO und Platzierungen untersuchen
         shell: bash
         run: |
           python - <<'PY'
           import requests
 
-          url = (
-              "https://www.darthelfer.de/api/public/"
-              "tournament/"
-              "d9943c19-41a5-4630-9d95-4d5543b97bf2"
+          ID = "d9943c19-41a5-4630-9d95-4d5543b97bf2"
+          URL = (
+              "https://www.darthelfer.de/api/public/tournament/"
+              + ID
           )
 
-          r = requests.get(
-              url,
-              timeout=40,
+          response = requests.get(
+              URL,
+              timeout=45,
               headers={"Accept": "application/json"}
           )
-          r.raise_for_status()
-          data = r.json()
+          response.raise_for_status()
+          data = response.json()
+
+          def overview(title, obj):
+              print("\n=== " + title + " ===")
+
+              if not isinstance(obj, dict):
+                  print("Kein Objekt")
+                  return
+
+              for key, value in obj.items():
+                  if isinstance(value, list):
+                      print(key, "= LISTE", len(value))
+                  elif isinstance(value, dict):
+                      print(key, "= OBJEKT")
+                  elif value is not None:
+                      if any(x in key.lower() for x in [
+                          "platz", "rang", "status",
+                          "bezeichnung", "sieger"
+                      ]):
+                          print(key, "=", str(value)[:100])
+
+          def sample(title, items):
+              print("\n=== " + title + " ===")
+
+              if not isinstance(items, list):
+                  print("Keine Liste")
+                  return
+
+              print("Eintraege:", len(items))
+
+              for item in items[:2]:
+                  if not isinstance(item, dict):
+                      print(type(item).__name__)
+                      continue
+
+                  print("Felder:", list(item.keys()))
+
+                  # Nur turnierrelevante Werte ausgeben,
+                  # keine Kontaktdaten der Spieler.
+                  for key, value in item.items():
+                      lower = key.lower()
+
+                      if any(x in lower for x in [
+                          "platz", "rang", "player",
+                          "spieler", "game", "punkt",
+                          "score", "name", "sieger",
+                          "gewonnen", "verloren",
+                          "status", "feld", "runde"
+                      ]):
+                          if isinstance(value, (
+                              str, int, float, bool
+                          )) or value is None:
+                              print(
+                                  " ", key, "=",
+                                  str(value)[:150]
+                              )
+                          elif isinstance(value, list):
+                              print(
+                                  " ", key,
+                                  "= Liste", len(value)
+                              )
+                          elif isinstance(value, dict):
+                              print(
+                                  " ", key,
+                                  "= Objektfelder",
+                                  list(value.keys())[:20]
+                              )
 
           main = data.get("turnierMain") or {}
-          wrapper = data.get("ranglisteWrapper") or {}
+          ko = data.get("turnierKO") or {}
 
-          players = (
-              main.get("tournamentPlayerEntities") or []
+          print("=== TURNIER ===")
+          print("Name:", main.get("bezeichnung"))
+          print("Status:", main.get("tournamentstatus"))
+          print("KO-Name:", ko.get("bezeichnung"))
+
+          overview("KO-DATENFELDER", ko)
+
+          for title, obj in [
+              ("HAUPTTURNIER", main),
+              ("KO-TURNIER", ko)
+          ]:
+              print("\n=== " + title + ": RELEVANTE LISTEN ===")
+
+              for key, value in obj.items():
+                  if isinstance(value, list) and any(
+                      term in key.lower()
+                      for term in [
+                          "game", "spiel", "ergebnis",
+                          "platz", "rang", "ko",
+                          "runde", "best"
+                      ]
+                  ):
+                      sample(title + " / " + key, value)
+
+          sample(
+              "KO-BAUM",
+              data.get("modelKO")
           )
 
-          stats = wrapper.get("playerStatistiks") or []
-          maximums = wrapper.get("rangliste180er") or []
+          sample(
+              "TURNIER-SPIELE",
+              data.get("tournamentGames")
+          )
 
-          print("=== SPIELERZUORDNUNG ===")
-          print("Spieler:", len(players))
-          print("Statistiken:", len(stats))
+          sample(
+              "GRUPPENTABELLEN",
+              data.get("gruppenTabellen")
+          )
 
-          if players:
-              print("\nSPIELERFELDER:")
-              print(list(players[0].keys()))
+          sample(
+              "BESTPLATZIERTE",
+              data.get("bestplatzierteDtos")
+          )
 
-          def safe_fields(obj):
-              result = {}
-              for key, value in obj.items():
-                  k = key.lower()
-
-                  if any(x in k for x in [
-                      "name", "vorname", "nachname",
-                      "playerid", "userid",
-                      "spielerid", "platz"
-                  ]) or k == "id":
-                      if isinstance(value, (
-                          str, int, float, bool
-                      )):
-                          result[key] = value
-
-              return result
-
-          print("\nSPIELERBEISPIELE:")
-          for player in players[:5]:
-              print(safe_fields(player))
-
-          print("\nSTATISTIK-BEISPIELE:")
-          for stat in stats[:3]:
-              print({
-                  "id": stat.get("id"),
-                  "playerid": stat.get("playerid"),
-                  "userid": stat.get("userid"),
-                  "180er": stat.get("_180er"),
-                  "average": stat.get("average")
-              })
-
-          print("\n180ER-RANGLISTE:")
-          for item in maximums:
-              print({
-                  "id": item.get("id"),
-                  "anzahl": item.get("anzahl")
-              })
-
-          print("\nPLATZIERUNGSFELDER:")
-          for key in main:
-              if any(x in key.lower() for x in [
-                  "platz", "rang", "ergebnis"
-              ]):
-                  value = main[key]
-                  if isinstance(value, list):
-                      print(key, "Eintraege:", len(value))
-                      if value and isinstance(value[0], dict):
-                          print(
-                              "Felder:",
-                              list(value[0].keys())
-                          )
-                  else:
-                      print(key, "Typ:", type(value).__name__)
-
-          print("\nTEST ABGESCHLOSSEN")
+          print("\n=== TEST ABGESCHLOSSEN ===")
           PY
