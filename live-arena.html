@@ -739,5 +739,64 @@ if(DEMO){
  loadDemo();
 }else{discover();if(!manualIds.length)setInterval(discover,60000);}
 </script>
+
+<!-- Unabhängiger Wappen-Check: läuft auch, wenn das Live-Skript scheitert. -->
+<script>
+(function(){
+  'use strict';
+  const names = {
+    bollnberch:'Bollnberch Bomber Maigisch', hellsboch:'DC Hellsboch', effeltrich:'DJK-SpVgg Effeltrich',
+    walberla:'Walberla Bulls', langensendelbach:'Langensendelbach', walsdorf:'Blue Bulls Walsdorf',
+    'the-deers':'The Deers Hirschaid', burk:'Red Steelers Burk', reuth:'SpVgg Reuth',
+    pommersfelden:'Dart Warriors Pommersfelden', hallerdorf:'Hopfen Spiggerer Hallerndorf',
+    pettensiedel:'DC Gallier Pettensiedel', hetzles:'SV Hetzles', wimmelbach:'Creek Steelers Wimmelbach',
+    pinzberg:'Pinzberg', neunkirchen:'Full Bulls Neunkirchen'
+  };
+  function gallery(){
+    const grid=document.getElementById('crest-audit-grid');
+    if(!grid)return;
+    let logos={};
+    try{if(typeof GEGNER_LOGOS!=='undefined')logos=GEGNER_LOGOS;}catch(e){}
+    grid.replaceChildren();
+    for(const [id,name] of Object.entries(names)){
+      const card=document.createElement('div');card.className='crest-audit-card';
+      const img=document.createElement('img');img.alt='Logo '+name;
+      img.src=logos[id]||'';
+      const info=document.createElement('div');const title=document.createElement('strong');title.textContent=name;
+      const state=document.createElement('small');state.textContent='Bild wird geprüft …';
+      img.onload=()=>{state.textContent='✓ Logo geladen';state.style.color='#79dcae'};
+      img.onerror=()=>{state.textContent='⚠ Bildadresse nicht erreichbar';state.style.color='#ffb0a2';img.style.opacity='.3'};
+      if(!logos[id])state.textContent='Noch kein Logo hinterlegt';
+      info.append(title,state);card.append(img,info);grid.append(card);
+    }
+  }
+  function open(){
+    const pane=document.getElementById('crest-audit');if(!pane)return;
+    pane.classList.add('open');pane.style.setProperty('display','block','important');
+    pane.style.setProperty('visibility','visible','important');
+    gallery();
+    const input=document.getElementById('crest-audit-name');if(input)input.focus();
+  }
+  function close(){const pane=document.getElementById('crest-audit');if(pane){pane.classList.remove('open');pane.style.removeProperty('display');pane.style.removeProperty('visibility');}}
+  function test(){
+    const input=document.getElementById('crest-audit-name');const result=document.getElementById('crest-audit-result');
+    if(!input||!result)return;
+    const value=input.value.trim();if(!value){result.textContent='Bitte Gegnernamen eingeben.';return;}
+    try{const logo=typeof opponentLogo==='function'?opponentLogo(value):null;result.textContent=logo?'✓ Wappen für '+value+' zugeordnet.':'⚠ Noch kein passendes Wappen für '+value+'.';}
+    catch(err){result.textContent='Wappenprüfung gerade nicht möglich: '+err.message;}
+  }
+  // Capture-Listener arbeitet unabhängig von den Event-Handlern der Live-Arena.
+  document.addEventListener('click',e=>{
+    const trigger=e.target.closest('#crest-audit-open');
+    if(trigger){e.preventDefault();e.stopImmediatePropagation();open();return;}
+    if(e.target.closest('#crest-audit-close')){e.preventDefault();e.stopImmediatePropagation();close();return;}
+    if(e.target.closest('#crest-audit-test')){e.preventDefault();e.stopImmediatePropagation();test();return;}
+  },true);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')close();},true);
+  if(new URLSearchParams(location.search).get('wappencheck')==='1'){
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',open,{once:true});else open();
+  }
+})();
+</script>
 </body>
 </html>
