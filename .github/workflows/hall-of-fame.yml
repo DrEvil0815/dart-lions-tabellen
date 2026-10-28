@@ -4,8 +4,19 @@ name: Dart Lions Hall of Fame aktualisieren
 on:
   workflow_dispatch:
 
+  schedule:
+    # Freitag, Samstag, Sonntag: alle 30 Minuten
+    - cron: "*/30 * * * 5,6,0"
+
+    # Montag bis Donnerstag: täglich
+    - cron: "17 7 * * 1-4"
+
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: dart-lions-hall-of-fame
+  cancel-in-progress: false
 
 jobs:
   hall-of-fame:
@@ -21,14 +32,13 @@ jobs:
           python-version: "3.12"
 
       - name: Abhaengigkeiten installieren
-        run: |
-          pip install requests
+        run: pip install requests
 
-      - name: Competition-Daten aus Darthelfer abrufen
-        run: |
-          python update_hall_of_fame.py
+      - name: Darthelfer-Daten aktualisieren
+        run: python update_hall_of_fame.py
 
-      - name: Hall-of-Fame-Datei pruefen
+      - name: Statistiken kontrollieren
+        shell: bash
         run: |
           python - <<'PY'
           import json
@@ -36,49 +46,67 @@ jobs:
 
           path = Path("data/hall-of-fame.json")
 
-          if not path.exists():
-              raise RuntimeError(
-                  "Hall-of-Fame-Datei fehlt."
-              )
-
           data = json.loads(
               path.read_text(encoding="utf-8")
           )
 
+          competitions = data.get(
+              "ausgewertete_competitions", 0
+          )
+          finals = data.get("finals_erkannt", 0)
+          errors = data.get("fehleranzahl", 0)
+          duplicates = len(
+              data.get("moegliche_doppelprofile", [])
+          )
+          unmatched = len(
+              data.get(
+                  "nicht_zugeordnete_statistiken", []
+              )
+          )
+
           print("=== DART LIONS HALL OF FAME ===")
-          print(
-              "Erkannte Competitions:",
-              data.get("erkannte_competitions")
-          )
-          print(
-              "Ausgewertete Competitions:",
-              data.get("ausgewertete_competitions")
-          )
-          print(
-              "Fehler:",
-              data.get("fehleranzahl")
-          )
+          print("Competitions:", competitions)
+          print("Erkannte Sieger:", finals)
+          print("Abruffehler:", errors)
+          print("Doppelprofile:", duplicates)
+          print("Unvollstaendige Zuordnungen:", unmatched)
 
-          ranking = (
-              data.get("ranglisten", {})
-              .get("maximums_180", [])
-          )
-
-          print("\nTOP 10 - 180er")
-
-          for player in ranking[:10]:
-              print(
-                  player.get("name"),
-                  player.get("maximums_180")
+          if competitions < 42:
+              raise RuntimeError(
+                  "Zu wenige Competitions erfasst"
               )
 
-          print("\nTestdatei erfolgreich erstellt.")
+          if finals < 41:
+              raise RuntimeError(
+                  "Zu wenige Finals erkannt"
+              )
+
+          if errors:
+              raise RuntimeError(
+                  "Fehler beim Datenabruf"
+              )
+
+          if duplicates or unmatched:
+              raise RuntimeError(
+                  "Spielerzuordnungen pruefen"
+              )
+
+          print("Statistikpruefung erfolgreich.")
           PY
 
-      - name: Ergebnisdatei bereitstellen
-        uses: actions/upload-artifact@v4
-        with:
-          name: dart-lions-hall-of-fame-test
-          path: data/hall-of-fame.json
-          if-no-files-found: error
-          retention-days: 7
+      - name: Aktualisierte Daten speichern
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/hall-of-fame.json
+
+          if git diff --cached --quiet; then
+            echo "Keine Aenderungen vorhanden."
+          else
+            git commit -m "Hall of Fame automatisch aktualisiert"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
