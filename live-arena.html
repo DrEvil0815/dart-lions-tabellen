@@ -164,6 +164,43 @@ function candidatePhotoUrls(url){
  return [...new Set(urls)];
 }
 
+
+// Vereinsweiter Foto-Check: ?fotoalle=1 – nur Diagnose, kein Eingriff in Live-Daten.
+if(new URLSearchParams(location.search).get('fotoalle')==='1'){
+ window.addEventListener('load',()=>{
+  const overlay=document.createElement('section');
+  overlay.id='fotoalle-panel';
+  overlay.style.cssText='position:fixed;inset:10px;z-index:10000;overflow:auto;background:#0d1727;color:#f7f7f7;border:2px solid #d9ab51;border-radius:15px;padding:20px;font:15px system-ui,Arial;box-shadow:0 0 0 200vmax #000b';
+  const heading=document.createElement('div');
+  heading.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px';
+  heading.innerHTML='<div><strong style="font-size:24px;color:#efbd61">DART LIONS · FOTO-CHECK</strong><div style="color:#aebdd0;margin-top:5px">Wir prüfen alle hinterlegten Spielerfotos. Bei Fehlern wird in der Live-Arena eine Silhouette angezeigt.</div></div>';
+  const close=document.createElement('button');close.textContent='Schließen ×';close.style.cssText='padding:10px 17px;border:0;border-radius:8px;background:#d9ab51;color:#111;font-weight:700;cursor:pointer';close.onclick=()=>overlay.remove();heading.append(close);overlay.append(heading);
+  const status=document.createElement('p');status.style.cssText='color:#eac06a;font-weight:bold';overlay.append(status);
+  const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px';overlay.append(grid);
+  const results=[];let finished=0;
+  const entries=Object.entries(SPIELERFOTOS).filter(([name])=>name!=='');
+  function update(){status.textContent=`Geprüft: ${finished} / ${entries.length} · Fotos OK: ${results.filter(r=>r.ok).length} · Fehlend: ${results.filter(r=>!r.ok).length} ${finished===entries.length?'· Prüfung abgeschlossen':''}`;}
+  update();
+  for(const [name,url] of entries){
+   const card=document.createElement('div');card.style.cssText='display:flex;align-items:center;gap:10px;background:#1c293d;border:1px solid #384763;padding:10px;border-radius:10px;min-height:104px';
+   const img=document.createElement('img');img.style.cssText='width:72px;height:89px;object-fit:cover;border-radius:7px;background:#29364a;flex-shrink:0';img.alt=name;
+   const info=document.createElement('div');info.style.cssText='min-width:0;overflow-wrap:anywhere';
+   const nm=document.createElement('div');nm.textContent=name;nm.style.cssText='font-weight:700;margin-bottom:5px';
+   const state=document.createElement('div');state.textContent='Prüfe …';state.style.cssText='font-size:13px;color:#eac06a';
+   info.append(nm,state);card.append(img,info);grid.append(card);
+   const urls=candidatePhotoUrls(url);let current=0;let done=false;
+   const finish=ok=>{if(done)return;done=true;finished++;results.push({name,ok});state.textContent=ok?'✓ Foto geladen':'⚠ Quelle nicht erreichbar';state.style.color=ok?'#5ee2a9':'#ff9a91';if(!ok){img.onerror=null;img.src=silhouette;}update();};
+   const next=()=>{if(done)return;if(current>=urls.length){finish(false);return;}img.src=urls[current++];};
+   img.onload=()=>finish(true);
+   img.onerror=next;
+   next();
+   // A timeout prevents one unresponsive external host blocking the diagnostic indefinitely.
+   setTimeout(()=>{if(!done)finish(false)},20000);
+  }
+  document.body.append(overlay);
+ });
+}
+
 // Direkter Foto-Check: ?fotocheck=1 zeigt die zwei problematischen Fotos mit Status.
 if(new URLSearchParams(location.search).has('fotocheck')){
  window.addEventListener('load',()=>{
