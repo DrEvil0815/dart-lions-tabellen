@@ -113,23 +113,73 @@ const SPIELERFOTOS={
   "Zoltan Kapocsanyi": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvOWR2OG9qbjVndF9LYXBvLnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=9cba0a7e8175784c",
   "Jonas Nanke": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvNjhwcW1jZjg0bl9TY3JlZWVuc2hvdF8yMDI2LTEwLTI2XzEyMTYyMy5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=425c0ff5ddddf773"
 };
-function normName(name){return String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').toLowerCase().replace(/[^a-z\s-]/g,' ').trim().replace(/\s+/g,' ');}
+function normName(name){
+ return String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss')
+ .toLowerCase().replace(/[^a-z\s-]/g,' ').replace(/\s+/g,' ').trim();
+}
 const PHOTO_INDEX=new Map();
 for(const [name,url] of Object.entries(SPIELERFOTOS)){
-  const key=normName(name);PHOTO_INDEX.set(key,url);
-  PHOTO_INDEX.set(key.split(' ').reverse().join(' '),url);
+ const key=normName(name);PHOTO_INDEX.set(key,url);
+ PHOTO_INDEX.set(key.split(' ').reverse().join(' '),url);
 }
+// Bekannte Schreibweisen in Darthelfer werden auf die öffentlichen Homepage-Fotos abgebildet.
+const PHOTO_ALIASES={
+ 'yigit kara':'Yigit Kara','yigit':'Yigit Kara','yiğit kara':'Yigit Kara',
+ 'kara yigit':'Yigit Kara','kara yiğit':'Yigit Kara',
+ 'florian wagner':'Florian Wagner','wagner florian':'Florian Wagner',
+ 'flo wagner':'Florian Wagner'
+};
 function playerPhotoUrl(name){
-  const key=normName(name);
-  if(PHOTO_INDEX.has(key))return PHOTO_INDEX.get(key);
-  const parts=key.split(' ');
-  if(parts.length>=2){
-    const reversed=parts.slice().reverse().join(' ');
-    if(PHOTO_INDEX.has(reversed))return PHOTO_INDEX.get(reversed);
+ const key=normName(name);
+ if(PHOTO_INDEX.has(key))return PHOTO_INDEX.get(key);
+ const alias=PHOTO_ALIASES[key];
+ if(alias&&SPIELERFOTOS[alias])return SPIELERFOTOS[alias];
+ const rev=key.split(' ').reverse().join(' ');
+ if(PHOTO_INDEX.has(rev))return PHOTO_INDEX.get(rev);
+ return silhouette;
+}
+// Wenn ein Thumbnail nicht geladen werden kann, versuchen wir öffentliche
+// Alternativadressen von SportMember/Holdsport, danach erscheint die Silhouette.
+function candidatePhotoUrls(url){
+ if(!url||url===silhouette||!url.startsWith('https://'))return [];
+ const urls=[url];
+ try{
+  const u=new URL(url);
+  for(const host of ['www.holdsport.net','www.sportmember.de']){
+   const v=new URL(url);v.hostname=host;urls.push(v.toString());
   }
-  return silhouette;
+  const token=u.pathname.split('/media/')[1];
+  if(token){
+   const decoded=JSON.parse(atob(decodeURIComponent(token)));
+   if(Array.isArray(decoded)&&decoded[0]&&decoded[0][0]==='f'){
+    const original=btoa(JSON.stringify([decoded[0]]));
+    for(const host of ['www.holdsport.dk','www.holdsport.net','www.sportmember.de']){
+     urls.push('https://'+host+'/media/'+encodeURIComponent(original));
+    }
+   }
+  }
+ }catch(_e){}
+ return [...new Set(urls)];
 }
 
+// Direkter Foto-Check: ?fotocheck=1 zeigt die zwei problematischen Fotos mit Status.
+if(new URLSearchParams(location.search).has('fotocheck')){
+ window.addEventListener('load',()=>{
+  const panel=document.createElement('section');
+  panel.style.cssText='position:fixed;z-index:9999;top:8px;right:8px;width:min(550px,95vw);max-height:95vh;overflow:auto;padding:16px;background:#101b2d;border:2px solid #ddb35d;border-radius:13px;box-shadow:0 8px 28px #000a;color:white;font:14px Arial';
+  panel.innerHTML='<b style="font-size:18px;color:#eac46e">FOTO-CHECK · YIGIT & FLORIAN</b><p>Wir testen die Originaladressen und alternative öffentliche SportMember-Varianten.</p>';
+  for(const name of ['Yigit Kara','Florian Wagner']){
+   const line=document.createElement('div');line.style.cssText='display:flex;gap:12px;align-items:center;margin:12px 0;padding:10px;background:#253247;border-radius:9px';
+   const img=document.createElement('img');img.style.cssText='width:88px;height:112px;object-fit:cover;background:#40516b;border-radius:7px';
+   const label=document.createElement('div');label.textContent=name+' · prüfe Foto …';
+   const urls=candidatePhotoUrls(SPIELERFOTOS[name]);let i=0;
+   const tryNext=()=>{if(i<urls.length){img.src=urls[i++];}else{img.onerror=null;img.src=silhouette;label.textContent=name+' · Quelle derzeit nicht erreichbar';}};
+   img.onload=()=>{if(img.src!==silhouette)label.textContent=name+' · Foto geladen (Quelle '+i+'/'+urls.length+')';};
+   img.onerror=tryNext;line.append(img,label);panel.append(line);tryNext();
+  }
+  const close=document.createElement('button');close.textContent='Foto-Check schließen';close.style.cssText='background:#d2a650;color:#111;border:0;border-radius:7px;padding:9px 12px;cursor:pointer';close.onclick=()=>panel.remove();panel.append(close);document.body.append(panel);
+ });
+}
 
 // Alle vier Original-Logos sind direkt in dieser HTML-Datei eingebettet.
 // Paar 1: CareTech Thiel + REWE Wittmann; Paar 2: Kempe + Graf Systemhaus.
@@ -185,7 +235,14 @@ let events=[],subscriptions=new Map(),client=null,sock=null,timer=null,cycle=0,c
 const byId=id=>document.getElementById(id);
 const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const silhouette='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300"><rect width="220" height="300" fill="#253247"/><circle cx="110" cy="95" r="49" fill="#9ba6b7"/><path d="M12 300c0-80 35-134 98-134s98 54 98 134" fill="#9ba6b7"/></svg>');
-document.addEventListener('error',e=>{const x=e.target;if(x instanceof HTMLImageElement&&x.classList.contains('portrait')&&x.src!==silhouette)x.src=silhouette;},true);
+document.addEventListener('error',e=>{
+ const img=e.target;
+ if(!(img instanceof HTMLImageElement)||!img.classList.contains('portrait'))return;
+ let urls=[];try{urls=JSON.parse(img.dataset.photoCandidates||'[]');}catch(_e){}
+ const i=Number(img.dataset.photoIndex||'0')+1;
+ if(i<urls.length){img.dataset.photoIndex=String(i);img.src=urls[i];}
+ else{img.src=silhouette;img.dataset.photoFailed='1';}
+},true);
 function status(s,good=false,bad=false){byId('state').textContent=s;byId('lamp').className='lamp'+(good?' ok':bad?' fail':'');}
 function league(e){return String(e?.turniersystem||'').toUpperCase()==='LIGASPIELTAG';}
 function effectiveMode(){if(DEMO)return effectiveDemoMode();if(chosen!=='auto')return chosen;const n=events.filter(e=>league(e)).length;return n>=2?'double':n===1?'single':'competition';}
@@ -195,7 +252,7 @@ function classNames(){
  const m=effectiveMode();document.body.className='projector mode-'+m;
  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===chosen));
 }
-function photo(name){const path=playerPhotoUrl(name);return `<img class="portrait" src="${safe(path)}" alt="${safe(name)}" loading="eager">`;}
+function photo(name){const path=playerPhotoUrl(name);const urls=candidatePhotoUrls(path);return `<img class="portrait" src="${safe(urls[0]||silhouette)}" data-photo-candidates="${safe(JSON.stringify(urls))}" data-photo-index="0" alt="${safe(name)}" loading="eager">`;}
 function player(g,n){
  const name=g[`spieler${n}Name`]||'Spieler', id=g[`spieler${n}Id`];
  const active=id&&(g.spielerIdActive===id||g.spielerIdAktiv===id);
