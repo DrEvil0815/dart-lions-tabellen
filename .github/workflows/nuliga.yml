@@ -3,18 +3,29 @@ name: NuLiga Tabellen aktualisieren
 
 on:
   workflow_dispatch:
+
   schedule:
-    - cron: "17 7 * * *"
+    # Montag bis Donnerstag um 08:00 Uhr
+    - cron: "0 8 * * 1-4"
+      timezone: "Europe/Berlin"
+
+    # Freitag, Samstag, Sonntag alle 10 Minuten
+    - cron: "3,13,23,33,43,53 * * * 5,6,0"
+      timezone: "Europe/Berlin"
 
 permissions:
   contents: write
+
+concurrency:
+  group: nuliga-update
+  cancel-in-progress: false
 
 jobs:
   abrufen:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Dateien laden
+      - name: Repository laden
         uses: actions/checkout@v4
 
       - name: Python einrichten
@@ -22,35 +33,28 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Abhängigkeiten installieren
+      - name: Abhaengigkeiten installieren
         run: pip install requests beautifulsoup4
 
-
-
-      - name: Ligatabellen und Ergebnisse aktualisieren
+      - name: Alle Ligatabellen und Ergebnisse aktualisieren
         run: |
           python update_table.py
           python update_table_i.py
           python update_table_iii.py
-          python update_ergebnisse_iii.py
           python update_ergebnisse_i.py
           python update_ergebnisse_ii.py
+          python update_ergebnisse_iii.py
 
-
-
-      - name: Neue Daten speichern
+      - name: Aktualisierte Daten speichern
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-
-          
           git add data/dart-lions-i.json data/dart-lions-ii.json data/dart-lions-iii.json data/ergebnisse-i.json data/ergebnisse-ii.json data/ergebnisse-iii.json
 
-
-
           if ! git diff --cached --quiet; then
-            git commit -m "NuLiga-Tabelle aktualisieren"
+            git commit -m "NuLiga Daten aktualisieren"
+            git pull --rebase
             git push
           else
             echo "Keine Änderungen"
