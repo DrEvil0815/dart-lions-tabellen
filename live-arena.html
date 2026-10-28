@@ -155,6 +155,14 @@ html.presentation .quickstart,html:fullscreen .quickstart{display:none}
 .event-picker-action.primary{background:#deaf55;color:#161c24;border-color:#deaf55}
 .event-picker-empty{border:1px dashed #53647c;border-radius:10px;padding:20px;color:#c6d0df}
 @media(max-width:600px){.event-picker-panel{padding:14px}}
+
+/* Live-Highlights: kompakte Einblendung oberhalb der Sponsoren */
+.highlight-toast{position:fixed;z-index:9990;left:50%;bottom:clamp(102px,13vh,150px);transform:translate(-50%,18px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;width:min(690px,calc(100vw - 30px));background:linear-gradient(110deg,#491a20,#161d30 55%,#4a3020);border:2px solid #f3c55c;box-shadow:0 15px 60px #000b,0 0 35px #efaa3944;border-radius:17px;padding:16px 26px;display:flex;align-items:center;justify-content:center;gap:20px;text-align:center}
+.highlight-toast.show{opacity:1;transform:translate(-50%,0)}
+.highlight-emoji{font-size:clamp(28px,3vw,48px)}.highlight-text strong{display:block;font-size:clamp(22px,3.2vw,42px);line-height:1.1;color:#f3c55c;letter-spacing:.05em}.highlight-text span{display:block;margin-top:5px;color:#fff;font-weight:750;font-size:clamp(14px,1.5vw,21px)}
+.highlight-toggle{border:1px solid #826b45;border-radius:8px;background:#2a2530;color:#ffda8e;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
+@media(max-height:690px){.highlight-toast{bottom:83px;padding:9px 14px}.highlight-emoji{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.highlight-toast{transition:none}}
 </style>
 </head>
 <body class="projector mode-competition">
@@ -711,8 +719,33 @@ function loadDemo(){
 }
 function effectiveDemoMode(){return chosen==='auto'?(demoMode||'competition'):chosen;}
 function close(){cycle++;clearTimeout(timer);if(client){try{client.disconnect(()=>{});}catch{}}if(sock){try{sock.close();}catch{}}client=null;sock=null;connected=false;subscriptions.clear();}
+
+// Highlight-Erkennung: erste Live-Meldung pro Spiel ist nur der Ausgangsstand.
+// Ausschließlich neue Änderungen melden, niemals Archivdaten als neue Highlights anzeigen.
+const highlightSnapshots=new Map();
+function observeHighlights(eventId,games){
+ if(!window.DartLionsHighlight||!Array.isArray(games))return;
+ const visible=new Set();
+ for(const g of games){
+  if(!g||g.placeholder||g.abgeschlossen)continue;
+  const id=String(eventId)+'|'+String(g.gameId||g.id||[g.boardName,g.spieler1Id||g.spieler1Name,g.spieler2Id||g.spieler2Name].join('|'));
+  visible.add(id);
+  const now=[1,2].map(n=>({name:String(g['spieler'+n+'Name']||'Spieler'),count:Math.max(0,Number(g['spieler'+n+'Count180er'])||0),out:Math.max(0,Number(g['spieler'+n+'HighOut'])||0)}));
+  const previous=highlightSnapshots.get(id);
+  if(previous){
+   for(let i=0;i<2;i++){
+    const a=now[i],b=previous[i];if(a.name!==b.name)continue;
+    if(a.count>b.count){window.DartLionsHighlight.emit({kind:'180',player:a.name,board:String(g.boardName||'Board')});}
+    if(a.out>b.out&&a.out>=100){window.DartLionsHighlight.emit({kind:'highfinish',score:a.out,player:a.name,board:String(g.boardName||'Board')});}
+   }
+  }
+  highlightSnapshots.set(id,now);
+ }
+ // Entfernte Spiele vergessen, damit sie bei der nächsten Begegnung neu initialisieren.
+ for(const key of highlightSnapshots.keys())if(key.startsWith(String(eventId)+'|')&&!visible.has(key))highlightSnapshots.delete(key);
+}
 function rejoin(){const token=++cycle;clearTimeout(timer);if(client){try{client.disconnect(()=>{});}catch{}}if(sock){try{sock.close();}catch{}}subscriptions.clear();connected=false;client=null;sock=null;const ids=events.map(x=>x.id);if(!ids.length){render();status('Keine Veranstaltung live');return;}if(typeof SockJS==='undefined'||typeof Stomp==='undefined'){status('Live-Bibliothek nicht geladen',false,true);render();return;}
-try{sock=new SockJS(BASE+'/api/websocket');client=Stomp.over(sock);client.debug=()=>{};client.heartbeat.outgoing=0;client.heartbeat.incoming=0;client.connect({},()=>{if(token!==cycle)return;connected=true;status('Live verbunden',true);for(const e of events){const id=e.id;const s1=client.subscribe('/topic/public/tournament/game/infos/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);if(Array.isArray(d.gameShortInfos)){e.games=d.gameShortInfos;lastMessage=Date.now();render();status('Live-Daten empfangen',true);}}catch(err){console.warn('Game-Daten',err)}});const s2=client.subscribe('/topic/public/tournament/publicview/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);e.data=d;lastMessage=Date.now();render();}catch(err){console.warn('Turnier-Daten',err)}});subscriptions.set(id,[s1,s2]);}render();},()=>{if(token!==cycle)return;connected=false;status('Verbindung unterbrochen',false,true);timer=setTimeout(rejoin,8000);});const original=sock.onclose;sock.onclose=ev=>{if(typeof original==='function')original(ev);if(token===cycle){connected=false;status('Verbindung unterbrochen',false,true);clearTimeout(timer);timer=setTimeout(rejoin,8000);}};}catch(err){status('Verbindung fehlgeschlagen',false,true);timer=setTimeout(rejoin,8000);}}
+try{sock=new SockJS(BASE+'/api/websocket');client=Stomp.over(sock);client.debug=()=>{};client.heartbeat.outgoing=0;client.heartbeat.incoming=0;client.connect({},()=>{if(token!==cycle)return;connected=true;status('Live verbunden',true);for(const e of events){const id=e.id;const s1=client.subscribe('/topic/public/tournament/game/infos/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);if(Array.isArray(d.gameShortInfos)){observeHighlights(id,d.gameShortInfos);e.games=d.gameShortInfos;lastMessage=Date.now();render();status('Live-Daten empfangen',true);}}catch(err){console.warn('Game-Daten',err)}});const s2=client.subscribe('/topic/public/tournament/publicview/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);e.data=d;lastMessage=Date.now();render();}catch(err){console.warn('Turnier-Daten',err)}});subscriptions.set(id,[s1,s2]);}render();},()=>{if(token!==cycle)return;connected=false;status('Verbindung unterbrochen',false,true);timer=setTimeout(rejoin,8000);});const original=sock.onclose;sock.onclose=ev=>{if(typeof original==='function')original(ev);if(token===cycle){connected=false;status('Verbindung unterbrochen',false,true);clearTimeout(timer);timer=setTimeout(rejoin,8000);}};}catch(err){status('Verbindung fehlgeschlagen',false,true);timer=setTimeout(rejoin,8000);}}
 async function discover(){try{let active=[];if(manualIds.length){active=manualIds.map((id,i)=>({id,bezeichnung:qs.get('test')==='1'?'Testturnier':`Veranstaltung ${i+1}`,turniersystem:chosen==='single'||chosen==='double'?'LIGASPIELTAG':'SCHWEIZERSYSTEM'}));}else{const res=await fetch(BASE+'/api/public/eventoperator/'+ORGANIZER+'?t='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const d=await res.json();active=Array.isArray(d.allTournamentsStarted)?d.allTournamentsStarted:[];}
 // Keine laufenden Events fallen nicht automatisch auf künftige oder bereits beendete Events zurück.
 const selected=active.filter(x=>x&&x.id).sort((a,b)=>league(a)===league(b)?0:league(a)?-1:1);const key=selected.map(e=>e.id).join('|');if(key!==prevKey){prevKey=key;const old=new Map(events.map(e=>[e.id,e]));events=selected.map(e=>({...e,games:old.get(e.id)?.games||[],data:old.get(e.id)?.data||null,_boardSlots:old.get(e.id)?._boardSlots||[]}));rejoin();for(const ev of events){if(!ev.data)fetch(BASE+'/api/public/tournament/'+ev.id+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(!d)return;const current=events.find(x=>x.id===ev.id);if(current&&!current.data){current.data=d;render();}}).catch(()=>{});}}else if(!connected&&events.length&&!timer)rejoin();else render();}catch(err){status('Turniersuche nicht erreichbar',false,true);byId('updated').textContent='Turniersuche fehlgeschlagen: '+err.message;render();}}
@@ -953,6 +986,33 @@ function close(){modal.classList.remove('open');}
 document.addEventListener('click',e=>{if(e.target.closest('#preflight-open')){e.preventDefault();open();}else if(e.target.closest('#preflight-close')){e.preventDefault();close();}else if(e.target.closest('#preflight-recheck'))run();else if(e.target.closest('#preflight-demo'))location.href=location.pathname+'?demo=competition&technikcheck=1';else if(e.target.closest('#preflight-fullscreen')){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen().catch(()=>{});}else if(e.target.closest('#preflight-copy')){const txt='Dart Lions Beamer-Technikcheck\n'+report.join('\n');if(navigator.clipboard?.writeText)navigator.clipboard.writeText(txt).catch(()=>prompt('Ergebnis kopieren:',txt));else prompt('Ergebnis kopieren:',txt);}},true);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();},true);
 if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',open,{once:true});else open();}
+})();
+</script>
+<div id="highlight-toast" class="highlight-toast" role="status" aria-live="polite" aria-atomic="true"><div class="highlight-emoji" id="highlight-icon">🎯</div><div class="highlight-text"><strong id="highlight-title">180!</strong><span id="highlight-detail"></span></div></div>
+<script>
+/* Ergänzung ohne Abhängigkeit von der Wappen-/Beamer-Steuerung */
+(function(){
+ const toast=document.getElementById('highlight-toast');
+ const title=document.getElementById('highlight-title');const detail=document.getElementById('highlight-detail');const icon=document.getElementById('highlight-icon');
+ const control=document.createElement('button');control.type='button';control.className='highlight-toggle';control.id='highlight-toggle';
+ control.title='Live-Highlight-Einblendungen ein- oder ausschalten';
+ const toolbar=document.querySelector('.toolbar .controls')||document.querySelector('.toolbar');
+ if(toolbar)toolbar.append(control);
+ let enabled=true;let timer=0;let displayed=0;const queue=[];
+ function label(){control.textContent='★ Highlights: '+(enabled?'AN':'AUS');control.setAttribute('aria-pressed',String(enabled));}
+ label();control.addEventListener('click',()=>{enabled=!enabled;label();if(!enabled){queue.length=0;clearTimeout(timer);toast.classList.remove('show');displayed=0;}});
+ function next(){if(!enabled||!queue.length){displayed=0;toast.classList.remove('show');return;} displayed=1;
+ const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':'🏆';title.textContent=entry.kind==='180'?'180!':'HIGHFINISH '+entry.score;
+ detail.textContent=entry.player+' · '+entry.board+(entry.demo?' · DEMO':'');toast.classList.add('show');
+ clearTimeout(timer);timer=setTimeout(()=>{toast.classList.remove('show');timer=setTimeout(next,350);},4800);
+ }
+ function emit(entry){if(!enabled)return;queue.push(entry);if(queue.length>8)queue.shift();if(!displayed)next();}
+ window.DartLionsHighlight=Object.freeze({emit});
+ const params=new URLSearchParams(location.search);
+ if(params.has('highlightdemo')){
+  const btn=document.createElement('button');btn.type='button';btn.className='highlight-toggle';btn.textContent='▶ Highlight testen';btn.title='Zeigt eine erfundene 180 und ein Highfinish';if(toolbar)toolbar.append(btn);
+  btn.addEventListener('click',()=>{emit({kind:'180',player:'Demo-Spieler',board:'BOARD 3',demo:true});emit({kind:'highfinish',score:121,player:'Demo-Spieler',board:'BOARD 6',demo:true});});
+ }
 })();
 </script>
 </body>
