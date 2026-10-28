@@ -576,7 +576,7 @@ function checkCrestName(){
  const key=normName(name);const hit=GEGNER_MUSTER.find(([,re])=>re.test(key));
  document.getElementById('crest-audit-result').textContent=!name?'Bitte einen Gegnernamen eingeben.':opponentLogo(name)?'✓ Wappen erkannt und verfügbar für: '+name:'⚠ Noch kein Originalwappen für „'+name+'“ hinterlegt.';
 }
-document.getElementById('new-crest-save').addEventListener('click',()=>{
+document.getElementById('new-crest-save')?.addEventListener('click',()=>{
  const name=document.getElementById('new-crest-name').value.trim();
  const file=document.getElementById('new-crest-file').files[0];
  const feedback=document.getElementById('new-crest-feedback');
