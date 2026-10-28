@@ -1,0 +1,30 @@
+
+{
+  "version": 1,
+  "spieler": [
+    {
+      "id": "christian-hohe",
+      "name": "Christian Hohe",
+      "bekannte_namen": [
+        "Christian Hohe"
+      ],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "melissa-zarbo",
+      "name": "Melissa Zarbo",
+      "bekannte_namen": [
+        "Melissa Zarbo"
+      ],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "petra-haefner",
+      "name": "Petra Häfner",
+      "bekannte_namen": [
+        "Petra Häfner"
+      ],
+      "darthelfer_user_ids": []
+    }
+  ]
+}
