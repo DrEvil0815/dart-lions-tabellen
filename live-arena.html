@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dart Lions Gräfenberg – Live Arena / Beamer</title>
+<title>Dart Lions Gräfenberg – Live Arena / Beamer & Demo</title>
 <style>
 :root{color-scheme:dark;--bg:#080d17;--panel:#172030;--gold:#f3c55c;--muted:#aebace;--red:#e74a53;--green:#67e3ac;--border:#4e4650}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080d17;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{background:radial-gradient(ellipse at 45% -35%,#49202a 0,#141b29 43%,#080d17 95%)}button,select{font:inherit}button{cursor:pointer}.shell{max-width:1800px;margin:0 auto;padding:16px 19px 15px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:75px}.identity{display:flex;align-items:center;gap:13px;min-width:0}.logo{height:63px;width:63px;object-fit:contain;flex:none}.tag{color:var(--gold);letter-spacing:.18em;font-size:11px;font-weight:850}.heading{font-size:clamp(24px,2.6vw,40px);font-weight:950;letter-spacing:.03em;line-height:1.12}.state{display:flex;align-items:center;gap:9px;font-size:12px;color:#e8ecf4;background:#111c2a;border:1px solid #455365;border-radius:30px;padding:9px 13px;white-space:nowrap}.lamp{width:9px;height:9px;border-radius:50%;background:#a8b3c3}.lamp.ok{background:var(--green);box-shadow:0 0 10px #67e3ac}.lamp.fail{background:var(--red)}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 12px;flex-wrap:wrap}.controls{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.btn{background:#243048;border:1px solid #5a6274;border-radius:8px;color:#fff;padding:7px 11px;font-size:12px}.btn.active{background:#6c4720;border-color:#e9b751;color:#fff}.note{font-size:12px;color:var(--muted)}.event-bar{padding:8px 13px;background:linear-gradient(90deg,#4b2428,#1b2332);border:1px solid #7a4b3d;border-radius:11px;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:49px}.event-title{font-size:clamp(15px,1.45vw,23px);font-weight:900;overflow-wrap:anywhere}.event-small{color:#ded2c5;font-size:11px}.match-score{display:flex;align-items:center;gap:9px;flex-shrink:0}.match-label{font-size:10px;color:var(--muted);text-align:right;line-height:1.2}.match-number{font-size:clamp(19px,2.15vw,30px);font-weight:950;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}.board-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game{background:linear-gradient(155deg,#27303d 0%,#111a2a 82%);border:1px solid #665344;border-radius:12px;min-width:0;overflow:hidden;display:flex;flex-direction:column}.board-top{background:#0b1422;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #c99c45}.board-title{font-size:13px;color:var(--gold);font-weight:950;letter-spacing:.08em}.board-live{font-size:10px;font-weight:850;color:var(--green)}.players{flex:1;display:flex;flex-direction:column;min-height:0}.player{display:grid;grid-template-columns:69px minmax(0,1fr) auto;gap:9px;align-items:center;padding:7px 10px;min-width:0;flex:1}.player+.player{border-top:1px solid #ffffff19}.player.active{background:linear-gradient(90deg,#78551f55,#17233622)}.portrait{width:64px;height:81px;border-radius:8px;object-fit:cover;object-position:center 25%;border:1px solid #8c7856;background:#263447}.player.active .portrait{border-color:var(--gold);box-shadow:0 0 8px #e5b95855}.pinfo{min-width:0}.pname{font-weight:900;font-size:clamp(14px,1.27vw,21px);line-height:1.1;overflow-wrap:anywhere}.psub{font-size:10px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stats{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.stat{padding:3px 6px;background:#0b1523;border:1px solid #485062;border-radius:5px;font-size:9px;color:#bbc7d7;white-space:nowrap}.stat b{color:var(--gold);font-size:11px}.scores{display:flex;gap:7px;align-items:center;flex-shrink:0}.legs{text-align:center;background:#0c1727;border:1px solid #665641;border-radius:6px;padding:5px 6px;min-width:39px}.tiny{font-size:9px;letter-spacing:.06em;color:#a7b7cb}.legval{font-size:25px;font-weight:950;line-height:1.1}.restbox{text-align:right;min-width:56px}.rest{font-size:clamp(27px,2.8vw,42px);font-weight:950;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.05}.board-bottom{background:#0c1420;padding:4px 12px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}.placeholder{border-style:dashed;opacity:.68}.placeholder .players{align-items:center;justify-content:center;color:#9dacbe;font-size:14px;text-align:center;padding:15px}.blank{padding:35px 22px;border:1px solid #4e586c;border-radius:12px;background:#172033;text-align:center;color:#bcc9dc}.blank strong{display:block;font-size:21px;color:#fff;margin-bottom:10px}.bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:9px;color:var(--muted);font-size:10px}.bottom a{color:var(--gold)}
@@ -49,12 +49,14 @@ body.projector{height:100dvh;overflow:hidden}.projector .shell{height:100dvh;max
 .projector .stage.mode-double .event-section .stat b{font-size:10px}
 .projector .stage.mode-competition .event-section .portrait{height:clamp(44px,6.6vh,74px)}
 @media(max-width:780px){.stage .board-grid,.projector .stage .board-grid{grid-template-columns:1fr;grid-template-rows:none!important}.stage.single-active .event-section .board-grid{grid-template-columns:1fr}.projector .stage.single-active .event-section .player{grid-template-columns:80px minmax(0,1fr) auto}.projector .stage.single-active .event-section .portrait{height:90px;width:76px}.event-section{flex:none}.stage .game{min-height:240px}.stage{height:auto!important}}
+body:has(.demo-ribbon) .demo-ribbon{display:block}.demo-ribbon{display:none;background:#6b321f;color:#fff0bd;text-align:center;padding:4px;font-size:11px;font-weight:850;letter-spacing:.08em;border-radius:5px;margin-bottom:4px}
 </style>
 </head>
 <body class="projector mode-competition">
 <div class="shell">
 <header class="top"><div class="identity"><img class="logo" src="logos/dart-lions.PNG" alt="Dart Lions Gräfenberg – Original-Logo"><div><div class="tag">DART LIONS GRÄFENBERG</div><div class="heading">LIVE-ARENA</div></div></div><div class="state"><span class="lamp" id="lamp"></span><span id="state">Suche Veranstaltungen …</span></div></header>
 <div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="reload">↻ Verbinden</button><button class="btn" id="league-data">Liga-Ergebnisse auslesen</button></div></div>
+<div class="demo-ribbon" id="demo-ribbon">DEMO · SIMULIERTE SPIELE UND ERGEBNISSE · KEINE LIVE-DATEN</div>
 <main class="stage" id="stage" aria-live="polite"><div class="blank">Suche gestartete Darthelfer-Veranstaltungen …</div></main>
 <footer class="bottom"><span id="updated">Verbindung wird vorbereitet</span><span>Öffentliche Darthelfer-Live-Daten · Game On!</span></footer>
 </div>
@@ -69,10 +71,12 @@ const ORGANIZER='7a088d28-63ee-49ac-a1fc-fe726056ddbe';
 const TEST='58d419d4-91e7-436f-9a29-5e298c3e8ebf';
 const BASE='https://www.darthelfer.de';
 const qs=new URLSearchParams(location.search);
+const demoMode=['single','double','competition'].includes(qs.get('demo'))?qs.get('demo'):null;
+const DEMO=!!demoMode;
 const manualIds=(qs.get('spiele')||qs.get('turnier')||'').split(',').map(x=>x.trim()).filter(x=>/^[0-9a-f-]{36}$/i.test(x));
 if(!manualIds.length&&qs.get('test')==='1')manualIds.push(TEST);
 const modes=['auto','single','double','competition'];
-let chosen=modes.includes(qs.get('modus'))?qs.get('modus'):'auto';
+let chosen=modes.includes(qs.get('modus'))?qs.get('modus'):(demoMode||'auto');
 let events=[],subscriptions=new Map(),client=null,sock=null,timer=null,cycle=0,connected=false,prevKey='',lastMessage=0;
 const byId=id=>document.getElementById(id);
 const safe=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -80,7 +84,7 @@ const silhouette='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xm
 document.addEventListener('error',e=>{const x=e.target;if(x instanceof HTMLImageElement&&x.classList.contains('portrait')&&x.src!==silhouette)x.src=silhouette;},true);
 function status(s,good=false,bad=false){byId('state').textContent=s;byId('lamp').className='lamp'+(good?' ok':bad?' fail':'');}
 function league(e){return String(e?.turniersystem||'').toUpperCase()==='LIGASPIELTAG';}
-function effectiveMode(){if(chosen!=='auto')return chosen;const n=events.filter(e=>league(e)).length;return n>=2?'double':n===1?'single':'competition';}
+function effectiveMode(){if(DEMO)return effectiveDemoMode();if(chosen!=='auto')return chosen;const n=events.filter(e=>league(e)).length;return n>=2?'double':n===1?'single':'competition';}
 function chosenEvents(){const m=effectiveMode();const sorted=events.filter(league);if(m==='single')return sorted.slice(0,1);if(m==='double')return sorted.slice(0,2);return events.filter(e=>!league(e)).slice(0,1);}
 function countPerEvent(){return effectiveMode()==='competition'?6:2;}
 function classNames(){
@@ -116,6 +120,7 @@ function teamNames(e){
 // Darthelfer meldet in abgeschlossenen Altspielen teilweise complete:false.
 // Deshalb gelten nur Matches mit erkennbarem Sieger und dem Endstand (z.B. 3 Legs).
 function leagueScore(e){
+ if(DEMO&&e?.demoScore)return e.demoScore;
  const d=e?.data?.turnierMain||e?.data?.turnierGruppe;
  if(!d)return null;
  const matches=d.tournamentLeagueGameEntities;
@@ -182,13 +187,44 @@ function render(){
  stage.innerHTML=html;
  byId('updated').textContent=(lastMessage?'Letzte Live-Meldung '+new Date(lastMessage).toLocaleTimeString('de-DE'):'Warte auf Live-Spielstände')+' · '+(m==='competition'?'Competition':m==='double'?'Doppelheimspieltag':'Einzelheimspieltag');
 }
+// Reiner Vorschau-Modus: keine WebSocket-Verbindung und keine echten Resultate.
+function demoGame(board,n){
+ const p1='Demo-Spieler '+(n*2-1),p2='Demo-Spieler '+(n*2);
+ return {boardName:'BOARD '+board,spieler1Name:p1,spieler2Name:p2,
+  spieler1Id:'demo-a-'+n,spieler2Id:'demo-b-'+n,spielerIdActive:'demo-a-'+n,
+  spieler1Togo:[301,182,76,401,128,51][(n-1)%6],spieler2Togo:[170,240,151,97,330,208][(n-1)%6],
+  spieler1Legs:(n+1)%3,spieler2Legs:n%2,spieler1Average:(47+n*2.35).toFixed(2),spieler2Average:(39+n*2.11).toFixed(2),
+  spieler1LastThrow:60,spieler2LastThrow:45,spieler1Best:n%2===0?20:null,spieler2Best:null,
+  spieler1HighOut:n%3===0?100:null,spieler2HighOut:null,spieler1Count180er:n%3===0?1:0,spieler2Count180er:0,
+  bestOfLegs:5,abgeschlossen:false,startssoon:false};
+}
+function demoEvent(id,name,home,away,from,score){
+ return {id,bezeichnung:name,turniersystem:home?'LIGASPIELTAG':'SCHWEIZERSYSTEM',
+   data:{turnierMain:{bezeichnung:name,mannschaftHeim:home,mannschaftGast:away}},
+   demoScore:score,games:[demoGame(from,from),demoGame(from+1,from+1)]};
+}
+function loadDemo(){
+ const m=effectiveDemoMode();
+ if(m==='competition'){
+  const e=demoEvent('demo-c','27. Dart Lions Competition 2026',null,null,1,null);
+  e.games=Array.from({length:6},(_,i)=>demoGame(i+1,i+1));events=[e];
+ }else if(m==='double'){
+  events=[demoEvent('demo-1','Dart Lions Gräfenberg I vs. Gastmannschaft A','Dart Lions Gräfenberg I','Gastmannschaft A',1,{home:5,away:3}),
+          demoEvent('demo-2','Dart Lions Gräfenberg II vs. Gastmannschaft B','Dart Lions Gräfenberg II','Gastmannschaft B',3,{home:4,away:4})];
+ }else{
+  events=[demoEvent('demo-1','Dart Lions Gräfenberg III vs. Gastmannschaft','Dart Lions Gräfenberg III','Gastmannschaft',1,{home:8,away:10})];
+ }
+ status('DEMO – keine Live-Daten');lastMessage=0;render();
+ byId('updated').textContent='DEMO-ANSICHT · Erfundenes Beispiel, keine echten Spielstände · '+(m==='double'?'4 Boards':m==='competition'?'6 Boards':'2 Boards');
+}
+function effectiveDemoMode(){return chosen==='auto'?(demoMode||'competition'):chosen;}
 function close(){cycle++;clearTimeout(timer);if(client){try{client.disconnect(()=>{});}catch{}}if(sock){try{sock.close();}catch{}}client=null;sock=null;connected=false;subscriptions.clear();}
 function rejoin(){const token=++cycle;clearTimeout(timer);if(client){try{client.disconnect(()=>{});}catch{}}if(sock){try{sock.close();}catch{}}subscriptions.clear();connected=false;client=null;sock=null;const ids=events.map(x=>x.id);if(!ids.length){render();status('Keine Veranstaltung live');return;}if(typeof SockJS==='undefined'||typeof Stomp==='undefined'){status('Live-Bibliothek nicht geladen',false,true);render();return;}
 try{sock=new SockJS(BASE+'/api/websocket');client=Stomp.over(sock);client.debug=()=>{};client.heartbeat.outgoing=0;client.heartbeat.incoming=0;client.connect({},()=>{if(token!==cycle)return;connected=true;status('Live verbunden',true);for(const e of events){const id=e.id;const s1=client.subscribe('/topic/public/tournament/game/infos/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);if(Array.isArray(d.gameShortInfos)){e.games=d.gameShortInfos;lastMessage=Date.now();render();status('Live-Daten empfangen',true);}}catch(err){console.warn('Game-Daten',err)}});const s2=client.subscribe('/topic/public/tournament/publicview/'+id,msg=>{if(token!==cycle)return;try{const d=JSON.parse(msg.body);e.data=d;lastMessage=Date.now();render();}catch(err){console.warn('Turnier-Daten',err)}});subscriptions.set(id,[s1,s2]);}render();},()=>{if(token!==cycle)return;connected=false;status('Verbindung unterbrochen',false,true);timer=setTimeout(rejoin,8000);});const original=sock.onclose;sock.onclose=ev=>{if(typeof original==='function')original(ev);if(token===cycle){connected=false;status('Verbindung unterbrochen',false,true);clearTimeout(timer);timer=setTimeout(rejoin,8000);}};}catch(err){status('Verbindung fehlgeschlagen',false,true);timer=setTimeout(rejoin,8000);}}
 async function discover(){try{let active=[];if(manualIds.length){active=manualIds.map((id,i)=>({id,bezeichnung:qs.get('test')==='1'?'Testturnier':`Veranstaltung ${i+1}`,turniersystem:chosen==='single'||chosen==='double'?'LIGASPIELTAG':'SCHWEIZERSYSTEM'}));}else{const res=await fetch(BASE+'/api/public/eventoperator/'+ORGANIZER+'?t='+Date.now(),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const d=await res.json();active=Array.isArray(d.allTournamentsStarted)?d.allTournamentsStarted:[];}
 // Keine laufenden Events fallen nicht automatisch auf künftige oder bereits beendete Events zurück.
 const selected=active.filter(x=>x&&x.id).sort((a,b)=>league(a)===league(b)?0:league(a)?-1:1);const key=selected.map(e=>e.id).join('|');if(key!==prevKey){prevKey=key;const old=new Map(events.map(e=>[e.id,e]));events=selected.map(e=>({...e,games:old.get(e.id)?.games||[],data:old.get(e.id)?.data||null}));rejoin();for(const ev of events){if(!ev.data)fetch(BASE+'/api/public/tournament/'+ev.id+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{if(!d)return;const current=events.find(x=>x.id===ev.id);if(current&&!current.data){current.data=d;render();}}).catch(()=>{});}}else if(!connected&&events.length&&!timer)rejoin();else render();}catch(err){status('Turniersuche nicht erreichbar',false,true);byId('updated').textContent='Turniersuche fehlgeschlagen: '+err.message;render();}}
-function setMode(m){chosen=m;qs.set('modus',m);history.replaceState(null,'',location.pathname+'?'+qs.toString());render();}
+function setMode(m){chosen=m;qs.set('modus',m);history.replaceState(null,'',location.pathname+'?'+qs.toString());if(DEMO)loadDemo();else render();}
 document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 // Einmaliger Datencheck aus einem bereits abgeschlossenen öffentlichen Ligaspiel.
 // Es werden ausschließlich Spielinformationen und Feldnamen exportiert;
@@ -249,9 +285,14 @@ byId('league-data').addEventListener('click',async()=>{
  }catch(e){status('Liga-Datencheck: '+e.message,false,true);alert('Datencheck nicht möglich: '+e.message);}
  finally{btn.disabled=false;btn.textContent=old;}
 });
-byId('reload').addEventListener('click',()=>{if(events.length)rejoin();else discover();});
+byId('reload').addEventListener('click',()=>{if(DEMO){loadDemo();return;}if(events.length)rejoin();else discover();});
 byId('screen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}});
-discover();if(!manualIds.length)setInterval(discover,60000);
+if(DEMO){
+ document.querySelector('.tag').textContent='DART LIONS GRÄFENBERG · DEMO';
+ document.getElementById('demo-ribbon').style.display='block';
+ byId('league-data').disabled=true;byId('league-data').title='In der Demo sind keine echten Ligadaten enthalten';
+ loadDemo();
+}else{discover();if(!manualIds.length)setInterval(discover,60000);}
 </script>
 </body>
 </html>
