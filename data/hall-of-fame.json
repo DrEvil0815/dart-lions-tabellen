@@ -1,9 +1,10 @@
 {
-  "stand": "2026-10-28T11:56+00:00",
+  "stand": "2026-10-28T12:05+00:00",
   "quelle": "https://www.darthelfer.de/api/public/eventoperator/7a088d28-63ee-49ac-a1fc-fe726056ddbe",
   "erkannte_competitions": 42,
   "ausgewertete_competitions": 42,
-  "finals_erkannt": 41,
+  "finals_erkannt": 42,
+  "historisch_ergaenzte_platzierungen": 3,
   "spielerprofile": 119,
   "fehleranzahl": 0,
   "unbekannte_highfinish_formate": 0,
@@ -17,10 +18,6 @@
     {
       "turnier": "7. Competition 26",
       "grund": "Platz 3 nicht eindeutig"
-    },
-    {
-      "turnier": "10. Steeldart Competition",
-      "grund": "Finale nicht eindeutig: 0"
     },
     {
       "turnier": "8. Steeldart Competition",
@@ -77,6 +74,19 @@
         "podiumsplaetze": 7
       },
       {
+        "name": "Udo Sassik",
+        "teilnahmen": 13,
+        "maximums_180": 2,
+        "maximums_171": 0,
+        "bestes_leg": 17,
+        "highfinish": 118,
+        "highfinish_anzahl": 2,
+        "siege": 4,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 8
+      },
+      {
         "name": "Christian Hohe",
         "teilnahmen": 5,
         "maximums_180": 4,
@@ -114,19 +124,6 @@
         "zweite_plaetze": 1,
         "dritte_plaetze": 0,
         "podiumsplaetze": 4
-      },
-      {
-        "name": "Udo Sassik",
-        "teilnahmen": 13,
-        "maximums_180": 2,
-        "maximums_171": 0,
-        "bestes_leg": 17,
-        "highfinish": 118,
-        "highfinish_anzahl": 2,
-        "siege": 3,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 4,
-        "podiumsplaetze": 7
       },
       {
         "name": "Maurice Baum",
@@ -618,9 +615,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Felix Koch",
@@ -671,8 +668,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Frank Windisch",
@@ -1782,6 +1779,19 @@
         "podiumsplaetze": 9
       },
       {
+        "name": "Felix Jacob",
+        "teilnahmen": 12,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 22,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 1,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 1
+      },
+      {
         "name": "Körner Tom",
         "teilnahmen": 1,
         "maximums_180": 2,
@@ -2146,19 +2156,6 @@
         "podiumsplaetze": 0
       },
       {
-        "name": "Felix Jacob",
-        "teilnahmen": 12,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 22,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
         "name": "Felix Koch",
         "teilnahmen": 3,
         "maximums_180": 0,
@@ -2207,8 +2204,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Frank Windisch",
@@ -3089,10 +3086,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Udo Tuschke",
@@ -3169,10 +3166,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Christian Lutz",
@@ -3290,6 +3287,19 @@
         "zweite_plaetze": 2,
         "dritte_plaetze": 1,
         "podiumsplaetze": 3
+      },
+      {
+        "name": "Florian Wagner",
+        "teilnahmen": 23,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 22,
+        "highfinish": 109,
+        "highfinish_anzahl": 1,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Jessica Eisenreich",
@@ -3703,9 +3713,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Felix Koch",
@@ -3741,19 +3751,6 @@
         "bestes_leg": 24,
         "highfinish": null,
         "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Florian Wagner",
-        "teilnahmen": 23,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 22,
-        "highfinish": 109,
-        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -4724,6 +4721,19 @@
         "podiumsplaetze": 9
       },
       {
+        "name": "Udo Sassik",
+        "teilnahmen": 13,
+        "maximums_180": 2,
+        "maximums_171": 0,
+        "bestes_leg": 17,
+        "highfinish": 118,
+        "highfinish_anzahl": 2,
+        "siege": 4,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 8
+      },
+      {
         "name": "Michi Stavroglou",
         "teilnahmen": 4,
         "maximums_180": 4,
@@ -4734,19 +4744,6 @@
         "siege": 4,
         "zweite_plaetze": 2,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 7
-      },
-      {
-        "name": "Udo Sassik",
-        "teilnahmen": 13,
-        "maximums_180": 2,
-        "maximums_171": 0,
-        "bestes_leg": 17,
-        "highfinish": 118,
-        "highfinish_anzahl": 2,
-        "siege": 3,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 4,
         "podiumsplaetze": 7
       },
       {
@@ -4981,6 +4978,32 @@
         "siege": 0,
         "zweite_plaetze": 1,
         "dritte_plaetze": 0,
+        "podiumsplaetze": 1
+      },
+      {
+        "name": "Felix Jacob",
+        "teilnahmen": 12,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 22,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 1,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 1
+      },
+      {
+        "name": "Florian Wagner",
+        "teilnahmen": 23,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 22,
+        "highfinish": 109,
+        "highfinish_anzahl": 1,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 1,
         "podiumsplaetze": 1
       },
       {
@@ -5374,19 +5397,6 @@
         "podiumsplaetze": 0
       },
       {
-        "name": "Felix Jacob",
-        "teilnahmen": 12,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 22,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
         "name": "Felix Koch",
         "teilnahmen": 3,
         "maximums_180": 0,
@@ -5420,19 +5430,6 @@
         "bestes_leg": 24,
         "highfinish": null,
         "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Florian Wagner",
-        "teilnahmen": 23,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 22,
-        "highfinish": 109,
-        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -6514,10 +6511,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Andy Braun",
@@ -6957,9 +6954,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Felix Koch",
@@ -7010,8 +7007,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Frank Windisch",
@@ -8220,9 +8217,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Felix Koch",
@@ -8260,8 +8257,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Frank Windisch",
@@ -9259,10 +9256,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Udo Tuschke",
@@ -9419,8 +9416,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Christian Lutz",
@@ -9586,10 +9583,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Felix Jacob",
@@ -9600,9 +9597,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Niklas Grohmann",
@@ -11083,10 +11080,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Dominik Wandt",
@@ -11176,8 +11173,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Christian Manicki",
@@ -11552,9 +11549,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Felix Koch",
@@ -12632,10 +12629,10 @@
         "bestes_leg": 17,
         "highfinish": 118,
         "highfinish_anzahl": 2,
-        "siege": 3,
+        "siege": 4,
         "zweite_plaetze": 0,
         "dritte_plaetze": 4,
-        "podiumsplaetze": 7
+        "podiumsplaetze": 8
       },
       {
         "name": "Yigit Kara",
@@ -12971,9 +12968,9 @@
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
-        "zweite_plaetze": 0,
+        "zweite_plaetze": 1,
         "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "podiumsplaetze": 1
       },
       {
         "name": "Florian Wagner",
@@ -12985,8 +12982,8 @@
         "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 1
       },
       {
         "name": "Michael Bezold",
@@ -14376,11 +14373,13 @@
       "sort_datum": "2025-10-10",
       "teilnehmer_mit_statistik": 6,
       "nicht_zugeordnete_statistiken": 0,
-      "sieger": null,
-      "zweiter": null,
-      "dritter": null,
-      "platzierung_hinweis": "Finale nicht eindeutig: 0",
-      "url": "https://www.darthelfer.de/public/tournament/ddcec65f-33e5-438f-80a0-94f9c8019e5d?app=false"
+      "sieger": "Udo Sassik",
+      "zweiter": "Felix Jacob",
+      "dritter": "Florian Wagner",
+      "platzierung_hinweis": null,
+      "url": "https://www.darthelfer.de/public/tournament/ddcec65f-33e5-438f-80a0-94f9c8019e5d?app=false",
+      "historisch_ergaenzt": true,
+      "historische_teilnehmerzahl": 6
     },
     {
       "id": "a136686d-6182-4918-b936-432b8978c859",
