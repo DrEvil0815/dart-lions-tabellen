@@ -1,0 +1,84 @@
+
+name: Dart Lions Hall of Fame aktualisieren
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hall-of-fame:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhaengigkeiten installieren
+        run: |
+          pip install requests
+
+      - name: Competition-Daten aus Darthelfer abrufen
+        run: |
+          python update_hall_of_fame.py
+
+      - name: Hall-of-Fame-Datei pruefen
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/hall-of-fame.json")
+
+          if not path.exists():
+              raise RuntimeError(
+                  "Hall-of-Fame-Datei fehlt."
+              )
+
+          data = json.loads(
+              path.read_text(encoding="utf-8")
+          )
+
+          print("=== DART LIONS HALL OF FAME ===")
+          print(
+              "Erkannte Competitions:",
+              data.get("erkannte_competitions")
+          )
+          print(
+              "Ausgewertete Competitions:",
+              data.get("ausgewertete_competitions")
+          )
+          print(
+              "Fehler:",
+              data.get("fehleranzahl")
+          )
+
+          ranking = (
+              data.get("ranglisten", {})
+              .get("maximums_180", [])
+          )
+
+          print("\nTOP 10 - 180er")
+
+          for player in ranking[:10]:
+              print(
+                  player.get("name"),
+                  player.get("maximums_180")
+              )
+
+          print("\nTestdatei erfolgreich erstellt.")
+          PY
+
+      - name: Ergebnisdatei bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: dart-lions-hall-of-fame-test
+          path: data/hall-of-fame.json
+          if-no-files-found: error
+          retention-days: 7
