@@ -1,0 +1,34 @@
+{
+  "team": "Dart Lions Gräfenberg",
+  "liga": "4. Bezirksliga Oberfranken G",
+  "saison": "2026/27",
+  "stand": "2026-10-28T08:39+00:00",
+  "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528139&championship=OFr+2026%2F27&group=211419",
+  "naechstes_spiel": {
+    "datum": "30.10.2026",
+    "datum_iso": "2026-10-30",
+    "uhrzeit": "20:00",
+    "heim": "Dart Lions Gräfenberg",
+    "gast": "Bollnberch Bomber Maigisch"
+  },
+  "spiele": [
+    {
+      "datum": "17.10.2026",
+      "datum_iso": "2026-10-17",
+      "uhrzeit": "18:00",
+      "heim": "DJK \"Creek Steelers\" Wimmelbach II",
+      "gast": "Dart Lions Gräfenberg",
+      "ergebnis": "16:2",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106663&championship=OFr+2026%2F27&group=211419"
+    },
+    {
+      "datum": "03.10.2026",
+      "datum_iso": "2026-10-03",
+      "uhrzeit": "18:00\n            \n             v",
+      "heim": "DC Hellsboch III",
+      "gast": "Dart Lions Gräfenberg",
+      "ergebnis": "8:10",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106644&championship=OFr+2026%2F27&group=211419"
+    }
+  ]
+}
