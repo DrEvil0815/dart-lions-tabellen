@@ -5,13 +5,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  darthelfer-test:
+  podium-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Repository laden
-        uses: actions/checkout@v4
-
       - name: Python einrichten
         uses: actions/setup-python@v5
         with:
@@ -20,101 +17,153 @@ jobs:
       - name: Requests installieren
         run: pip install requests
 
-      - name: Finale und Platzierungen untersuchen
+      - name: Alle Competition-Podien pruefen
         shell: bash
         run: |
           python - <<'PY'
+          import re
+          import time
           import requests
 
-          ID = "d9943c19-41a5-4630-9d95-4d5543b97bf2"
-          URL = (
-              "https://www.darthelfer.de/api/public/tournament/"
-              + ID
+          BASE = "https://www.darthelfer.de/api/public"
+          OPERATOR = (
+              "7a088d28-63ee-49ac-a1fc-fe726056ddbe"
           )
 
-          response = requests.get(
-              URL,
-              timeout=45,
-              headers={"Accept": "application/json"}
+          session = requests.Session()
+          session.headers["Accept"] = "application/json"
+
+          def fetch(url):
+              response = session.get(url, timeout=45)
+              response.raise_for_status()
+              return response.json()
+
+          def regular(name):
+              return bool(re.fullmatch(
+                  r"(?:\d+\.\s*Competition\s*26|"
+                  r"\d+\.\s*Steeldart Competition(?:\(1\))?)",
+                  str(name or "").strip(),
+                  re.IGNORECASE
+              ))
+
+          operator = fetch(
+              BASE + "/eventoperator/" + OPERATOR
           )
-          response.raise_for_status()
 
-          data = response.json()
-          ko = data.get("turnierKO") or {}
-
-          players = ko.get(
-              "tournamentPlayerEntities"
-          ) or []
-
-          games = ko.get(
-              "tournamentErgebnisEntities"
-          ) or []
-
-          model = data.get("modelKO") or []
-
-          names = {
-              p["id"]: p.get("name", "Unbekannt")
-              for p in players
-              if p.get("id")
+          events = {
+              e["id"]: e
+              for e in operator.get(
+                  "allTournamentsClosed", []
+              )
+              if e.get("id")
+              and regular(e.get("bezeichnung"))
           }
 
-          print("=== KO-TEILNEHMER ===")
-          for player in players:
-              print(
-                  player.get("id"),
-                  "|",
-                  player.get("name"),
-                  "| Gruppen-ID:",
-                  player.get("playerIdAusGruppenphase")
-              )
+          print("Gefundene Competitions:", len(events))
 
-          print("\n=== KO-SPIELPLAN ===")
+          successful = 0
+          problems = []
 
-          for node in model:
-              print(
-                  "Feld:", node.get("feld"),
-                  "| Finale:", node.get("finale"),
-                  "| Platz 3:",
-                  node.get("beschreibungUnten"),
-                  "| Kind:", node.get("child"),
-                  "| Endknoten:", node.get("endknoten"),
-                  "| Eltern:",
-                  node.get("parent1"),
-                  node.get("parent2")
-              )
+          for event in events.values():
+              name = event.get("bezeichnung")
+              tid = event["id"]
 
-          print("\n=== ALLE KO-ERGEBNISSE ===")
+              try:
+                  data = fetch(
+                      BASE + "/tournament/" + tid
+                  )
+                  ko = data.get("turnierKO") or {}
+                  games = ko.get(
+                      "tournamentErgebnisEntities"
+                  ) or []
+                  nodes = data.get("modelKO") or []
+                  players = ko.get(
+                      "tournamentPlayerEntities"
+                  ) or []
 
-          for game in games:
-              id1 = game.get("spieler1Id")
-              id2 = game.get("spieler2Id")
+                  names = {
+                      p["id"]: p.get("name", "").strip()
+                      for p in players
+                      if p.get("id")
+                  }
 
-              name1 = names.get(id1, "Unbekannt")
-              name2 = names.get(id2, "Unbekannt")
+                  finale_fields = {
+                      n.get("feld")
+                      for n in nodes
+                      if n.get("finale") is True
+                  }
 
-              score1 = game.get("anzahlSpieler1")
-              score2 = game.get("anzahlSpieler2")
+                  def outcome(game):
+                      a = game.get("anzahlSpieler1")
+                      b = game.get("anzahlSpieler2")
+                      p1 = names.get(game.get("spieler1Id"))
+                      p2 = names.get(game.get("spieler2Id"))
 
-              print(
-                  "Feld:", game.get("feld"),
-                  "|",
-                  name1,
-                  score1,
-                  ":",
-                  score2,
-                  name2
-              )
+                      if (
+                          not p1 or not p2
+                          or not isinstance(a, int)
+                          or not isinstance(b, int)
+                          or a == b
+                      ):
+                          return None
 
-          print("\n=== KONTROLLERGEBNIS ===")
-          print("Erwarteter Sieger: Maurice Baum")
-          print(
-              "Erwarteter Zweiter:",
-              "Preißinger Alexander"
-          )
-          print(
-              "Erwarteter Dritter:",
-              "Sandro Eisenreich"
-          )
+                      return (
+                          (p1, p2)
+                          if a > b
+                          else (p2, p1)
+                      )
 
-          print("\nTEST ABGESCHLOSSEN")
+                  finals = [
+                      g for g in games
+                      if g.get("feld") in finale_fields
+                      and outcome(g)
+                  ]
+
+                  if len(finals) != 1:
+                      raise ValueError(
+                          "Kein eindeutiges Finale: "
+                          + str(len(finals))
+                      )
+
+                  first, second = outcome(finals[0])
+
+                  third_games = [
+                      g for g in games
+                      if str(g.get("feld", "")).lower()
+                      == "spielumplatzdrei"
+                      and outcome(g)
+                  ]
+
+                  third = (
+                      outcome(third_games[0])[0]
+                      if len(third_games) == 1
+                      else "Nicht ermittelt"
+                  )
+
+                  successful += 1
+                  print(
+                      "OK |", name,
+                      "| 1.", first,
+                      "| 2.", second,
+                      "| 3.", third
+                  )
+
+                  if len(third_games) > 1:
+                      problems.append(
+                          (name, "Mehrere Spiele um Platz 3")
+                      )
+
+              except Exception as exc:
+                  problems.append((name, str(exc)))
+                  print("PRUEFEN |", name, "|", exc)
+
+              time.sleep(0.4)
+
+          print("\n=== ZUSAMMENFASSUNG ===")
+          print("Competitions:", len(events))
+          print("Finale erkannt:", successful)
+          print("Auffaelligkeiten:", len(problems))
+
+          for name, reason in problems:
+              print("PRUEFEN:", name, "|", reason)
           PY
