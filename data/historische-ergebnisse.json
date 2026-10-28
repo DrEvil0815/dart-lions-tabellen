@@ -1,0 +1,21 @@
+
+{
+  "version": 1,
+  "beschreibung": "Manuell bestätigte historische Competition-Ergebnisse der Dart Lions Gräfenberg",
+  "turniere": [
+    {
+      "id": "ddcec65f-33e5-438f-80a0-94f9c8019e5d",
+      "name": "10. Steeldart Competition",
+      "datum": "10.10.2025",
+      "quelle": "Historische Darthelfer-Rangliste",
+      "teilnehmer": 6,
+      "platzierungen": {
+        "1": "Udo Sassik",
+        "2": "Felix Jacob",
+        "3": "Florian Wagner",
+        "4": "Christian Scheuring",
+        "5": "Steven Schley"
+      }
+    }
+  ]
+}
