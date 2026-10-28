@@ -92,7 +92,7 @@ h1 {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin: 22px 0;
 }
@@ -353,9 +353,6 @@ footer strong {
       <span class="number" id="players">–</span>
       <span class="label">Spielerprofile</span>
     </div>
-    <div class="stat">
-      <span class="number" id="finals">–</span>
-      <span class="label">Erkannte Sieger</span>
     </div>
     <div class="stat">
       <span class="number" id="years">–</span>
@@ -570,10 +567,7 @@ function renderOverview() {
   setText(
     "players",
     number(hallData.spielerprofile)
-  );
-  setText(
-    "finals",
-    number(hallData.finals_erkannt)
+ 
   );
   setText("years", number(years.size));
 
