@@ -18,13 +18,20 @@
   --line: #344156;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  margin: 0;
   background: var(--bg);
   color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 .container {
@@ -36,16 +43,14 @@ body {
 .hero {
   position: relative;
   padding: 30px 22px;
-  background: linear-gradient(
-    135deg, #202b3d, #0e1420
-  );
+  background: linear-gradient(135deg, #202b3d, #0e1420);
   border: 1px solid #54452c;
   border-radius: 18px;
   text-align: center;
   overflow: hidden;
 }
 
-.hero:before {
+.hero::before {
   content: "";
   position: absolute;
   top: 0;
@@ -90,6 +95,7 @@ h1 {
   font-size: 12px;
 }
 
+/* DREI GLEICH BREITE STATISTIKFELDER */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -98,6 +104,7 @@ h1 {
 }
 
 .stat {
+  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -134,9 +141,8 @@ h2 {
 }
 
 .record {
-  background: linear-gradient(
-    150deg, var(--panel2), var(--panel)
-  );
+  min-width: 0;
+  background: linear-gradient(150deg, var(--panel2), var(--panel));
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 20px 12px;
@@ -293,6 +299,7 @@ footer strong {
   color: var(--gold);
 }
 
+/* TABLET */
 @media (max-width: 750px) {
   .stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -322,6 +329,44 @@ footer strong {
     flex: 1 1 auto;
   }
 }
+
+/* SMARTPHONE */
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 14px 4px;
+  }
+
+  .stat .number {
+    font-size: 25px;
+  }
+
+  .stat .label {
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+  .records {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .record {
+    padding: 15px 8px;
+  }
+
+  .record .value {
+    font-size: 25px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
 </style>
 </head>
 
@@ -348,21 +393,22 @@ footer strong {
     </div>
   </header>
 
-  <div class="stats">
+  <section class="stats">
     <div class="stat">
       <span class="number" id="competitions">–</span>
       <span class="label">Competitions</span>
     </div>
+
     <div class="stat">
       <span class="number" id="players">–</span>
       <span class="label">Spielerprofile</span>
     </div>
-    </div>
+
     <div class="stat">
       <span class="number" id="years">–</span>
       <span class="label">Turnierjahre</span>
     </div>
-  </div>
+  </section>
 
   <h2>🏆 Unsere Rekorde</h2>
 
@@ -473,9 +519,8 @@ footer strong {
   </section>
 
   <p class="note">
-    Fehlende historische Platzierungen werden als
-    „Nicht ermittelt“ angezeigt. Sie werden
-    nicht geschätzt.
+    Fehlende historische Platzierungen werden
+    als „Nicht ermittelt“ angezeigt und nicht geschätzt.
   </p>
 
   <footer>
@@ -517,8 +562,8 @@ function setText(id, value) {
 }
 
 function validNumber(value) {
-  return typeof value === "number"
-    && Number.isFinite(value);
+  return typeof value === "number" &&
+    Number.isFinite(value);
 }
 
 function rankingData(type) {
@@ -531,7 +576,10 @@ function leaders(list, field, lowest = false) {
   );
 
   if (!valid.length) {
-    return { value: "–", names: "Keine Daten" };
+    return {
+      value: "–",
+      names: "Keine Daten"
+    };
   }
 
   const best = lowest
@@ -554,13 +602,16 @@ function displayRecord(valueId, nameId, record, suffix = "") {
       ? "–"
       : number(record.value) + suffix
   );
+
   setText(nameId, record.names);
 }
 
 function renderOverview() {
   const history = hallData.chronik || [];
+
   const years = new Set(
-    history.map(h => String(h.sort_datum || "").slice(0, 4))
+    history
+      .map(h => String(h.sort_datum || "").slice(0, 4))
       .filter(y => /^\d{4}$/.test(y))
   );
 
@@ -568,11 +619,12 @@ function renderOverview() {
     "competitions",
     number(hallData.ausgewertete_competitions)
   );
+
   setText(
     "players",
     number(hallData.spielerprofile)
- 
   );
+
   setText("years", number(years.size));
 
   const date = hallData.stand
@@ -669,6 +721,7 @@ function renderRanking() {
   if (!hallData) return;
 
   const config = rankingSettings[activeRanking];
+
   const list = rankingData(activeRanking)
     .filter(p => validNumber(p[config.main]))
     .filter(p => p[config.main] > 0);
@@ -751,17 +804,19 @@ function renderRanking() {
       : activeRanking === "low_darts"
       ? "Ein niedriger Wert bedeutet ein schnelleres Leg."
       : "Gleiche Werte erhalten denselben Rang. " +
-        "Berücksichtigt werden die ausgewerteten " +
-        "regulären Competitions ab 2025.";
+        "Berücksichtigt werden die regulären " +
+        "Competitions ab 2025.";
 }
 
 function renderYearOptions() {
   const history = hallData.chronik || [];
 
   const years = [...new Set(
-    history.map(item => String(
-      item.sort_datum || ""
-    ).slice(0, 4)).filter(y => /^\d{4}$/.test(y))
+    history
+      .map(item => String(
+        item.sort_datum || ""
+      ).slice(0, 4))
+      .filter(y => /^\d{4}$/.test(y))
   )].sort().reverse();
 
   $("year-filter").innerHTML =
@@ -802,7 +857,8 @@ function renderHistory() {
     const second = item.zweiter || "Nicht ermittelt";
     const third = item.dritter || "Nicht ermittelt";
 
-    const link = item.url && /^https:\/\/www\.darthelfer\.de\//.test(item.url)
+    const link = item.url &&
+      /^https:\/\/www\.darthelfer\.de\//.test(item.url)
       ? `<a href="${escapeHTML(item.url)}"
            target="_blank"
            rel="noopener noreferrer">
@@ -861,9 +917,8 @@ async function loadData() {
     $("ranking-body").innerHTML = `
       <tr>
         <td colspan="6" class="empty">
-          Die Hall-of-Fame-Daten sind noch nicht
-          veröffentlicht oder konnten nicht
-          geladen werden.
+          Die Hall-of-Fame-Daten konnten
+          nicht geladen werden.
         </td>
       </tr>
     `;
@@ -886,6 +941,7 @@ document.querySelectorAll(".tab").forEach(button => {
 
     button.classList.add("active");
     activeRanking = button.dataset.type;
+
     renderRanking();
   });
 });
