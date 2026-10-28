@@ -88,9 +88,48 @@ html:fullscreen .sponsor-strip,html.presentation .sponsor-strip{flex-shrink:0}
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <script>
 'use strict';
-// Freigegebene Spielerbilder bitte in GitHub unter spielerbilder/ ablegen und hier zuweisen.
-// Beispiel: 'Max Mustermann': 'spielerbilder/max-mustermann.jpg'
-const SPIELERFOTOS={};
+// Spielerporträts von den öffentlichen Dart-Lions-Mannschaftsseiten (SportMember).
+// Links sind öffentlich; für nicht vorhandene / nicht erreichbare Bilder erscheint die Silhouette.
+const SPIELERFOTOS={
+  "Sandro Eisenreich": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjQvMTcwZHRxdm50ejZfU2NyZWVuc2hvdF8yMDI2LTEwLTI0XzIxMDc1NC5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=577ee6d5f9ffcf37",
+  "Jessica Eisenreich": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvOGJ3a2gxMjEwOV9TY3JlZW5zaG90XzIwMjZfMTBfMjFfMTY1NzMzLnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=7d8e8000865b37e4",
+  "Dennis Windisch": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvM3I4amdra3RweV9TY3JlZW5zaG90XzIwMjZfMTBfMjFfMDk1NDM3LnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=d0a65cf1ff0dc7de",
+  "Nadine Graf": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvMXV4bXo1eGl5bGRfU2NyZWVuc2hvdF8yMDI2LTEwLTIxXzA5NTcyNy5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=ff510ce581db1ae6",
+  "Ronald Rupp": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvMTI0d2lnaDZyOF9TY3JlZW5zaG90XzIwMjYtMTAtMjFfMDk1OTM3LnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=784e7c40e415b0fc",
+  "Blanka Rupp": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvNncwcWoyOGdhel9TY3JlZWVuc2hvdF8yMDI2XzEwXzI2XzEyMDAzNS5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=b175427e6a88eb8c",
+  "Felix Jacob": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvOHJreGMzZXljb19TY3JlZW5zaG90XzIwMjZfMTBfMjZfMTIwMjQ5LnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=27b92901f5d6bb5b",
+  "Florian Wagner": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjcvOHZ6azg0dmc2NV9TY3JlZWVuc2hvdF8yMDI2XzEwXzI3XzA4MDUzNS5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=20cb03d03e3a4c85",
+  "Christian Scheuring": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjMvMjNwbHVoaXU3d2xfU2NyZWVuc2hvdF8yMDI2LTEwLTIzXzEzMzI1NC5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=02cf97f3995210d1",
+  "Dogan Cekic": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvM2c3amdxb290eV9TY3JlZWVuc2hvdF8yMDI2LTEwLTI2XzEyMTMwOS5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=1f065bfc394df9d6",
+  "Yigit Kara": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvNXJ6aG1jdWdwdV9TY3JlZWVuc2hvdF8yMDI2LTEwLTI2XzEyMTczMy5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=6a6817425e093312",
+  "Tommy Sülflow": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvNXRubjI2c21iN19TY3JlZWVuc2hvdF8yMDI2LTEwLTI2XzEyMDQyMC5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=c30c0c16f2a83a32",
+  "Niklas Grohmann": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjcvMmtnNmk2dm02YWNfU2NyZWVuc2hvdF8yMDI2LTEwLTI3XzA4MDg1NC5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=d8fb0d7d87af66ad",
+  "Steven Schley": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvM20yMHh5eGhkN18xMDAwMTQyNTY0LmpwZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=be719641ce9dcfa3",
+  "Ümit Celen": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvMXptajdvdXJlN2NfU2NyZWVuc2hvdF8yMDI2LTEwLTIwXzE2MDUyOS5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=d944c3d384269d57",
+  "Florian Thiel": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvMXdxc25tZ3NyYnlfV2hhdHNBcHBfSW1hZ2VfMjAyNi0xMC0yMF9hdF8xNi4wMi40NS5qcGVnIl0sWyJwIiwidGh1bWIiLCI2MDB4NjAwIyJdXQ%3D%3D?sha=0c939ce85faf6f4c",
+  "Bernd Häfner": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvN296OGZ0ZWtkZF9TY3JlZW5zaG90XzIwMjZfMTBfMjFfMTcxMDQ2LnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=20344f1ed2a36c77",
+  "Stefan Kunzmann": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvMml4NHVjdXR0Yl9TY3JlZWVuc2hvdF8yMDI2LTEwLTIwXzE2MDQwNS5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=85cc35479ae36b4b",
+  "Christian Lutz": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvMXczaXZ3cHE1dl9DaHJpc3RpYW5fTHV0ei5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=b01fcc30a922b244",
+  "Zoltan Kapocsanyi": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjAvOWR2OG9qbjVndF9LYXBvLnBuZyJdLFsicCIsInRodW1iIiwiNjAweDYwMCMiXV0%3D?sha=9cba0a7e8175784c",
+  "Jonas Nanke": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjYvNjhwcW1jZjg0bl9TY3JlZWVuc2hvdF8yMDI2LTEwLTI2XzEyMTYyMy5wbmciXSxbInAiLCJ0aHVtYiIsIjYwMHg2MDAjIl1d?sha=425c0ff5ddddf773"
+};
+function normName(name){return String(name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').toLowerCase().replace(/[^a-z\s-]/g,' ').trim().replace(/\s+/g,' ');}
+const PHOTO_INDEX=new Map();
+for(const [name,url] of Object.entries(SPIELERFOTOS)){
+  const key=normName(name);PHOTO_INDEX.set(key,url);
+  PHOTO_INDEX.set(key.split(' ').reverse().join(' '),url);
+}
+function playerPhotoUrl(name){
+  const key=normName(name);
+  if(PHOTO_INDEX.has(key))return PHOTO_INDEX.get(key);
+  const parts=key.split(' ');
+  if(parts.length>=2){
+    const reversed=parts.slice().reverse().join(' ');
+    if(PHOTO_INDEX.has(reversed))return PHOTO_INDEX.get(reversed);
+  }
+  return silhouette;
+}
+
 
 // Alle vier Original-Logos sind direkt in dieser HTML-Datei eingebettet.
 // Paar 1: CareTech Thiel + REWE Wittmann; Paar 2: Kempe + Graf Systemhaus.
@@ -156,7 +195,7 @@ function classNames(){
  const m=effectiveMode();document.body.className='projector mode-'+m;
  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===chosen));
 }
-function photo(name){const path=SPIELERFOTOS[name]||silhouette;return `<img class="portrait" src="${safe(path)}" alt="${safe(name)}" loading="eager">`;}
+function photo(name){const path=playerPhotoUrl(name);return `<img class="portrait" src="${safe(path)}" alt="${safe(name)}" loading="eager">`;}
 function player(g,n){
  const name=g[`spieler${n}Name`]||'Spieler', id=g[`spieler${n}Id`];
  const active=id&&(g.spielerIdActive===id||g.spielerIdAktiv===id);
@@ -254,7 +293,10 @@ function render(){
 }
 // Reiner Vorschau-Modus: keine WebSocket-Verbindung und keine echten Resultate.
 function demoGame(board,n){
- const p1='Demo-Spieler '+(n*2-1),p2='Demo-Spieler '+(n*2);
+ const beispielNamen=['Sandro Eisenreich','Jessica Eisenreich','Felix Jacob','Florian Wagner','Ümit Celen','Christian Lutz','Ronald Rupp','Nadine Graf','Christian Scheuring','Yigit Kara','Zoltan Kapocsanyi','Jonas Nanke'];
+ const fototest=qs.get('fototest')==='1';
+ const p1=fototest?beispielNamen[((n-1)*2)%beispielNamen.length]:'Demo-Spieler '+(n*2-1);
+ const p2=fototest?beispielNamen[((n-1)*2+1)%beispielNamen.length]:'Demo-Spieler '+(n*2);
  return {boardName:'BOARD '+board,spieler1Name:p1,spieler2Name:p2,
   spieler1Id:'demo-a-'+n,spieler2Id:'demo-b-'+n,spielerIdActive:'demo-a-'+n,
   spieler1Togo:[301,182,76,401,128,51][(n-1)%6],spieler2Togo:[170,240,151,97,330,208][(n-1)%6],
