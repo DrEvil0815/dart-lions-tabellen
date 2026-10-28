@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+
       - name: Python einrichten
         uses: actions/setup-python@v5
         with:
@@ -17,7 +20,7 @@ jobs:
       - name: Requests installieren
         run: pip install requests
 
-      - name: KO und Platzierungen untersuchen
+      - name: Finale und Platzierungen untersuchen
         shell: bash
         run: |
           python - <<'PY'
@@ -35,120 +38,83 @@ jobs:
               headers={"Accept": "application/json"}
           )
           response.raise_for_status()
+
           data = response.json()
-
-          def overview(title, obj):
-              print("\n=== " + title + " ===")
-
-              if not isinstance(obj, dict):
-                  print("Kein Objekt")
-                  return
-
-              for key, value in obj.items():
-                  if isinstance(value, list):
-                      print(key, "= LISTE", len(value))
-                  elif isinstance(value, dict):
-                      print(key, "= OBJEKT")
-                  elif value is not None:
-                      if any(x in key.lower() for x in [
-                          "platz", "rang", "status",
-                          "bezeichnung", "sieger"
-                      ]):
-                          print(key, "=", str(value)[:100])
-
-          def sample(title, items):
-              print("\n=== " + title + " ===")
-
-              if not isinstance(items, list):
-                  print("Keine Liste")
-                  return
-
-              print("Eintraege:", len(items))
-
-              for item in items[:2]:
-                  if not isinstance(item, dict):
-                      print(type(item).__name__)
-                      continue
-
-                  print("Felder:", list(item.keys()))
-
-                  # Nur turnierrelevante Werte ausgeben,
-                  # keine Kontaktdaten der Spieler.
-                  for key, value in item.items():
-                      lower = key.lower()
-
-                      if any(x in lower for x in [
-                          "platz", "rang", "player",
-                          "spieler", "game", "punkt",
-                          "score", "name", "sieger",
-                          "gewonnen", "verloren",
-                          "status", "feld", "runde"
-                      ]):
-                          if isinstance(value, (
-                              str, int, float, bool
-                          )) or value is None:
-                              print(
-                                  " ", key, "=",
-                                  str(value)[:150]
-                              )
-                          elif isinstance(value, list):
-                              print(
-                                  " ", key,
-                                  "= Liste", len(value)
-                              )
-                          elif isinstance(value, dict):
-                              print(
-                                  " ", key,
-                                  "= Objektfelder",
-                                  list(value.keys())[:20]
-                              )
-
-          main = data.get("turnierMain") or {}
           ko = data.get("turnierKO") or {}
 
-          print("=== TURNIER ===")
-          print("Name:", main.get("bezeichnung"))
-          print("Status:", main.get("tournamentstatus"))
-          print("KO-Name:", ko.get("bezeichnung"))
+          players = ko.get(
+              "tournamentPlayerEntities"
+          ) or []
 
-          overview("KO-DATENFELDER", ko)
+          games = ko.get(
+              "tournamentErgebnisEntities"
+          ) or []
 
-          for title, obj in [
-              ("HAUPTTURNIER", main),
-              ("KO-TURNIER", ko)
-          ]:
-              print("\n=== " + title + ": RELEVANTE LISTEN ===")
+          model = data.get("modelKO") or []
 
-              for key, value in obj.items():
-                  if isinstance(value, list) and any(
-                      term in key.lower()
-                      for term in [
-                          "game", "spiel", "ergebnis",
-                          "platz", "rang", "ko",
-                          "runde", "best"
-                      ]
-                  ):
-                      sample(title + " / " + key, value)
+          names = {
+              p["id"]: p.get("name", "Unbekannt")
+              for p in players
+              if p.get("id")
+          }
 
-          sample(
-              "KO-BAUM",
-              data.get("modelKO")
+          print("=== KO-TEILNEHMER ===")
+          for player in players:
+              print(
+                  player.get("id"),
+                  "|",
+                  player.get("name"),
+                  "| Gruppen-ID:",
+                  player.get("playerIdAusGruppenphase")
+              )
+
+          print("\n=== KO-SPIELPLAN ===")
+
+          for node in model:
+              print(
+                  "Feld:", node.get("feld"),
+                  "| Finale:", node.get("finale"),
+                  "| Platz 3:",
+                  node.get("beschreibungUnten"),
+                  "| Kind:", node.get("child"),
+                  "| Endknoten:", node.get("endknoten"),
+                  "| Eltern:",
+                  node.get("parent1"),
+                  node.get("parent2")
+              )
+
+          print("\n=== ALLE KO-ERGEBNISSE ===")
+
+          for game in games:
+              id1 = game.get("spieler1Id")
+              id2 = game.get("spieler2Id")
+
+              name1 = names.get(id1, "Unbekannt")
+              name2 = names.get(id2, "Unbekannt")
+
+              score1 = game.get("anzahlSpieler1")
+              score2 = game.get("anzahlSpieler2")
+
+              print(
+                  "Feld:", game.get("feld"),
+                  "|",
+                  name1,
+                  score1,
+                  ":",
+                  score2,
+                  name2
+              )
+
+          print("\n=== KONTROLLERGEBNIS ===")
+          print("Erwarteter Sieger: Maurice Baum")
+          print(
+              "Erwarteter Zweiter:",
+              "Preißinger Alexander"
+          )
+          print(
+              "Erwarteter Dritter:",
+              "Sandro Eisenreich"
           )
 
-          sample(
-              "TURNIER-SPIELE",
-              data.get("tournamentGames")
-          )
-
-          sample(
-              "GRUPPENTABELLEN",
-              data.get("gruppenTabellen")
-          )
-
-          sample(
-              "BESTPLATZIERTE",
-              data.get("bestplatzierteDtos")
-          )
-
-          print("\n=== TEST ABGESCHLOSSEN ===")
+          print("\nTEST ABGESCHLOSSEN")
           PY
