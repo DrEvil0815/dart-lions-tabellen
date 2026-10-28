@@ -119,7 +119,7 @@ html:fullscreen .sponsor-strip,html.presentation .sponsor-strip{flex-shrink:0}
 <header class="top"><div class="identity"><img class="logo" src="logos/dart-lions.PNG" alt="Dart Lions Gräfenberg – Original-Logo"><div><div class="tag">DART LIONS GRÄFENBERG</div><div class="heading">LIVE-ARENA</div></div></div><div class="head-right"><time class="arena-clock" id="arena-clock" aria-label="Aktuelle Uhrzeit">--:--</time><div class="state"><span class="lamp" id="lamp"></span><span id="state">Suche Veranstaltungen …</span></div></div></header>
 <div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="presentation" title="Blendet Bedienknöpfe aus; mit Taste B wieder einblenden">Beamer-Ansicht</button><button class="btn" id="reload">↻ Verbinden</button><button class="btn" id="league-data">Liga-Ergebnisse auslesen</button><button class="btn" id="crest-audit-open">Gegnerlogos prüfen</button></div></div>
 <div class="demo-ribbon" id="demo-ribbon">DEMO · SIMULIERTE SPIELE UND ERGEBNISSE · KEINE LIVE-DATEN</div>
-<main class="stage" id="stage" aria-live="polite"><div class="blank">Suche gestartete Darthelfer-Veranstaltungen …</div></main>
+<main class="stage" id="stage" aria-live="polite"><div class="blank">Suche gestartete Darthelfer-Veranstaltungen … (Der Wappen-Check funktioniert auch ohne laufendes Spiel)</div></main>
 <aside class="sponsor-strip" aria-label="Unsere Werbepartner"><div class="sponsor-label">UNSERE<br>PARTNER</div><div class="sponsor-list" id="sponsor-list"></div></aside>
 <footer class="bottom"><span id="updated">Verbindung wird vorbereitet</span><span>Öffentliche Darthelfer-Live-Daten · Game On!</span></footer>
 </div>
@@ -539,7 +539,19 @@ document.getElementById('crest-audit-close').addEventListener('click',()=>docume
 document.getElementById('crest-audit-test').addEventListener('click',checkCrestName);
 document.getElementById('crest-audit-name').addEventListener('keydown',e=>{if(e.key==='Enter')checkCrestName()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('crest-audit').classList.remove('open')});
-if(new URLSearchParams(location.search).get('wappencheck')==='1')openCrestAudit();
+// Wappen-Check wird unabhängig vom Darthelfer-Netzwerk aufgerufen.
+if(new URLSearchParams(location.search).get('wappencheck')==='1'){
+  // Auch bei verzögert geladenen großen Bilddateien den Dialog zuverlässig öffnen.
+  try { openCrestAudit(); }
+  catch(error) { console.warn('Wappen-Check wird erneut geladen',error); }
+  window.addEventListener('load',()=>{
+    const pane=document.getElementById('crest-audit');
+    if(pane&&!pane.classList.contains('open')){
+      try { openCrestAudit(); } catch(error){ console.error('Wappen-Check',error); }
+    }
+  },{once:true});
+}
+
 function teamHeader(e,m,i){
  const teams=teamNames(e),score=leagueScore(e);
  // Unser Dart-Lions-Team steht IMMER links, auch bei einem Auswärtsspiel.
