@@ -17,108 +17,97 @@ jobs:
       - name: Requests installieren
         run: pip install requests
 
-      - name: Spieler und Statistiken untersuchen
+      - name: Spielerzuordnung untersuchen
         shell: bash
         run: |
           python - <<'PY'
           import requests
 
-          URL = (
-              "https://www.darthelfer.de/api/public/tournament/"
+          url = (
+              "https://www.darthelfer.de/api/public/"
+              "tournament/"
               "d9943c19-41a5-4630-9d95-4d5543b97bf2"
           )
 
-          response = requests.get(
-              URL,
+          r = requests.get(
+              url,
               timeout=40,
-              headers={
-                  "User-Agent": "Mozilla/5.0",
-                  "Accept": "application/json"
-              }
+              headers={"Accept": "application/json"}
           )
-          response.raise_for_status()
-          data = response.json()
-
-          def inspect(label, value):
-              print("\n=== " + label + " ===")
-
-              if value is None:
-                  print("Keine Daten")
-                  return
-
-              if isinstance(value, dict):
-                  print("Felder:", list(value.keys())[:60])
-
-                  for key in list(value.keys())[:20]:
-                      item = value[key]
-
-                      if isinstance(item, list):
-                          print(key, "- Liste:", len(item))
-                          if item and isinstance(item[0], dict):
-                              print("  Eintragsfelder:",
-                                    list(item[0].keys())[:40])
-
-                      elif isinstance(item, dict):
-                          print(key, "- Objektfelder:",
-                                list(item.keys())[:30])
-
-              elif isinstance(value, list):
-                  print("Eintraege:", len(value))
-                  if value and isinstance(value[0], dict):
-                      print("Felder:",
-                            list(value[0].keys())[:60])
-                      print("Beispiel:",
-                            str(value[0])[:1000])
-
-              else:
-                  print(str(value)[:300])
-
-          inspect(
-              "RANGLISTEN",
-              data.get("ranglisteWrapper")
-          )
-
-          wrapper = data.get("ranglisteWrapper") or {}
-
-          for field in [
-              "rangliste180er",
-              "rangliste171er",
-              "ranglisteHighfinishes",
-              "lowDarts",
-              "playerStatistiks",
-              "ranglisteAverage"
-          ]:
-              inspect(
-                  "STATISTIK " + field,
-                  wrapper.get(field)
-              )
-
-          inspect(
-              "BESTPLATZIERTE",
-              data.get("bestplatzierteDtos")
-          )
-
-          inspect(
-              "KO-TURNIER",
-              data.get("modelKO")
-          )
-
-          inspect(
-              "TURNIER-SPIELE",
-              data.get("tournamentGames")
-          )
+          r.raise_for_status()
+          data = r.json()
 
           main = data.get("turnierMain") or {}
+          wrapper = data.get("ranglisteWrapper") or {}
 
-          print("\n=== RELEVANTE TURNIERFELDER ===")
+          players = (
+              main.get("tournamentPlayerEntities") or []
+          )
+
+          stats = wrapper.get("playerStatistiks") or []
+          maximums = wrapper.get("rangliste180er") or []
+
+          print("=== SPIELERZUORDNUNG ===")
+          print("Spieler:", len(players))
+          print("Statistiken:", len(stats))
+
+          if players:
+              print("\nSPIELERFELDER:")
+              print(list(players[0].keys()))
+
+          def safe_fields(obj):
+              result = {}
+              for key, value in obj.items():
+                  k = key.lower()
+
+                  if any(x in k for x in [
+                      "name", "vorname", "nachname",
+                      "playerid", "userid",
+                      "spielerid", "platz"
+                  ]) or k == "id":
+                      if isinstance(value, (
+                          str, int, float, bool
+                      )):
+                          result[key] = value
+
+              return result
+
+          print("\nSPIELERBEISPIELE:")
+          for player in players[:5]:
+              print(safe_fields(player))
+
+          print("\nSTATISTIK-BEISPIELE:")
+          for stat in stats[:3]:
+              print({
+                  "id": stat.get("id"),
+                  "playerid": stat.get("playerid"),
+                  "userid": stat.get("userid"),
+                  "180er": stat.get("_180er"),
+                  "average": stat.get("average")
+              })
+
+          print("\n180ER-RANGLISTE:")
+          for item in maximums:
+              print({
+                  "id": item.get("id"),
+                  "anzahl": item.get("anzahl")
+              })
+
+          print("\nPLATZIERUNGSFELDER:")
           for key in main:
-              if any(term in key.lower() for term in [
-                  "platz", "rang", "teilnehmer",
-                  "spieler", "player", "ergebnis",
-                  "bezeichnung", "beginn", "status"
+              if any(x in key.lower() for x in [
+                  "platz", "rang", "ergebnis"
               ]):
                   value = main[key]
-                  print(key, ":", str(value)[:250])
+                  if isinstance(value, list):
+                      print(key, "Eintraege:", len(value))
+                      if value and isinstance(value[0], dict):
+                          print(
+                              "Felder:",
+                              list(value[0].keys())
+                          )
+                  else:
+                      print(key, "Typ:", type(value).__name__)
 
           print("\nTEST ABGESCHLOSSEN")
           PY
