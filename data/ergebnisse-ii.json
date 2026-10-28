@@ -1,0 +1,34 @@
+{
+  "team": "Dart Lions Gräfenberg II",
+  "liga": "4. Bezirksliga Oberfranken F",
+  "saison": "2026/27",
+  "stand": "2026-10-28T09:15+00:00",
+  "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528109&championship=OFr+2026%2F27&group=211414",
+  "naechstes_spiel": {
+    "datum": "30.10.2026",
+    "datum_iso": "2026-10-30",
+    "uhrzeit": "20:00",
+    "heim": "Dart Lions Gräfenberg II",
+    "gast": "DJK \"Creek Steelers\" Wimmelbach III"
+  },
+  "spiele": [
+    {
+      "datum": "16.10.2026",
+      "datum_iso": "2026-10-16",
+      "uhrzeit": "20:00",
+      "heim": "Blue Bulls SV Walsdorf III",
+      "gast": "Dart Lions Gräfenberg II",
+      "ergebnis": "11:7",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106626&championship=OFr+2026%2F27&group=211414"
+    },
+    {
+      "datum": "18.09.2026",
+      "datum_iso": "2026-09-18",
+      "uhrzeit": "20:00",
+      "heim": "TSV Hirschaid e.V. - The Deers IV",
+      "gast": "Dart Lions Gräfenberg II",
+      "ergebnis": "9:9",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106621&championship=OFr+2026%2F27&group=211414"
+    }
+  ]
+}
