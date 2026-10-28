@@ -54,7 +54,7 @@ body.projector{height:100dvh;overflow:hidden}.projector .shell{height:100dvh;max
 <body class="projector mode-competition">
 <div class="shell">
 <header class="top"><div class="identity"><img class="logo" src="logos/dart-lions.PNG" alt="Dart Lions Gräfenberg – Original-Logo"><div><div class="tag">DART LIONS GRÄFENBERG</div><div class="heading">LIVE-ARENA</div></div></div><div class="state"><span class="lamp" id="lamp"></span><span id="state">Suche Veranstaltungen …</span></div></header>
-<div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="reload">↻ Verbinden</button><button class="btn" id="league-data">Liga-Daten prüfen</button></div></div>
+<div class="toolbar"><div class="controls"><button class="btn" data-mode="auto">Automatik</button><button class="btn" data-mode="single">Liga · 2 Boards</button><button class="btn" data-mode="double">Doppelheimspiel · 4 Boards</button><button class="btn" data-mode="competition">Competition · 6 Boards</button></div><div class="controls"><button class="btn" id="screen">⛶ Vollbild</button><button class="btn" id="reload">↻ Verbinden</button><button class="btn" id="league-data">Liga-Ergebnisse auslesen</button></div></div>
 <main class="stage" id="stage" aria-live="polite"><div class="blank">Suche gestartete Darthelfer-Veranstaltungen …</div></main>
 <footer class="bottom"><span id="updated">Verbindung wird vorbereitet</span><span>Öffentliche Darthelfer-Live-Daten · Game On!</span></footer>
 </div>
@@ -186,8 +186,11 @@ byId('league-data').addEventListener('click',async()=>{
   const main=d.turnierMain||d.turnierGruppe||{};
   const entries=main.tournamentLeagueGameEntities||[];
   const results=main.tournamentErgebnisEntities||[];
+  // Nur Daten für die korrekte Spielauswertung: Ergebnisse, Matchkennungen,
+  // Zuordnung zu Heim/Gast. Keine Kontakt- oder Administratordaten.
+  const players=Array.isArray(main.tournamentPlayerEntities)?main.tournamentPlayerEntities:[];
   const out={
-   hinweis:'Öffentliche Ligaspiel-Diagnose. Keine privaten Personen- oder Admin-Daten enthalten.',
+   hinweis:'Öffentliche Liga-Spielauswertung. Keine E-Mail-Adressen, Telefonnummern oder Admin-Daten.',
    tournamentId:id,
    turnierName:main.bezeichnung||chosenLeague?.bezeichnung||null,
    turniersystem:main.turniersystem||null,
@@ -195,15 +198,31 @@ byId('league-data').addEventListener('click',async()=>{
    mannschaftGast:main.mannschaftGast||null,
    keysLigaSpiel:entries[0]?Object.keys(entries[0]):[],
    ligaSpiele:entries.map(x=>({
-    id:x.id,spieler1:x.spieler1,spieler2:x.spieler2,
-    spieler1Id:x.spieler1Id,spieler2Id:x.spieler2Id,
-    anzahlSpieler1:x.anzahlSpieler1,anzahlSpieler2:x.anzahlSpieler2,
-    heim:x.heim,gast:x.gast,ergebnisVomScorer:x.ergebnisVomScorer,
-    feld:x.feld,spielnummer:x.spielnummer,
-    ...Object.fromEntries(Object.entries(x).filter(([k])=>/home|away|heim|gast|punkt|ergebnis|winner|gewinn|status|team|mannschaft|spielnummer/i.test(k)))
+    id:x.id,gameId:x.gameId,ligaSpielId:x.ligaSpielId,type:x.type,bereich:x.bereich,counter:x.counter,
+    complete:x.complete,anzahlPlayer1:x.anzahlPlayer1,anzahlPlayer2:x.anzahlPlayer2,
+    player1Id:x.player1Id,player2Id:x.player2Id,
+    doppelpartner1Player1Id:x.doppelpartner1Player1Id,doppelpartner1Player2Id:x.doppelpartner1Player2Id,
+    doppelpartner2Player1Id:x.doppelpartner2Player1Id,doppelpartner2Player2Id:x.doppelpartner2Player2Id,
+    ergebnisVomScorer:x.ergebnisVomScorer,
+    paarkreuzwertHeim1:x.paarkreuzwertHeim1,paarkreuzwertGast1:x.paarkreuzwertGast1,
+    paarkreuzwertHeim2:x.paarkreuzwertHeim2,paarkreuzwertGast2:x.paarkreuzwertGast2
    })),
    keysErgebnis:results[0]?Object.keys(results[0]):[],
-   ergebnisse:results.slice(0,25).map(x=>Object.fromEntries(Object.entries(x).filter(([k])=>/spieler|anzahl|punkt|ergebnis|gewinn|status|team|mannschaft|spielnummer|feld/i.test(k))))
+   ergebnisse:results.map(x=>({
+    id:x.id,gameId:x.gameId,ligaSpielId:x.ligaSpielId,
+    player1Id:x.player1Id,player2Id:x.player2Id,
+    spieler1Id:x.spieler1Id,spieler2Id:x.spieler2Id,
+    anzahlPlayer1:x.anzahlPlayer1,anzahlPlayer2:x.anzahlPlayer2,
+    anzahlSpieler1:x.anzahlSpieler1,anzahlSpieler2:x.anzahlSpieler2,
+    complete:x.complete,type:x.type
+   })),
+   spielerZuordnung:players.map(p=>({
+    id:p.id,idShort:p.idShort,name:p.name,heimmannschaft:p.heimmannschaft,
+    vereinsname:p.vereinsname,
+    // Player classification available as boolean or as explicit field?
+    mannschaft:p.mannschaft||null
+   })),
+   allgemeineErgebnisFelder:Object.keys(main).filter(k=>/ergebnis|result|score|spielstand|punkt|stand|heim|gast/i.test(k))
   };
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='dart-lions-liga-datencheck.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
