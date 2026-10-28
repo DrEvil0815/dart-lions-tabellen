@@ -5,25 +5,193 @@
     {
       "id": "christian-hohe",
       "name": "Christian Hohe",
-      "bekannte_namen": [
-        "Christian Hohe"
-      ],
+      "bekannte_namen": ["Christian Hohe"],
       "darthelfer_user_ids": []
     },
     {
       "id": "melissa-zarbo",
       "name": "Melissa Zarbo",
-      "bekannte_namen": [
-        "Melissa Zarbo"
-      ],
+      "bekannte_namen": ["Melissa Zarbo"],
       "darthelfer_user_ids": []
     },
     {
       "id": "petra-haefner",
       "name": "Petra Häfner",
-      "bekannte_namen": [
-        "Petra Häfner"
-      ],
+      "bekannte_namen": ["Petra Häfner"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "jenny-hausner",
+      "name": "Jenny Hausner",
+      "bekannte_namen": ["Jenny Hausner"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "schorsch",
+      "name": "Schorsch",
+      "bekannte_namen": ["Schorsch"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "christian-dresel",
+      "name": "Christian Dresel",
+      "bekannte_namen": ["Christian Dresel"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "marco-holzapfel",
+      "name": "Marco Holzapfel",
+      "bekannte_namen": ["Marco Holzapfel"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "matthias-rau",
+      "name": "Matthias Rau",
+      "bekannte_namen": ["Matthias Rau"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "stefan-ochmann",
+      "name": "Stefan Ochmann",
+      "bekannte_namen": ["Stefan Ochmann"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "johann-schuster",
+      "name": "Johann Schuster",
+      "bekannte_namen": ["Johann Schuster"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "tobias-leidl",
+      "name": "Tobias Leidl",
+      "bekannte_namen": ["Tobias Leidl"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "valentina-rupp",
+      "name": "Valentina Rupp",
+      "bekannte_namen": ["Valentina Rupp"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "emil-schauer",
+      "name": "Emil Schauer",
+      "bekannte_namen": ["Emil Schauer"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "matthias-werner",
+      "name": "Matthias Werner",
+      "bekannte_namen": ["Matthias Werner"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "preissinger-alexander",
+      "name": "Preissinger Alexander",
+      "bekannte_namen": ["Preissinger Alexander"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "sarah-smolny",
+      "name": "Sarah Smolny",
+      "bekannte_namen": ["Sarah Smolny"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "amrei-schauer",
+      "name": "Amrei Schauer",
+      "bekannte_namen": ["Amrei Schauer"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "diana-merl",
+      "name": "Diana Merl",
+      "bekannte_namen": ["Diana Merl"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "felizitas-dresel",
+      "name": "Felizitas Dresel",
+      "bekannte_namen": ["Felizitas Dresel"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "fridrich-luft",
+      "name": "Fridrich Luft",
+      "bekannte_namen": ["Fridrich Luft"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "hagen-bretschneider",
+      "name": "Hagen Bretschneider",
+      "bekannte_namen": ["Hagen Bretschneider"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "jan-peper",
+      "name": "Jan Peper",
+      "bekannte_namen": ["Jan Peper"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "jason-reidinger",
+      "name": "Jason Reidinger",
+      "bekannte_namen": ["Jason Reidinger"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "julian-merl",
+      "name": "Julian Merl",
+      "bekannte_namen": ["Julian Merl"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "kalle-leyendecker",
+      "name": "Kalle Leyendecker",
+      "bekannte_namen": ["Kalle Leyendecker"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "luca-daferner",
+      "name": "Luca Daferner",
+      "bekannte_namen": ["Luca Daferner"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "manuel",
+      "name": "Manuel",
+      "bekannte_namen": ["Manuel"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "melina",
+      "name": "Melina",
+      "bekannte_namen": ["Melina"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "orfeas-ramai",
+      "name": "Orfeas Ramai",
+      "bekannte_namen": ["Orfeas Ramai"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "roland-doersch",
+      "name": "Roland Dörsch",
+      "bekannte_namen": ["Roland Dörsch"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "simone-kormann",
+      "name": "Simone Kormann",
+      "bekannte_namen": ["Simone Kormann"],
+      "darthelfer_user_ids": []
+    },
+    {
+      "id": "timm-kolbenschlag",
+      "name": "Timm Kolbenschlag",
+      "bekannte_namen": ["Timm Kolbenschlag"],
       "darthelfer_user_ids": []
     }
   ]
