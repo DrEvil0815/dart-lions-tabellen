@@ -57,7 +57,7 @@ h2 {
   line-height: 1.3;
 }
 
-/* Allgemeine Spielkarten */
+/* Spielkarten */
 
 .match-card {
   background: linear-gradient(
@@ -86,7 +86,7 @@ h2 {
   margin-top: 7px;
 }
 
-/* Mannschaften mit Originalwappen */
+/* Mannschaften und Originalwappen */
 
 .scoreboard {
   display: grid;
@@ -139,9 +139,10 @@ h2 {
   font-weight: 900;
   font-size: clamp(28px, 7vw, 40px);
   white-space: nowrap;
+  text-align: center;
 }
 
-/* Nächstes Spiel – bewusst kleiner */
+/* Nächstes Ligaspiel - kleinere Karte */
 
 .next-card {
   padding: 11px 10px;
@@ -185,7 +186,7 @@ h2 {
   margin-top: 8px;
 }
 
-/* Letztes Ergebnis */
+/* Letztes Ligaspiel */
 
 .latest-card .club-logo,
 .latest-card .logo-placeholder {
@@ -196,6 +197,8 @@ h2 {
 .latest-card .scoreboard {
   margin: 16px 0 10px;
 }
+
+/* Spielbericht */
 
 .report-link {
   display: block;
@@ -212,7 +215,7 @@ h2 {
   text-decoration: underline;
 }
 
-/* Ältere Ergebnisse */
+/* Weitere Ergebnisse */
 
 .history {
   display: flex;
@@ -227,64 +230,51 @@ h2 {
   padding: 12px 10px;
 }
 
-.history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
+/* Datum oben mittig */
 
 .history-date {
   color: var(--muted);
   font-size: 11px;
+  text-align: center;
 }
 
-.history-score {
-  color: var(--gold-light);
-  font-size: 20px;
-  font-weight: bold;
-  white-space: nowrap;
-}
+/* Ergebnis exakt zwischen den Wappen */
 
-.history-teams {
-  display: grid;
+.history-item .scoreboard {
   grid-template-columns:
     minmax(0, 1fr)
+    auto
     minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 8px;
+  margin: 12px 0 8px;
 }
 
-.history-club {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 7px;
+.history-item .club-logo,
+.history-item .logo-placeholder {
+  width: 43px;
+  height: 43px;
+  margin-bottom: 6px;
 }
 
-.history-club .club-logo,
-.history-club .logo-placeholder {
-  width: 34px;
-  height: 34px;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.history-club .logo-placeholder {
-  font-size: 7px;
-}
-
-.history-club .club-name {
-  text-align: left;
+.history-item .club-name {
   font-size: 11px;
+}
+
+.history-item .score {
+  font-size: 30px;
 }
 
 .history-link {
   color: var(--gold-light);
   font-size: 11px;
   text-decoration: none;
+  display: block;
+  text-align: center;
+  margin-top: 8px;
 }
+
+/* Status und Datenstand */
 
 .status {
   text-align: center;
@@ -300,7 +290,7 @@ h2 {
   text-align: center;
 }
 
-/* Extra schmale Homepage-Spalten */
+/* Für schmale Homepage-Spalten */
 
 @media (max-width: 440px) {
 
@@ -348,24 +338,25 @@ h2 {
     font-size: 20px;
   }
 
-  .history-teams {
-    gap: 6px;
+  .history-item .club-logo,
+  .history-item .logo-placeholder {
+    width: 35px;
+    height: 35px;
   }
 
-  .history-club {
-    gap: 5px;
-  }
-
-  .history-club .club-logo,
-  .history-club .logo-placeholder {
-    width: 28px;
-    height: 28px;
-  }
-
-  .history-club .club-name {
+  .history-item .club-name {
     font-size: 10px;
   }
+
+  .history-item .score {
+    font-size: 25px;
+  }
+
+  .history-item .scoreboard {
+    gap: 5px;
+  }
 }
+
 </style>
 </head>
 
@@ -380,16 +371,19 @@ h2 {
   </p>
 
   <!-- Nächstes Ligaspiel -->
+
   <div id="next-match"></div>
 
-  <!-- Letztes Ergebnis -->
+  <!-- Letztes Ligaspiel -->
+
   <h2>LETZTES LIGASPIEL</h2>
 
   <div id="latest" class="status">
     Spielergebnisse werden geladen ...
   </div>
 
-  <!-- Ältere Ergebnisse -->
+  <!-- Weitere Ergebnisse -->
+
   <h2>WEITERE ERGEBNISSE</h2>
 
   <div id="history" class="history"></div>
@@ -401,18 +395,11 @@ h2 {
 <script>
 "use strict";
 
-/*
-  Automatisch aktualisierte JSON-Datei
-  aus unserem GitHub-Workflow.
-*/
+/* Automatisch aktualisierte NuLiga-Daten */
 
 const DATA_URL = "./data/ergebnisse-iii.json";
 
-/*
-  Originalwappen.
-  Dateinamen müssen exakt mit GitHub
-  übereinstimmen.
-*/
+/* Originalwappen aller Mannschaften */
 
 const LOGOS = {
 
@@ -499,29 +486,22 @@ function addLogo(container, teamName) {
   container.appendChild(image);
 }
 
-/* Mannschaft mit Wappen */
+/* Mannschaft mit Wappen erstellen */
 
-function createClub(teamName, compact = false) {
+function createClub(teamName) {
 
-  const club = create(
-    "div",
-    compact ? "history-club" : "club"
-  );
+  const club = create("div", "club");
 
   addLogo(club, teamName);
 
   club.appendChild(
-    create(
-      "div",
-      "club-name",
-      teamName
-    )
+    create("div", "club-name", teamName)
   );
 
   return club;
 }
 
-/* Spielbericht-Link */
+/* Link zum NuLiga-Spielbericht */
 
 function createReportLink(spiel, className) {
 
@@ -533,7 +513,7 @@ function createReportLink(spiel, className) {
 
   try {
     url = new URL(spiel.spielbericht);
-  } catch(error) {
+  } catch (error) {
     return null;
   }
 
@@ -557,7 +537,7 @@ function createReportLink(spiel, className) {
   return link;
 }
 
-/* Vorschau auf nächstes Spiel */
+/* Nächstes Ligaspiel */
 
 function showNextMatch(spiel) {
 
@@ -566,11 +546,7 @@ function showNextMatch(spiel) {
 
   container.replaceChildren();
 
-  if (
-    !spiel ||
-    !spiel.heim ||
-    !spiel.gast
-  ) {
+  if (!spiel || !spiel.heim || !spiel.gast) {
     return;
   }
 
@@ -595,10 +571,7 @@ function showNextMatch(spiel) {
     )
   );
 
-  const board = create(
-    "div",
-    "scoreboard"
-  );
+  const board = create("div", "scoreboard");
 
   board.appendChild(
     createClub(spiel.heim)
@@ -628,7 +601,7 @@ function showNextMatch(spiel) {
   container.appendChild(card);
 }
 
-/* Letztes abgeschlossenes Spiel */
+/* Letztes abgeschlossenes Ligaspiel */
 
 function showLatest(spiel) {
 
@@ -648,10 +621,7 @@ function showLatest(spiel) {
     )
   );
 
-  const board = create(
-    "div",
-    "scoreboard"
-  );
+  const board = create("div", "scoreboard");
 
   board.appendChild(
     createClub(spiel.heim)
@@ -681,7 +651,13 @@ function showLatest(spiel) {
   }
 }
 
-/* Weitere abgeschlossene Spiele */
+/*
+  Weitere Ergebnisse:
+  Datum oben.
+  Heimwappen links.
+  Ergebnis mittig.
+  Gastwappen rechts.
+*/
 
 function showHistory(spiele) {
 
@@ -710,43 +686,44 @@ function showHistory(spiele) {
       "history-item"
     );
 
-    const header = create(
-      "div",
-      "history-header"
-    );
-
-    header.appendChild(
+    item.appendChild(
       create(
-        "span",
+        "div",
         "history-date",
         spiel.datum
       )
     );
 
-    header.appendChild(
+    const board = create(
+      "div",
+      "scoreboard"
+    );
+
+    /* Heimmannschaft links */
+
+    board.appendChild(
+      createClub(spiel.heim)
+    );
+
+    /* Ergebnis exakt in der Mitte */
+
+    board.appendChild(
       create(
-        "span",
-        "history-score",
+        "div",
+        "score",
         spiel.ergebnis
       )
     );
 
-    item.appendChild(header);
+    /* Gastmannschaft rechts */
 
-    const teams = create(
-      "div",
-      "history-teams"
+    board.appendChild(
+      createClub(spiel.gast)
     );
 
-    teams.appendChild(
-      createClub(spiel.heim, true)
-    );
+    item.appendChild(board);
 
-    teams.appendChild(
-      createClub(spiel.gast, true)
-    );
-
-    item.appendChild(teams);
+    /* Direkter Spielbericht */
 
     const report = createReportLink(
       spiel,
@@ -761,7 +738,7 @@ function showHistory(spiele) {
   }
 }
 
-/* NuLiga-Daten automatisch laden */
+/* Ergebnisse automatisch laden */
 
 async function loadResults() {
 
@@ -778,7 +755,7 @@ async function loadResults() {
     if (!response.ok) {
 
       throw new Error(
-        "Ergebnisdatei nicht erreichbar: " +
+        "JSON-Datei nicht erreichbar: " +
         response.status
       );
     }
@@ -792,20 +769,13 @@ async function loadResults() {
       );
     }
 
-    /*
-      Nächstes Spiel anzeigen.
-      Wenn keines vorhanden ist,
-      bleibt die Karte ausgeblendet.
-    */
+    /* Nächstes Ligaspiel */
 
     showNextMatch(
       data.naechstes_spiel
     );
 
-    /*
-      Alle fertigen Spiele nach
-      Datum sortieren.
-    */
+    /* Abgeschlossene Spiele sortieren */
 
     const spiele = data.spiele
       .filter(function(spiel) {
@@ -843,9 +813,7 @@ async function loadResults() {
       showHistory([]);
     }
 
-    /*
-      Letzte Aktualisierung anzeigen.
-    */
+    /* Letzter Datenabruf */
 
     if (data.stand) {
 
@@ -881,7 +849,7 @@ async function loadResults() {
   }
 }
 
-/* Automatisch starten */
+/* Anzeige starten */
 
 loadResults();
 
