@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dart Lions Gräfenberg – Live-Arena mit wechselnden Sponsoren</title>
+<title>Dart Lions Gräfenberg – Live-Arena mit Teamlogos und Spielstand</title>
 <style>
 :root{color-scheme:dark;--bg:#080d17;--panel:#172030;--gold:#f3c55c;--muted:#aebace;--red:#e74a53;--green:#67e3ac;--border:#4e4650}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080d17;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}body{background:radial-gradient(ellipse at 45% -35%,#49202a 0,#141b29 43%,#080d17 95%)}button,select{font:inherit}button{cursor:pointer}.shell{max-width:1800px;margin:0 auto;padding:16px 19px 15px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:75px}.identity{display:flex;align-items:center;gap:13px;min-width:0}.logo{height:63px;width:63px;object-fit:contain;flex:none}.tag{color:var(--gold);letter-spacing:.18em;font-size:11px;font-weight:850}.heading{font-size:clamp(24px,2.6vw,40px);font-weight:950;letter-spacing:.03em;line-height:1.12}.state{display:flex;align-items:center;gap:9px;font-size:12px;color:#e8ecf4;background:#111c2a;border:1px solid #455365;border-radius:30px;padding:9px 13px;white-space:nowrap}.lamp{width:9px;height:9px;border-radius:50%;background:#a8b3c3}.lamp.ok{background:var(--green);box-shadow:0 0 10px #67e3ac}.lamp.fail{background:var(--red)}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 12px;flex-wrap:wrap}.controls{display:flex;gap:7px;flex-wrap:wrap;align-items:center}.btn{background:#243048;border:1px solid #5a6274;border-radius:8px;color:#fff;padding:7px 11px;font-size:12px}.btn.active{background:#6c4720;border-color:#e9b751;color:#fff}.note{font-size:12px;color:var(--muted)}.event-bar{padding:8px 13px;background:linear-gradient(90deg,#4b2428,#1b2332);border:1px solid #7a4b3d;border-radius:11px;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:49px}.event-title{font-size:clamp(15px,1.45vw,23px);font-weight:900;overflow-wrap:anywhere}.event-small{color:#ded2c5;font-size:11px}.match-score{display:flex;align-items:center;gap:9px;flex-shrink:0}.match-label{font-size:10px;color:var(--muted);text-align:right;line-height:1.2}.match-number{font-size:clamp(19px,2.15vw,30px);font-weight:950;color:var(--gold);white-space:nowrap;font-variant-numeric:tabular-nums}.board-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game{background:linear-gradient(155deg,#27303d 0%,#111a2a 82%);border:1px solid #665344;border-radius:12px;min-width:0;overflow:hidden;display:flex;flex-direction:column}.board-top{background:#0b1422;padding:6px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #c99c45}.board-title{font-size:13px;color:var(--gold);font-weight:950;letter-spacing:.08em}.board-live{font-size:10px;font-weight:850;color:var(--green)}.players{flex:1;display:flex;flex-direction:column;min-height:0}.player{display:grid;grid-template-columns:69px minmax(0,1fr) auto;gap:9px;align-items:center;padding:7px 10px;min-width:0;flex:1}.player+.player{border-top:1px solid #ffffff19}.player.active{background:linear-gradient(90deg,#78551f55,#17233622)}.portrait{width:64px;height:81px;border-radius:8px;object-fit:cover;object-position:center 25%;border:1px solid #8c7856;background:#263447}.player.active .portrait{border-color:var(--gold);box-shadow:0 0 8px #e5b95855}.pinfo{min-width:0}.pname{font-weight:900;font-size:clamp(14px,1.27vw,21px);line-height:1.1;overflow-wrap:anywhere}.psub{font-size:10px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stats{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.stat{padding:3px 6px;background:#0b1523;border:1px solid #485062;border-radius:5px;font-size:9px;color:#bbc7d7;white-space:nowrap}.stat b{color:var(--gold);font-size:11px}.scores{display:flex;gap:7px;align-items:center;flex-shrink:0}.legs{text-align:center;background:#0c1727;border:1px solid #665641;border-radius:6px;padding:5px 6px;min-width:39px}.tiny{font-size:9px;letter-spacing:.06em;color:#a7b7cb}.legval{font-size:25px;font-weight:950;line-height:1.1}.restbox{text-align:right;min-width:56px}.rest{font-size:clamp(27px,2.8vw,42px);font-weight:950;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.05}.board-bottom{background:#0c1420;padding:4px 12px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}.placeholder{border-style:dashed;opacity:.68}.placeholder .players{align-items:center;justify-content:center;color:#9dacbe;font-size:14px;text-align:center;padding:15px}.blank{padding:35px 22px;border:1px solid #4e586c;border-radius:12px;background:#172033;text-align:center;color:#bcc9dc}.blank strong{display:block;font-size:21px;color:#fff;margin-bottom:10px}.bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:9px;color:var(--muted);font-size:10px}.bottom a{color:var(--gold)}
@@ -73,6 +73,29 @@ html:fullscreen .sponsor-strip,html.presentation .sponsor-strip{flex-shrink:0}
 .arena-clock{font-variant-numeric:tabular-nums;font-size:clamp(12px,1vw,17px);font-weight:800;letter-spacing:.05em;color:#d6e0ee;white-space:nowrap}
 .head-right{display:flex;align-items:center;gap:15px}
 @media(max-width:780px){.arena-clock{font-size:12px}.head-right{gap:7px}}
+
+/* Fünfteiliger Liga-Ergebnisbalken: Lions | Logo | Stand | Gegnerlogo | Gegner */
+.league-event-bar{display:block;padding:5px 13px 7px;min-height:69px}
+.league-kicker{font-size:10px;letter-spacing:.075em;color:#dbc0b0;margin-bottom:3px}
+.league-match-line{display:grid;grid-template-columns:minmax(0,1fr) 51px minmax(104px,auto) 51px minmax(0,1fr);align-items:center;gap:13px;min-width:0}
+.league-team{min-width:0;display:flex;align-items:center}
+.league-team-home{justify-content:flex-end;text-align:right}
+.league-team-away{justify-content:flex-start;text-align:left}
+.league-team-name{font-size:clamp(15px,1.5vw,24px);font-weight:900;line-height:1.12;overflow-wrap:anywhere}
+.league-crest-wrap{display:flex;align-items:center;justify-content:center;width:51px;height:51px}
+.team-crest{display:block;width:100%;height:100%;object-fit:contain}
+.opponent-crest-placeholder{width:45px;height:45px;align-items:center;justify-content:center;border:1px solid #a58c67;color:#dfc59b;background:#192337;border-radius:12px;font-size:26px;opacity:.75}
+.league-score-wrap{text-align:center}
+.league-score{font-size:clamp(27px,3vw,44px);font-weight:950;line-height:1;color:#f3c55c;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:.015em}
+.score-colon{color:#d6ac5e}
+.projector .league-event-bar{padding:3px 12px 5px;min-height:61px}
+.projector .league-kicker{font-size:9px;margin-bottom:2px}
+.projector .league-match-line{grid-template-columns:minmax(0,1fr) 43px minmax(95px,auto) 43px minmax(0,1fr);gap:12px}
+.projector .league-crest-wrap{width:43px;height:43px}
+.projector .opponent-crest-placeholder{width:40px;height:40px}
+.projector .league-score{font-size:clamp(26px,2.5vw,38px)}
+.projector .league-team-name{font-size:clamp(15px,1.32vw,22px)}
+@media(max-width:700px){.league-match-line{grid-template-columns:minmax(0,1fr) 34px 74px 34px minmax(0,1fr);gap:5px}.league-crest-wrap,.projector .league-crest-wrap{width:34px;height:34px}.league-team-name,.projector .league-team-name{font-size:clamp(10px,2.6vw,16px)}.league-score,.projector .league-score{font-size:clamp(20px,5vw,29px)}.opponent-crest-placeholder{width:30px;height:30px;font-size:18px}.league-event-bar{padding:5px 8px}}
 </style>
 </head>
 <body class="projector mode-competition">
@@ -390,11 +413,43 @@ function leagueBoardSlots(e,index){
  });
 }
 function placeholder(name){return {placeholder:true,boardName:name};}
+// Gegnerlogos als Originaldateien im GitHub-Ordner "logos/gegner/" hinterlegen.
+// Hier nur tatsächlich vorhandene Logos eintragen, z. B.:
+// 'bollnberch bomber maigisch ii': 'logos/gegner/bollnberch.png'
+// Ohne hinterlegtes Logo erscheint ein neutrales Wappen, KEIN erfundenes Vereinslogo.
+const GEGNER_LOGOS={
+};
+function opponentLogo(name){
+ const k=normName(name);
+ return GEGNER_LOGOS[k]||'';
+}
+function teamHeader(e,m,i){
+ const teams=teamNames(e),score=leagueScore(e);
+ // Unser Dart-Lions-Team steht IMMER links, auch bei einem Auswärtsspiel.
+ const lionsOnRight=!/dart\s*lions/i.test(teams[0])&&/dart\s*lions/i.test(teams[1]);
+ const ours=lionsOnRight?teams[1]:teams[0];
+ const theirs=lionsOnRight?teams[0]:teams[1];
+ const left=score?(lionsOnRight?score.away:score.home):'–';
+ const right=score?(lionsOnRight?score.home:score.away):'–';
+ const logo=opponentLogo(theirs);
+ const opponentMark=logo?
+   `<img class="team-crest" src="${safe(logo)}" alt="Logo ${safe(theirs)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:
+   '';
+ return `<div class="event-bar league-event-bar">
+  <div class="league-kicker">${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · SPIELTAG'}</div>
+  <div class="league-match-line">
+   <div class="league-team league-team-home"><span class="league-team-name">${safe(ours)}</span></div>
+   <div class="league-crest-wrap"><img class="team-crest" src="logos/dart-lions.PNG" alt="Original-Logo Dart Lions"></div>
+   <div class="league-score-wrap"><span class="league-score">${left} <span class="score-colon">:</span> ${right}</span></div>
+   <div class="league-crest-wrap">${opponentMark}<span class="opponent-crest-placeholder"${logo?' style="display:none"':''} aria-label="Gegnerlogo noch nicht hinterlegt">◆</span></div>
+   <div class="league-team league-team-away"><span class="league-team-name">${safe(theirs||'Gastmannschaft')}</span></div>
+  </div>
+ </div>`;
+}
 function sectionHeader(e,m,i){
  if(m==='competition')return `<div class="event-bar"><div><div class="event-small">COMPETITION · LIVE</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">6 BOARDS · 501 DOUBLE OUT</div></div>`;
  if(!e)return `<div class="event-bar"><div><div class="event-small">${m==='double'?'LIGASPIEL '+(i+1):'LIGA'}</div><div class="event-title">Noch keine gestartete Ligabegegnung</div></div><div class="match-number">– : –</div></div>`;
- const teams=teamNames(e),score=leagueScore(e);
- return `<div class="event-bar"><div><div class="event-small">${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · HEIMSPIELTAG'}</div><div class="event-title">${safe(teams[0])}${teams[1]?' <span style="color:#d8b97f">vs.</span> '+safe(teams[1]):''}</div></div><div class="match-score"><div class="match-label">MANNSCHAFTS-<br>SPIELSTAND${score?'':'<br>(DATEN FEHLEN)'}</div><div class="match-number">${score?score.home+' : '+score.away:'– : –'}</div></div></div>`;
+ return teamHeader(e,m,i);
 }
 function eventSection(e,m,i,allowExpand){
  const max=m==='competition'?6:2;
