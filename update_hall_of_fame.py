@@ -17,7 +17,7 @@ MAPPING = Path("data/spieler-zuordnung.json")
 
 session = requests.Session()
 session.headers.update({
-    "User-Agent": "DartLions-HallOfFame/1.2",
+    "User-Agent": "DartLions-HallOfFame/1.3",
     "Accept": "application/json"
 })
 
@@ -28,35 +28,114 @@ def fetch(url):
     return response.json()
 
 
-def clean_name(value):
+def clean(value):
     value = unicodedata.normalize(
         "NFC", str(value or "")
     )
-    return " ".join(value.split()).strip()
+    return " ".join(value.split())
 
 
-def name_key(value):
-    return clean_name(value).casefold()
+def keyname(value):
+    return clean(value).casefold()
 
 
-def safe_int(value):
+def integer(value):
     try:
         return int(value or 0)
-    except (ValueError, TypeError):
+    except (TypeError, ValueError):
         return 0
 
 
-def is_competition(value):
-    name = clean_name(value)
+def regular(name):
+    patterns = [
+        r"\d+\.\s*Competition\s*26",
+        r"\d+\.\s*Steeldart Competition(?:\(1\))?"
+    ]
 
     return any(
-        re.fullmatch(
-            pattern, name, re.IGNORECASE
+        re.fullmatch(pattern, clean(name), re.I)
+        for pattern in patterns
+    )
+
+
+# Spielerzuordnung laden
+config = json.loads(
+    MAPPING.read_text(encoding="utf-8")
+)
+
+known_names = {}
+known_ids = {}
+
+for item in config.get("spieler", []):
+    target = (
+        "mapped:" + item["id"],
+        clean(item["name"])
+    )
+
+    for alias in item.get("bekannte_namen", []):
+        key = keyname(alias)
+
+        if (
+            key in known_names
+            and known_names[key] != target
+        ):
+            raise ValueError(
+                "Mehrdeutiger Spielername: " + alias
+            )
+
+        known_names[key] = target
+
+    for uid in item.get("darthelfer_user_ids", []):
+        uid = str(uid).strip()
+
+        if uid:
+            if (
+                uid in known_ids
+                and known_ids[uid] != target
+            ):
+                raise ValueError(
+                    "Mehrdeutige User-ID: " + uid
+                )
+
+            known_ids[uid] = target
+
+
+def resolve(entry, stat=None):
+    stat = stat or {}
+
+    name = clean(entry.get("name"))
+    uid = (
+        entry.get("userId")
+        or stat.get("userid")
+    )
+
+    uid = str(uid).strip() if uid else ""
+
+    by_name = known_names.get(keyname(name))
+    by_id = known_ids.get(uid)
+
+    if (
+        by_name
+        and by_id
+        and by_name[0] != by_id[0]
+    ):
+        raise ValueError(
+            "Widersprüchliche Spielerzuordnung: "
+            + name
         )
-        for pattern in [
-            r"\d+\.\s*Competition\s*26",
-            r"\d+\.\s*Steeldart Competition(?:\(1\))?"
-        ]
+
+    if by_name or by_id:
+        return by_name or by_id
+
+    if uid:
+        return "user:" + uid, name
+
+    return (
+        "unresolved:"
+        + str(entry.get("tournamentId") or "")
+        + ":"
+        + str(entry.get("id") or ""),
+        name
     )
 
 
@@ -68,160 +147,238 @@ def new_profile(name):
         "maximums_171": 0,
         "bestes_leg": None,
         "highfinish": None,
-        "highfinish_anzahl": 0
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
     }
 
 
-# Eigene Spielerzuordnung laden.
-mapping_data = json.loads(
-    MAPPING.read_text(encoding="utf-8")
-)
-
-known_ids = {}
-known_names = {}
-
-for player in mapping_data.get("spieler", []):
-    internal_id = player["id"]
-    official_name = clean_name(player["name"])
-
-    for uid in player.get("darthelfer_user_ids", []):
-        uid = str(uid).strip()
-
-        if uid in known_ids and known_ids[uid][0] != internal_id:
-            raise ValueError(
-                f"Darthelfer-ID mehrfach zugeordnet: {uid}"
-            )
-
-        known_ids[uid] = (
-            internal_id, official_name
-        )
-
-    for alias in player.get("bekannte_namen", []):
-        key = name_key(alias)
-
-        if key in known_names and known_names[key][0] != internal_id:
-            raise ValueError(
-                f"Spielername mehrfach zugeordnet: {alias}"
-            )
-
-        known_names[key] = (
-            internal_id, official_name
-        )
-
-
-def resolve_player(entry, stat):
-    display_name = clean_name(entry.get("name"))
-    user_id = (
-        entry.get("userId")
-        or stat.get("userid")
-    )
-
-    user_id = str(user_id).strip() if user_id else None
-
-    by_id = known_ids.get(user_id)
-    by_name = known_names.get(name_key(display_name))
-
-    if by_id and by_name and by_id[0] != by_name[0]:
-        raise ValueError(
-            "Widersprüchliche Zuordnung für "
-            + display_name
-        )
-
-    # Explizit hinterlegte Identität zuerst.
-    if by_id or by_name:
-        internal_id, official_name = by_id or by_name
-
-        return (
-            "mapped:" + internal_id,
-            official_name
-        )
-
-    # Ansonsten die Darthelfer-Nutzerkennung.
-    if user_id:
-        return (
-            "user:" + user_id,
-            display_name
-        )
-
-    # Ohne stabile Kennung nicht automatisch
-    # über mehrere Turniere zusammenführen.
-    tournament_id = entry.get("tournamentId") or ""
-    player_id = entry.get("id") or ""
-
-    return (
-        "unresolved:" + tournament_id + ":" + player_id,
-        display_name
-    )
-
-
-def highfinish_scores(stat):
+def highfinishes(stat):
     scores = []
     unknown = 0
 
     for item in stat.get("highfinishes") or []:
         score = None
-        quantity = 1
+        amount = 1
 
         if isinstance(item, (int, float)):
             score = int(item)
 
         elif isinstance(item, dict):
-            for field in ("key", "score", "finish"):
-                candidate = item.get(field)
+            for field in (
+                "key", "score", "finish"
+            ):
+                value = item.get(field)
 
-                if isinstance(candidate, (int, float)):
-                    score = int(candidate)
+                if isinstance(value, (int, float)):
+                    score = int(value)
                     break
 
             if (
                 "key" in item
-                and isinstance(item.get("value"), (int, float))
+                and isinstance(
+                    item.get("value"),
+                    (int, float)
+                )
             ):
-                quantity = max(0, int(item["value"]))
+                amount = max(
+                    0, int(item["value"])
+                )
 
-        if score is None:
-            unknown += 1
-        elif 100 <= score <= 170:
-            scores.extend([score] * quantity)
+        if (
+            score is not None
+            and 100 <= score <= 170
+        ):
+            scores.extend([score] * amount)
         else:
             unknown += 1
 
     return scores, unknown
 
 
+# Finale und Platz 3 auswerten
+def podium_from(data, main_entries):
+    ko = data.get("turnierKO") or {}
+
+    games = (
+        ko.get("tournamentErgebnisEntities")
+        or []
+    )
+
+    nodes = data.get("modelKO") or []
+
+    ko_players = (
+        ko.get("tournamentPlayerEntities")
+        or []
+    )
+
+    by_ko = {
+        p["id"]: p
+        for p in ko_players
+        if p.get("id")
+    }
+
+    by_main = {
+        p["id"]: p
+        for p in main_entries
+        if p.get("id")
+    }
+
+    final_fields = {
+        node.get("feld")
+        for node in nodes
+        if node.get("finale") is True
+    }
+
+    def outcome(game):
+        a = game.get("anzahlSpieler1")
+        b = game.get("anzahlSpieler2")
+
+        player1 = by_ko.get(
+            game.get("spieler1Id")
+        )
+
+        player2 = by_ko.get(
+            game.get("spieler2Id")
+        )
+
+        if (
+            not player1
+            or not player2
+            or type(a) is not int
+            or type(b) is not int
+            or a == b
+        ):
+            return None
+
+        if a > b:
+            winner, loser = player1, player2
+        else:
+            winner, loser = player2, player1
+
+        def original(ko_player):
+            group_id = ko_player.get(
+                "playerIdAusGruppenphase"
+            )
+
+            return (
+                by_main.get(group_id)
+                or ko_player
+            )
+
+        return (
+            resolve(original(winner)),
+            resolve(original(loser))
+        )
+
+    finals = [
+        outcome(game)
+        for game in games
+        if game.get("feld") in final_fields
+    ]
+
+    finals = [
+        game for game in finals
+        if game is not None
+    ]
+
+    if len(finals) != 1:
+        return (
+            None,
+            "Finale nicht eindeutig: "
+            + str(len(finals))
+        )
+
+    first, second = finals[0]
+
+    third_games = [
+        outcome(game)
+        for game in games
+        if str(
+            game.get("feld") or ""
+        ).lower() == "spielumplatzdrei"
+    ]
+
+    third_games = [
+        game for game in third_games
+        if game is not None
+    ]
+
+    if len(third_games) > 1:
+        return (
+            None,
+            "Mehrere Spiele um Platz 3"
+        )
+
+    third = (
+        third_games[0][0]
+        if len(third_games) == 1
+        else None
+    )
+
+    identities = [
+        participant[0]
+        for participant in (
+            first, second, third
+        )
+        if participant is not None
+    ]
+
+    if len(identities) != len(set(identities)):
+        return (
+            None,
+            "Spieler mehrfach auf Podium"
+        )
+
+    note = (
+        None
+        if third is not None
+        else "Platz 3 nicht eindeutig"
+    )
+
+    return (first, second, third), note
+
+
+# Alle abgeschlossenen Competitions finden
 operator = fetch(
     BASE + "/eventoperator/" + OPERATOR
 )
 
 closed_events = (
-    operator.get("allTournamentsClosed") or []
+    operator.get("allTournamentsClosed")
+    or []
 )
 
 competitions = {
     event["id"]: event
     for event in closed_events
     if event.get("id")
-    and is_competition(event.get("bezeichnung"))
+    and regular(event.get("bezeichnung"))
 }
 
-print("=== DART LIONS HALL OF FAME ===")
-print("Gefundene Competitions:", len(competitions))
+print(
+    "Abgeschlossene Competitions:",
+    len(competitions)
+)
 
 profiles = {}
 history = []
 errors = []
-unmatched_records = []
+missing = []
+unresolved = []
 unknown_highfinishes = 0
 
-# Hilft uns, weitere mögliche Doppelprofile
-# für eine spätere manuelle Prüfung zu entdecken.
-name_to_profiles = defaultdict(set)
+name_profiles = defaultdict(set)
 
+
+# Alle Turniere auswerten
 for index, event in enumerate(
-    competitions.values(), start=1
+    competitions.values(), 1
 ):
     tournament_id = event["id"]
-    tournament_name = clean_name(
+    tournament_name = clean(
         event.get("bezeichnung")
     )
 
@@ -232,139 +389,224 @@ for index, event in enumerate(
 
     try:
         data = fetch(
-            BASE + "/tournament/" + tournament_id
+            BASE + "/tournament/"
+            + tournament_id
         )
 
         main = data.get("turnierMain") or {}
-        wrapper = data.get("ranglisteWrapper") or {}
 
-        if main.get("tournamentstatus") != "abgeschlossen":
-            print("  Nicht abgeschlossen - übersprungen")
+        if (
+            main.get("tournamentstatus")
+            != "abgeschlossen"
+        ):
             continue
 
-        entries = main.get(
-            "tournamentPlayerEntities"
-        ) or []
+        entries = (
+            main.get("tournamentPlayerEntities")
+            or []
+        )
 
-        statistics = wrapper.get(
-            "playerStatistiks"
-        ) or []
-
-        players_by_id = {
-            entry["id"]: entry
-            for entry in entries
-            if entry.get("id")
+        by_id = {
+            p["id"]: p
+            for p in entries
+            if p.get("id")
         }
 
-        counted = set()
-        unmatched = 0
+        wrapper = (
+            data.get("ranglisteWrapper")
+            or {}
+        )
 
-        # Erst sammeln und zuordnen, dann werten:
-        # Fehlerhafte Turniere liefern keine
-        # unbemerkten Teilergebnisse.
+        statistics = (
+            wrapper.get("playerStatistiks")
+            or []
+        )
+
         prepared = []
+        skipped = 0
 
         for stat in statistics:
-            entry = players_by_id.get(
+            entry = by_id.get(
                 stat.get("playerid")
             )
 
-            if not entry or not clean_name(entry.get("name")):
-                unmatched += 1
+            if (
+                not entry
+                or not clean(entry.get("name"))
+            ):
+                skipped += 1
                 continue
 
-            identity, official_name = resolve_player(
+            identity, display = resolve(
                 entry, stat
             )
 
             prepared.append(
-                (identity, official_name, stat)
+                (identity, display, stat)
             )
 
-        date_string = main.get("beginnString")
+        podium, podium_note = podium_from(
+            data, entries
+        )
+
+        date_string = main.get(
+            "beginnString"
+        )
 
         try:
             sort_date = datetime.strptime(
-                date_string, "%d.%m.%Y"
+                date_string,
+                "%d.%m.%Y"
             ).strftime("%Y-%m-%d")
+
         except (ValueError, TypeError):
             sort_date = ""
 
-        for identity, official_name, stat in prepared:
-            if identity not in profiles:
-                profiles[identity] = new_profile(
-                    official_name
-                )
+        counted = set()
 
-            player = profiles[identity]
+        # Spielerstatistiken zusammenzählen
+        for identity, display, stat in prepared:
+            player = profiles.setdefault(
+                identity,
+                new_profile(display)
+            )
 
-            name_to_profiles[
-                name_key(official_name)
+            name_profiles[
+                keyname(display)
             ].add(identity)
 
             if identity not in counted:
                 player["teilnahmen"] += 1
                 counted.add(identity)
 
-            player["maximums_180"] += safe_int(
+            player["maximums_180"] += integer(
                 stat.get("_180er")
             )
 
-            player["maximums_171"] += safe_int(
+            player["maximums_171"] += integer(
                 stat.get("_171er")
             )
 
-            best_leg = safe_int(
+            leg = integer(
                 stat.get("bestLeg")
             )
 
-            if best_leg > 0:
-                current_best = player["bestes_leg"]
+            if leg > 0:
+                current = player["bestes_leg"]
 
                 if (
-                    current_best is None
-                    or best_leg < current_best
+                    current is None
+                    or leg < current
                 ):
-                    player["bestes_leg"] = best_leg
+                    player["bestes_leg"] = leg
 
-            finishes, unknown = highfinish_scores(stat)
+            scores, unknown = highfinishes(
+                stat
+            )
 
             unknown_highfinishes += unknown
 
             player["highfinish_anzahl"] += len(
-                finishes
+                scores
             )
 
-            if finishes:
-                highest = max(finishes)
+            if scores:
+                highest = max(scores)
                 current = player["highfinish"]
 
-                if current is None or highest > current:
+                if (
+                    current is None
+                    or highest > current
+                ):
                     player["highfinish"] = highest
+
+        # Offizielle Platzierungen auswerten
+        podium_names = {
+            "sieger": None,
+            "zweiter": None,
+            "dritter": None
+        }
+
+        if podium:
+            positions = [
+                (
+                    "sieger",
+                    podium[0],
+                    "siege"
+                ),
+                (
+                    "zweiter",
+                    podium[1],
+                    "zweite_plaetze"
+                ),
+                (
+                    "dritter",
+                    podium[2],
+                    "dritte_plaetze"
+                )
+            ]
+
+            for position, participant, counter in positions:
+                if participant is None:
+                    continue
+
+                identity, display = participant
+
+                player = profiles.setdefault(
+                    identity,
+                    new_profile(display)
+                )
+
+                name_profiles[
+                    keyname(display)
+                ].add(identity)
+
+                player[counter] += 1
+                player["podiumsplaetze"] += 1
+
+                podium_names[position] = (
+                    player["name"]
+                )
+
+        if podium_note:
+            missing.append({
+                "turnier": tournament_name,
+                "grund": podium_note
+            })
 
         history.append({
             "id": tournament_id,
             "name": tournament_name,
             "datum": date_string,
             "sort_datum": sort_date,
-            "teilnehmer_mit_statistik": len(counted),
-            "nicht_zugeordnete_statistiken": unmatched,
+            "teilnehmer_mit_statistik": (
+                len(counted)
+            ),
+            "nicht_zugeordnete_statistiken": (
+                skipped
+            ),
+            **podium_names,
+            "platzierung_hinweis": (
+                podium_note
+            ),
             "url": (
-                "https://www.darthelfer.de/public/tournament/"
+                "https://www.darthelfer.de/"
+                "public/tournament/"
                 + tournament_id
                 + "?app=false"
             )
         })
 
-        if unmatched:
-            unmatched_records.append({
+        if skipped:
+            unresolved.append({
                 "turnier": tournament_name,
-                "anzahl": unmatched
+                "anzahl": skipped
             })
 
         print(
             "  Spieler:", len(counted),
-            "| Ohne Zuordnung:", unmatched
+            "| Sieger:",
+            podium_names["sieger"] or "OFFEN"
         )
 
     except Exception as exc:
@@ -378,35 +620,20 @@ for index, event in enumerate(
     time.sleep(0.5)
 
 
+# Bestenlisten erstellen
 def ranking(field):
     return sorted(
         profiles.values(),
-        key=lambda player: (
+        key=lambda p: (
             -(
-                player[field]
-                if player[field] is not None
+                p[field]
+                if p[field] is not None
                 else -1
             ),
-            player["name"].casefold()
+            p["name"].casefold()
         )
     )
 
-
-possible_duplicates = []
-
-for name, identities in name_to_profiles.items():
-    if len(identities) > 1:
-        possible_duplicates.append({
-            "name": name,
-            "profile": len(identities)
-        })
-
-possible_duplicates.sort(
-    key=lambda item: (
-        -item["profile"],
-        item["name"]
-    )
-)
 
 history.sort(
     key=lambda item: (
@@ -416,27 +643,84 @@ history.sort(
     reverse=True
 )
 
+duplicates = [
+    {
+        "name": name,
+        "profile": len(identities)
+    }
+    for name, identities
+    in name_profiles.items()
+    if len(identities) > 1
+]
+
+duplicates.sort(
+    key=lambda p: (
+        -p["profile"],
+        p["name"]
+    )
+)
+
+
 result = {
     "stand": datetime.now(
         timezone.utc
     ).isoformat(timespec="minutes"),
+
     "quelle": (
         BASE + "/eventoperator/" + OPERATOR
     ),
+
     "erkannte_competitions": len(competitions),
     "ausgewertete_competitions": len(history),
+
+    "finals_erkannt": sum(
+        1
+        for item in history
+        if item["sieger"]
+    ),
+
     "spielerprofile": len(profiles),
     "fehleranzahl": len(errors),
+
     "unbekannte_highfinish_formate": (
         unknown_highfinishes
     ),
-    "moegliche_doppelprofile": possible_duplicates,
-    "nicht_zugeordnete_statistiken": unmatched_records,
+
+    "moegliche_doppelprofile": duplicates,
+    "nicht_zugeordnete_statistiken": unresolved,
+    "offene_platzierungen": missing,
+
     "ranglisten": {
-        "maximums_180": ranking("maximums_180"),
-        "maximums_171": ranking("maximums_171"),
-        "teilnahmen": ranking("teilnahmen"),
-        "highfinishes": ranking("highfinish"),
+        "siege": ranking("siege"),
+
+        "zweite_plaetze": ranking(
+            "zweite_plaetze"
+        ),
+
+        "dritte_plaetze": ranking(
+            "dritte_plaetze"
+        ),
+
+        "podiumsplaetze": ranking(
+            "podiumsplaetze"
+        ),
+
+        "maximums_180": ranking(
+            "maximums_180"
+        ),
+
+        "maximums_171": ranking(
+            "maximums_171"
+        ),
+
+        "teilnahmen": ranking(
+            "teilnahmen"
+        ),
+
+        "highfinishes": ranking(
+            "highfinish"
+        ),
+
         "low_darts": sorted(
             [
                 p for p in profiles.values()
@@ -448,13 +732,15 @@ result = {
             )
         )
     },
+
     "chronik": history,
     "fehler": errors
 }
 
+
 if not history:
     raise RuntimeError(
-        "Keine abgeschlossenen Competitions ausgewertet."
+        "Keine Competitions ausgewertet."
     )
 
 OUTPUT.parent.mkdir(
@@ -471,34 +757,52 @@ OUTPUT.write_text(
     encoding="utf-8"
 )
 
-print("\n=== ERGEBNIS ===")
-print("Competitions:", len(history))
-print("Spielerprofile:", len(profiles))
-print("Abruffehler:", len(errors))
+
+# Zusammenfassung
+print("\n=== HALL OF FAME ===")
+
 print(
-    "Unbekannte Highfinish-Werte:",
-    unknown_highfinishes
+    "Competitions:",
+    len(history)
 )
 
-print("\n=== TOP 10 - 180ER ===")
-for player in ranking("maximums_180")[:10]:
+print(
+    "Finals erkannt:",
+    result["finals_erkannt"]
+)
+
+print(
+    "Offene Platzierungen:",
+    len(missing)
+)
+
+for item in missing:
+    print(
+        "PRUEFEN:",
+        item["turnier"],
+        "|",
+        item["grund"]
+    )
+
+print(
+    "Abruffehler:",
+    len(errors)
+)
+
+print(
+    "Mögliche Doppelprofile:",
+    len(duplicates)
+)
+
+print("\n=== TOP 10 - SIEGE ===")
+
+for player in ranking("siege")[:10]:
     print(
         player["name"],
-        player["maximums_180"]
+        player["siege"]
     )
 
-print("\n=== MÖGLICHE DOPPELPROFILE ===")
-for item in possible_duplicates[:30]:
-    print(
-        item["name"],
-        "| Profile:", item["profile"]
-    )
-
-print("\n=== NEUESTE COMPETITION ===")
-if history:
-    print(
-        history[0]["datum"],
-        history[0]["name"]
-    )
-
-print("\nDatei erstellt:", OUTPUT)
+print(
+    "\nDatei erstellt:",
+    OUTPUT
+)
