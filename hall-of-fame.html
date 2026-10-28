@@ -3,647 +3,901 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dart Lions – Hall of Fame</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hall of Fame | Dart Lions Gräfenberg</title>
+
 <style>
-:root{
-  --bg:#101622;
-  --card:#202a39;
-  --card2:#293448;
-  --gold:#d5a53b;
-  --light:#f4ce72;
-  --muted:#b9c5d5;
+:root {
+  --bg: #0b101b;
+  --panel: #151d2c;
+  --panel2: #202b3e;
+  --gold: #d5a53b;
+  --red: #b52b31;
+  --white: #f6f7fa;
+  --muted: #aeb8c8;
+  --line: #344156;
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--bg);
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
 }
-main{max-width:1100px;margin:auto;padding:24px 14px 50px}
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:34px 20px;
-  border:1px solid #876a31;
-  border-radius:20px;
-  text-align:center;
-  background:radial-gradient(circle at 50% 0%,#45321c,#151e2c 70%);
+
+.container {
+  width: min(1100px, 95%);
+  margin: auto;
+  padding: 24px 0 55px;
 }
-.hero img{
-  width:104px;height:104px;
-  object-fit:contain;margin-bottom:12px;
+
+.hero {
+  position: relative;
+  padding: 30px 22px;
+  background: linear-gradient(
+    135deg, #202b3d, #0e1420
+  );
+  border: 1px solid #54452c;
+  border-radius: 18px;
+  text-align: center;
+  overflow: hidden;
 }
-.eyebrow{
-  color:var(--gold);
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:3px;
+
+.hero:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    90deg, var(--red), var(--gold), var(--red)
+  );
 }
-h1{
-  color:var(--light);
-  font-size:clamp(32px,6vw,56px);
-  margin:10px 0;
-  letter-spacing:2px;
+
+.logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 12px;
 }
-.subtitle{color:var(--muted);font-size:15px}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin:18px 0 25px;
+
+.eyebrow {
+  color: var(--gold);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 12px;
 }
-.stat{
-  background:var(--card);
-  border:1px solid #354052;
-  border-radius:13px;
-  padding:19px 9px;
-  text-align:center;
+
+h1 {
+  margin: 10px 0;
+  font-size: clamp(30px, 6vw, 54px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-.stat strong{
-  display:block;
-  color:var(--light);
-  font-size:clamp(24px,4vw,37px);
+
+.hero p {
+  margin: 0;
+  color: var(--muted);
 }
-.stat span{
-  color:var(--muted);
-  font-size:12px;
+
+.updated {
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: 12px;
 }
-.nav{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin:25px 0;
-  padding-bottom:5px;
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
 }
-.nav button{
-  background:var(--card);
-  border:1px solid #455166;
-  color:#fff;
-  border-radius:9px;
-  padding:12px 15px;
-  cursor:pointer;
-  font-size:13px;
-  font-weight:bold;
-  white-space:nowrap;
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 10px;
+  text-align: center;
 }
-.nav button.active{
-  background:var(--gold);
-  border-color:var(--gold);
-  color:#111;
+
+.stat .number {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(23px, 4vw, 36px);
+  font-weight: 900;
 }
-section[hidden]{display:none}
-h2{
-  color:var(--gold);
-  font-size:22px;
-  margin:0 0 8px;
+
+.stat .label {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
 }
-.hint{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.6;
-  margin:0 0 20px;
+
+h2 {
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 21px;
+  letter-spacing: 1px;
+  margin: 30px 0 14px;
 }
-.podium{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  align-items:end;
-  gap:10px;
-  margin:25px 0;
+
+.records {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
 }
-.podium-card{
-  background:linear-gradient(145deg,#30384b,#1c2534);
-  border:1px solid #5b5140;
-  border-radius:14px;
-  padding:20px 8px;
-  text-align:center;
-  min-width:0;
+
+.record {
+  background: linear-gradient(
+    150deg, var(--panel2), var(--panel)
+  );
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px 12px;
+  text-align: center;
 }
-.podium-card.first{
-  border:2px solid var(--gold);
-  padding-top:35px;
-  padding-bottom:35px;
-  background:linear-gradient(145deg,#49391e,#232b39);
+
+.record .symbol {
+  font-size: 26px;
 }
-.medal{font-size:35px;margin-bottom:12px}
-.podium-card strong{
-  display:block;
-  font-size:clamp(12px,2vw,18px);
-  overflow-wrap:anywhere;
+
+.record .caption {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  margin: 12px 0 8px;
 }
-.count{
-  color:var(--light);
-  font-size:25px;
-  font-weight:900;
-  margin-top:12px;
+
+.record .value {
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 30px;
 }
-.small{font-size:11px;color:var(--muted)}
-.list{display:grid;gap:9px}
-.rank-row{
-  background:var(--card);
-  border-radius:10px;
-  display:grid;
-  grid-template-columns:40px minmax(0,1fr) auto;
-  align-items:center;
-  gap:10px;
-  padding:14px;
+
+.record .person {
+  display: block;
+  margin-top: 9px;
+  font-weight: 700;
+  font-size: 13px;
+  overflow-wrap: anywhere;
 }
-.rank{
-  color:var(--light);
-  font-weight:bold;
-  font-size:19px;
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
 }
-.rank-row strong{overflow-wrap:anywhere}
-.value{color:var(--light);font-weight:bold}
-.record-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
 }
-.record{
-  background:var(--card);
-  border:1px solid #445065;
-  border-radius:13px;
-  padding:22px;
+
+.tab {
+  cursor: pointer;
+  background: var(--panel);
+  color: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 11px 15px;
+  font-weight: 700;
+  font-size: 13px;
 }
-.record .icon{font-size:29px}
-.record h3{
-  color:var(--gold);
-  font-size:14px;
-  margin:12px 0;
+
+.tab.active {
+  background: var(--gold);
+  color: #111827;
+  border-color: var(--gold);
 }
-.record .big{
-  color:var(--light);
-  font-size:37px;
-  font-weight:900;
+
+.table-scroll {
+  overflow-x: auto;
 }
-.record p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
 }
-.search{
-  width:100%;
-  padding:13px;
-  border:1px solid #566174;
-  border-radius:10px;
-  background:#1c2635;
-  color:white;
-  margin:10px 0 18px;
+
+th {
+  background: var(--panel2);
+  color: var(--gold);
+  text-align: left;
+  padding: 13px;
+  white-space: nowrap;
 }
-.timeline{
-  display:grid;
-  gap:10px;
+
+td {
+  border-top: 1px solid var(--line);
+  padding: 12px 13px;
 }
-.timeline-item{
-  display:grid;
-  grid-template-columns:100px minmax(0,1fr);
-  gap:15px;
-  padding:14px;
-  background:var(--card);
-  border-left:3px solid var(--gold);
-  border-radius:9px;
+
+tr:hover td {
+  background: #253149;
 }
-.timeline-date{
-  color:var(--muted);
-  font-size:12px;
+
+td.num, th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
-.timeline-item strong{
-  display:block;
-  margin-bottom:5px;
+
+.place {
+  color: var(--gold);
+  font-weight: 900;
 }
-.timeline-item span{
-  color:var(--light);
-  font-size:12px;
+
+.first {
+  color: var(--gold);
+  font-weight: 800;
 }
-.highlight{
-  background:linear-gradient(140deg,#342b20,#202a39);
-  border:1px solid #786032;
-  border-radius:14px;
-  padding:22px;
-  margin-bottom:13px;
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 13px 0;
 }
-.highlight h3{color:var(--light);margin:0 0 8px}
-.highlight p{
-  margin:0;
-  color:var(--muted);
-  line-height:1.6;
-  font-size:14px;
+
+.empty {
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
 }
-footer{
-  text-align:center;
-  color:#9ba7ba;
-  font-size:12px;
-  line-height:1.6;
-  margin-top:35px;
+
+.chronicle-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
 }
-@media(max-width:520px){
-  .stats{gap:6px}
-  .stat{padding:14px 5px}
-  .stat span{font-size:10px}
-  .podium{gap:5px}
-  .podium-card{padding:14px 4px}
-  .podium-card.first{padding:26px 4px}
-  .medal{font-size:28px}
-  .count{font-size:21px}
-  .record-grid{grid-template-columns:1fr}
-  .timeline-item{grid-template-columns:85px minmax(0,1fr)}
+
+select {
+  background: var(--panel2);
+  color: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+a {
+  color: var(--gold);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 35px;
+  line-height: 1.7;
+}
+
+footer strong {
+  color: var(--gold);
+}
+
+@media (max-width: 750px) {
+  .stats, .records {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .container {
+    padding-top: 10px;
+  }
+
+  .hero {
+    padding: 22px 12px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 11px 9px;
+  }
+
+  .tab {
+    flex: 1 1 auto;
+  }
 }
 </style>
 </head>
 
 <body>
-<main>
+<main class="container">
 
-<header class="hero">
-  <img
-    src="./logos/dart-lions.PNG"
-    alt="Originalwappen Dart Lions Gräfenberg"
-  >
-  <div class="eyebrow">DART LIONS GRÄFENBERG</div>
-  <h1>HALL OF FAME</h1>
-  <div class="subtitle">
-    Unsere Champions. Unsere Rekorde. Unsere Geschichte.
+  <header class="hero">
+    <img
+      class="logo"
+      src="logos/dart-lions.PNG"
+      alt="Original-Logo Dart Lions"
+    >
+
+    <div class="eyebrow">
+      Dart Lions Gräfenberg
+    </div>
+
+    <h1>Hall of Fame</h1>
+
+    <p>Unsere Legenden. Unsere Rekorde. Unsere Geschichte.</p>
+
+    <div class="updated" id="updated">
+      Statistik wird geladen ...
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="number" id="competitions">–</span>
+      <span class="label">Competitions</span>
+    </div>
+    <div class="stat">
+      <span class="number" id="players">–</span>
+      <span class="label">Spielerprofile</span>
+    </div>
+    <div class="stat">
+      <span class="number" id="finals">–</span>
+      <span class="label">Erkannte Sieger</span>
+    </div>
+    <div class="stat">
+      <span class="number" id="years">–</span>
+      <span class="label">Turnierjahre</span>
+    </div>
   </div>
-</header>
 
-<div class="stats">
-  <div class="stat">
-    <strong>29</strong>
-    <span>Teilnehmerrekord</span>
-  </div>
-  <div class="stat">
-    <strong id="total">13</strong>
-    <span>Erfasste Competitions</span>
-  </div>
-  <div class="stat">
-    <strong>2025</strong>
-    <span>Gründungsjahr</span>
-  </div>
-</div>
+  <h2>🏆 Unsere Rekorde</h2>
 
-<nav class="nav" aria-label="Hall of Fame Bereiche">
-  <button class="active" data-tab="champions">🏆 Champions</button>
-  <button data-tab="records">🎯 Rekorde</button>
-  <button data-tab="history">📜 Siegerchronik</button>
-  <button data-tab="moments">⭐ Highlights</button>
-</nav>
-
-<section id="champions">
-  <h2>Competition Champions</h2>
-  <p class="hint">
-    Die erfolgreichsten Spieler unserer dokumentierten
-    Competition-Serie 2026. Die Rangfolge wird automatisch
-    aus den erfassten Turniersiegen berechnet.
-  </p>
-  <div id="podium" class="podium"></div>
-  <div id="ranking" class="list"></div>
-</section>
-
-<section id="records" hidden>
-  <h2>Unsere Rekorde</h2>
-  <p class="hint">
-    Dokumentierte Bestleistungen und besondere
-    Marken der Dart Lions. Der Datenbestand
-    wird schrittweise erweitert.
-  </p>
-
-  <div class="record-grid">
+  <section class="records">
     <article class="record">
-      <div class="icon">👥</div>
-      <h3>TEILNEHMERREKORD COMPETITION</h3>
-      <div class="big">29</div>
-      <p>
-        Spieler bei der Competition am 06.02.2026.
-      </p>
+      <div class="symbol">👑</div>
+      <span class="caption">Meiste Turniersiege</span>
+      <div class="value" id="record-wins">–</div>
+      <span class="person" id="record-wins-name">–</span>
     </article>
 
     <article class="record">
-      <div class="icon">🏆</div>
-      <h3>MEISTE SIEGE IM ERFASSTEN ZEITRAUM</h3>
-      <div class="big" id="record-wins">3</div>
-      <p id="record-winner">
-        Leonard Sparks – Competitions Nr. 1–13/2026.
-      </p>
+      <div class="symbol">🎯</div>
+      <span class="caption">Meiste 180er</span>
+      <div class="value" id="record-180">–</div>
+      <span class="person" id="record-180-name">–</span>
     </article>
 
     <article class="record">
-      <div class="icon">🎯</div>
-      <h3>DOKUMENTIERTES HIGHFINISH</h3>
-      <div class="big">114</div>
-      <p>
-        Christian Scheuring, Competition
-        vom 17.04.2026.
-        Ein dokumentiertes Highlight,
-        kein bestätigter Allzeitrekord.
-      </p>
+      <div class="symbol">🔥</div>
+      <span class="caption">Höchstes Highfinish</span>
+      <div class="value" id="record-finish">–</div>
+      <span class="person" id="record-finish-name">–</span>
     </article>
 
     <article class="record">
-      <div class="icon">⚡</div>
-      <h3>WEIHNACHTSSPEZIAL 2025</h3>
-      <div class="big">48</div>
-      <p>
-        Teilnehmer beim Benefiz-Doppelturnier
-        am 19.12.2025.
-      </p>
+      <div class="symbol">⚡</div>
+      <span class="caption">Bestes Leg</span>
+      <div class="value" id="record-leg">–</div>
+      <span class="person" id="record-leg-name">–</span>
     </article>
+  </section>
+
+  <h2>Die ewigen Bestenlisten</h2>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-type="siege">
+      Turniersiege
+    </button>
+    <button class="tab" data-type="podiumsplaetze">
+      Podiumsplätze
+    </button>
+    <button class="tab" data-type="maximums_180">
+      180er
+    </button>
+    <button class="tab" data-type="highfinishes">
+      Highfinishes
+    </button>
+    <button class="tab" data-type="low_darts">
+      Low Darts
+    </button>
+    <button class="tab" data-type="teilnahmen">
+      Teilnahmen
+    </button>
   </div>
-</section>
 
-<section id="history" hidden>
-  <h2>Siegerchronik</h2>
-  <p class="hint">
-    Alle bislang in dieser Hall of Fame erfassten
-    Competition-Sieger, neueste zuerst.
-  </p>
-  <input
-    id="search"
-    class="search"
-    type="search"
-    placeholder="Spieler oder Datum suchen ..."
-    aria-label="Siegerchronik durchsuchen"
-  >
-  <div class="timeline" id="timeline"></div>
-</section>
+  <section class="card">
+    <div class="table-scroll">
+      <table>
+        <thead id="ranking-head"></thead>
+        <tbody id="ranking-body">
+          <tr>
+            <td class="empty">Daten werden geladen ...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-<section id="moments" hidden>
-  <h2>Unvergessliche Momente</h2>
-  <p class="hint">
-    Die Geschichte unseres Vereins – von den
-    Anfängen bis zu besonderen Dart-Abenden.
+  <p class="note" id="ranking-note">
+    Die Bestenlisten umfassen die ausgewerteten
+    regulären Competitions ab 2025.
   </p>
 
-  <article class="highlight">
-    <h3>🦁 20.07.2025 – Die Lions entstehen</h3>
-    <p>
-      Mit sieben Gründungsmitgliedern beginnt
-      die Geschichte der Dart Lions Gräfenberg.
-    </p>
-  </article>
+  <h2>Competition-Chronik</h2>
 
-  <article class="highlight">
-    <h3>❤️ 19.12.2025 – Darts für den guten Zweck</h3>
-    <p>
-      Beim Weihnachtsspezial spielen 48 Teilnehmer
-      Doppel. Aus der Veranstaltung werden
-      350 Euro für das Gräfenberger Freibad gespendet.
-    </p>
-  </article>
+  <div class="chronicle-top">
+    <span class="note">
+      Alle erfassten regulären Competitions
+    </span>
 
-  <article class="highlight">
-    <h3>🔥 06.02.2026 – Volles Haus</h3>
-    <p>
-      Mit 29 Teilnehmern erreicht die Competition
-      einen dokumentierten Besucherrekord.
-    </p>
-  </article>
+    <select id="year-filter" aria-label="Turnierjahr">
+      <option value="all">Alle Jahre</option>
+    </select>
+  </div>
 
-  <article class="highlight">
-    <h3>🎯 17.04.2026 – Starker Finalauftritt</h3>
-    <p>
-      Christian Scheuring gewinnt die Competition
-      und zeigt unter anderem eine 180 sowie
-      ein 114er-Finish.
-    </p>
-  </article>
+  <section class="card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Competition</th>
+            <th>Sieger</th>
+            <th>Platz 2</th>
+            <th>Platz 3</th>
+          </tr>
+        </thead>
+        <tbody id="history-body">
+          <tr>
+            <td colspan="5" class="empty">
+              Turnierchronik wird geladen ...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-  <article class="highlight">
-    <h3>🏟️ 2026/27 – Drei Ligamannschaften</h3>
-    <p>
-      Die Dart Lions gehen mit drei Mannschaften
-      im oberfränkischen Ligabetrieb an den Start.
-    </p>
-  </article>
-</section>
-
-<footer>
-  DART LIONS GRÄFENBERG · GAME ON!
-  <p>
-    Historischer Datenstand: Competition Nr. 1–13/2026
-    (09.01.–30.04.2026).
-    Keine vollständige Gesamtstatistik.
-    Weitere Ergebnisse werden ergänzt.
+  <p class="note">
+    Fehlende historische Platzierungen werden als
+    „Nicht ermittelt“ angezeigt. Sie werden
+    nicht geschätzt.
   </p>
-</footer>
+
+  <footer>
+    Datenquelle: Darthelfer ·
+    Automatische Dart-Lions-Auswertung
+
+    <p>
+      <strong>DART LIONS GRÄFENBERG</strong>
+    </p>
+
+    <strong>Game On!</strong>
+  </footer>
 
 </main>
 
 <script>
 "use strict";
 
-/*
-  BESTÄTIGTE HISTORISCHE TURNIERSIEGER
+let hallData = null;
+let activeRanking = "siege";
 
-  Zum Erweitern später weitere Objekte
-  mit Nummer, Datum und Sieger ergänzen.
+const $ = id => document.getElementById(id);
 
-  Die Rangliste wird daraus automatisch
-  berechnet.
-*/
-
-const competitions = [
-  {nr:1,datum:"09.01.2026",sieger:"Maurice Baum"},
-  {nr:2,datum:"16.01.2026",sieger:"Christian Lutz"},
-  {nr:3,datum:"30.01.2026",sieger:"Alexander Preißinger"},
-  {nr:4,datum:"06.02.2026",sieger:"Christian Hohe"},
-  {nr:5,datum:"13.02.2026",sieger:"Matthias Rau"},
-  {nr:6,datum:"20.02.2026",sieger:"Christian Hohe"},
-  {nr:7,datum:"27.02.2026",sieger:"Michi Stavroglou"},
-  {nr:8,datum:"13.03.2026",sieger:"Nick Marsing"},
-  {nr:9,datum:"20.03.2026",sieger:"Timm Kolbenschlag"},
-  {nr:10,datum:"10.04.2026",sieger:"Leonard Sparks"},
-  {nr:11,datum:"17.04.2026",sieger:"Christian Scheuring"},
-  {nr:12,datum:"24.04.2026",sieger:"Leonard Sparks"},
-  {nr:13,datum:"30.04.2026",sieger:"Leonard Sparks"}
-];
-
-/* Reine Textausgabe ohne HTML-Einfügen */
-
-function element(tag,cls,text){
-  const e=document.createElement(tag);
-  if(cls)e.className=cls;
-  if(text!==undefined)e.textContent=String(text);
-  return e;
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
-/* Rangliste automatisch berechnen */
-
-const tally=new Map();
-
-for(const entry of competitions){
-  tally.set(
-    entry.sieger,
-    (tally.get(entry.sieger)||0)+1
-  );
+function number(value) {
+  return Number(value ?? 0).toLocaleString("de-DE");
 }
 
-const ranking=[...tally.entries()]
-  .map(([name,wins])=>({name,wins}))
-  .sort((a,b)=>
-    b.wins-a.wins ||
-    a.name.localeCompare(b.name,"de")
+function setText(id, value) {
+  $(id).textContent = value;
+}
+
+function validNumber(value) {
+  return typeof value === "number"
+    && Number.isFinite(value);
+}
+
+function rankingData(type) {
+  return hallData?.ranglisten?.[type] || [];
+}
+
+function leaders(list, field, lowest = false) {
+  const valid = list.filter(
+    p => validNumber(p[field]) && p[field] > 0
   );
 
-document.getElementById("total").textContent=
-  competitions.length;
+  if (!valid.length) {
+    return { value: "–", names: "Keine Daten" };
+  }
 
-/* Podium – nur dokumentierte Siege */
+  const best = lowest
+    ? Math.min(...valid.map(p => p[field]))
+    : Math.max(...valid.map(p => p[field]));
 
-const podium=document.getElementById("podium");
+  return {
+    value: best,
+    names: valid
+      .filter(p => p[field] === best)
+      .map(p => p.name)
+      .join(" & ")
+  };
+}
 
-const places=[
-  {index:1,medal:"🥈"},
-  {index:0,medal:"🥇"},
-  {index:2,medal:"🥉"}
-];
+function displayRecord(valueId, nameId, record, suffix = "") {
+  setText(
+    valueId,
+    record.value === "–"
+      ? "–"
+      : number(record.value) + suffix
+  );
+  setText(nameId, record.names);
+}
 
-for(const place of places){
-  const player=ranking[place.index];
-  if(!player)continue;
-
-  const card=element(
-    "div",
-    "podium-card"+(place.index===0?" first":"")
+function renderOverview() {
+  const history = hallData.chronik || [];
+  const years = new Set(
+    history.map(h => String(h.sort_datum || "").slice(0, 4))
+      .filter(y => /^\d{4}$/.test(y))
   );
 
-  card.appendChild(
-    element("div","medal",place.medal)
+  setText(
+    "competitions",
+    number(hallData.ausgewertete_competitions)
+  );
+  setText(
+    "players",
+    number(hallData.spielerprofile)
+  );
+  setText(
+    "finals",
+    number(hallData.finals_erkannt)
+  );
+  setText("years", number(years.size));
+
+  const date = hallData.stand
+    ? new Date(hallData.stand)
+    : null;
+
+  setText(
+    "updated",
+    date && !isNaN(date.getTime())
+      ? "Datenstand: " + date.toLocaleString(
+          "de-DE",
+          { dateStyle: "medium", timeStyle: "short" }
+        )
+      : "Datenstand nicht verfügbar"
   );
 
-  card.appendChild(
-    element("strong","",player.name)
+  displayRecord(
+    "record-wins",
+    "record-wins-name",
+    leaders(rankingData("siege"), "siege")
   );
 
-  card.appendChild(
-    element("div","count",player.wins)
-  );
-
-  card.appendChild(
-    element(
-      "div",
-      "small",
-      player.wins===1?"Turniersieg":"Turniersiege"
+  displayRecord(
+    "record-180",
+    "record-180-name",
+    leaders(
+      rankingData("maximums_180"),
+      "maximums_180"
     )
   );
 
-  podium.appendChild(card);
-}
-
-/* Vollständige berechnete Bestenliste */
-
-const list=document.getElementById("ranking");
-
-ranking.forEach((player,index)=>{
-  const row=element("div","rank-row");
-
-  row.appendChild(
-    element("div","rank",(index+1)+".")
-  );
-
-  row.appendChild(
-    element("strong","",player.name)
-  );
-
-  row.appendChild(
-    element(
-      "div",
-      "value",
-      player.wins+" "+(player.wins===1?"Sieg":"Siege")
+  displayRecord(
+    "record-finish",
+    "record-finish-name",
+    leaders(
+      rankingData("highfinishes"),
+      "highfinish"
     )
   );
 
-  list.appendChild(row);
-});
-
-/* Rekordhalter aus den erfassten Daten */
-
-if(ranking.length){
-  document.getElementById("record-wins").textContent=
-    ranking[0].wins;
-
-  document.getElementById("record-winner").textContent=
-    ranking
-      .filter(p=>p.wins===ranking[0].wins)
-      .map(p=>p.name)
-      .join(", ")+
-    " – Competitions Nr. 1–13/2026.";
+  displayRecord(
+    "record-leg",
+    "record-leg-name",
+    leaders(
+      rankingData("low_darts"),
+      "bestes_leg",
+      true
+    ),
+    " Darts"
+  );
 }
 
-/* Siegerchronik mit Suche */
+const rankingSettings = {
+  siege: {
+    main: "siege",
+    title: "Siege",
+    extras: ["zweite_plaetze", "dritte_plaetze"]
+  },
+  podiumsplaetze: {
+    main: "podiumsplaetze",
+    title: "Podium",
+    extras: ["siege", "zweite_plaetze", "dritte_plaetze"]
+  },
+  maximums_180: {
+    main: "maximums_180",
+    title: "180er",
+    extras: []
+  },
+  highfinishes: {
+    main: "highfinish",
+    title: "Bestes Finish",
+    extras: ["highfinish_anzahl"]
+  },
+  low_darts: {
+    main: "bestes_leg",
+    title: "Bestes Leg",
+    extras: []
+  },
+  teilnahmen: {
+    main: "teilnahmen",
+    title: "Teilnahmen",
+    extras: []
+  }
+};
 
-const timeline=document.getElementById("timeline");
+const labels = {
+  siege: "Siege",
+  zweite_plaetze: "Platz 2",
+  dritte_plaetze: "Platz 3",
+  highfinish_anzahl: "Highfinishes"
+};
 
-function renderTimeline(query=""){
-  timeline.replaceChildren();
+function renderRanking() {
+  if (!hallData) return;
 
-  const filtered=[...competitions]
-    .reverse()
-    .filter(item=>
-      (item.sieger+" "+item.datum+" "+item.nr)
-        .toLocaleLowerCase("de")
-        .includes(query.toLocaleLowerCase("de"))
-    );
+  const config = rankingSettings[activeRanking];
+  const list = rankingData(activeRanking)
+    .filter(p => validNumber(p[config.main]))
+    .filter(p => p[config.main] > 0);
 
-  for(const entry of filtered){
-    const row=element("div","timeline-item");
+  const ascending = activeRanking === "low_darts";
 
-    row.appendChild(
-      element("div","timeline-date",entry.datum)
-    );
+  list.sort((a, b) => {
+    const diff = ascending
+      ? a[config.main] - b[config.main]
+      : b[config.main] - a[config.main];
 
-    const info=element("div");
+    return diff || a.name.localeCompare(b.name, "de");
+  });
 
-    info.appendChild(
-      element("strong","",entry.sieger)
-    );
+  const extraHead = config.extras.map(
+    field => `<th class="num">${labels[field]}</th>`
+  ).join("");
 
-    info.appendChild(
-      element(
-        "span",
-        "",
-        "Competition #"+entry.nr+" · Turniersieger"
-      )
-    );
+  $("ranking-head").innerHTML = `
+    <tr>
+      <th>Platz</th>
+      <th>Spieler</th>
+      <th class="num">${config.title}</th>
+      ${extraHead}
+    </tr>
+  `;
 
-    row.appendChild(info);
-    timeline.appendChild(row);
+  if (!list.length) {
+    $("ranking-body").innerHTML = `
+      <tr>
+        <td colspan="${3 + config.extras.length}"
+            class="empty">
+          Noch keine Werte vorhanden.
+        </td>
+      </tr>
+    `;
+    return;
   }
 
-  if(!filtered.length){
-    timeline.appendChild(
-      element("p","hint","Keine Treffer gefunden.")
+  let previous = null;
+  let rank = 0;
+
+  $("ranking-body").innerHTML = list
+    .map((player, index) => {
+      const value = player[config.main];
+
+      if (value !== previous) {
+        rank = index + 1;
+        previous = value;
+      }
+
+      const extraCells = config.extras.map(
+        field => `
+          <td class="num">
+            ${number(player[field])}
+          </td>
+        `
+      ).join("");
+
+      return `
+        <tr>
+          <td class="place">${rank}.</td>
+          <td class="${rank === 1 ? "first" : ""}">
+            ${escapeHTML(player.name)}
+          </td>
+          <td class="num">
+            <strong>${number(value)}</strong>
+          </td>
+          ${extraCells}
+        </tr>
+      `;
+    })
+    .join("");
+
+  $("ranking-note").textContent =
+    activeRanking === "highfinishes"
+      ? "Sortierung nach höchstem erfasstem Checkout. " +
+        "Die zusätzliche Spalte zeigt die Anzahl " +
+        "der erfassten Highfinishes."
+      : activeRanking === "low_darts"
+      ? "Ein niedriger Wert bedeutet ein schnelleres Leg."
+      : "Gleiche Werte erhalten denselben Rang. " +
+        "Berücksichtigt werden die ausgewerteten " +
+        "regulären Competitions ab 2025.";
+}
+
+function renderYearOptions() {
+  const history = hallData.chronik || [];
+
+  const years = [...new Set(
+    history.map(item => String(
+      item.sort_datum || ""
+    ).slice(0, 4)).filter(y => /^\d{4}$/.test(y))
+  )].sort().reverse();
+
+  $("year-filter").innerHTML =
+    `<option value="all">Alle Jahre</option>` +
+    years.map(
+      year => `<option value="${year}">${year}</option>`
+    ).join("");
+}
+
+function renderHistory() {
+  if (!hallData) return;
+
+  const selected = $("year-filter").value;
+
+  const history = (hallData.chronik || [])
+    .filter(item =>
+      selected === "all" ||
+      String(item.sort_datum || "").startsWith(selected)
+    )
+    .sort(
+      (a, b) => String(b.sort_datum || "")
+        .localeCompare(String(a.sort_datum || ""))
     );
+
+  if (!history.length) {
+    $("history-body").innerHTML = `
+      <tr>
+        <td colspan="5" class="empty">
+          Keine Competitions gefunden.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  $("history-body").innerHTML = history.map(item => {
+    const winner = item.sieger || "Nicht ermittelt";
+    const second = item.zweiter || "Nicht ermittelt";
+    const third = item.dritter || "Nicht ermittelt";
+
+    const link = item.url && /^https:\/\/www\.darthelfer\.de\//.test(item.url)
+      ? `<a href="${escapeHTML(item.url)}"
+           target="_blank"
+           rel="noopener noreferrer">
+           ${escapeHTML(item.name)}
+         </a>`
+      : escapeHTML(item.name);
+
+    return `
+      <tr>
+        <td>${escapeHTML(item.datum || "–")}</td>
+        <td>${link}</td>
+        <td class="first">${escapeHTML(winner)}</td>
+        <td>${escapeHTML(second)}</td>
+        <td>${escapeHTML(third)}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+async function loadData() {
+  try {
+    const url = "data/hall-of-fame.json?v=" +
+      Date.now();
+
+    const response = await fetch(
+      url,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
+
+    hallData = await response.json();
+
+    if (
+      !hallData.ranglisten ||
+      !Array.isArray(hallData.chronik)
+    ) {
+      throw new Error("Ungültige Statistikdatei");
+    }
+
+    renderOverview();
+    renderRanking();
+    renderYearOptions();
+    renderHistory();
+
+  } catch (error) {
+    console.error("Hall of Fame:", error);
+
+    setText(
+      "updated",
+      "Statistikdatei derzeit nicht verfügbar."
+    );
+
+    $("ranking-body").innerHTML = `
+      <tr>
+        <td colspan="6" class="empty">
+          Die Hall-of-Fame-Daten sind noch nicht
+          veröffentlicht oder konnten nicht
+          geladen werden.
+        </td>
+      </tr>
+    `;
+
+    $("history-body").innerHTML = `
+      <tr>
+        <td colspan="5" class="empty">
+          Chronik derzeit nicht verfügbar.
+        </td>
+      </tr>
+    `;
   }
 }
 
-renderTimeline();
+document.querySelectorAll(".tab").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(
+      tab => tab.classList.remove("active")
+    );
 
-document.getElementById("search")
-  .addEventListener("input",event=>{
-    renderTimeline(event.target.value);
-  });
-
-/* Navigation zwischen den Bereichen */
-
-const buttons=document.querySelectorAll(".nav button");
-const sections=document.querySelectorAll("main section");
-
-buttons.forEach(button=>{
-  button.addEventListener("click",()=>{
-    const target=button.dataset.tab;
-
-    buttons.forEach(b=>{
-      b.classList.toggle("active",b===button);
-    });
-
-    sections.forEach(section=>{
-      section.hidden=section.id!==target;
-    });
+    button.classList.add("active");
+    activeRanking = button.dataset.type;
+    renderRanking();
   });
 });
+
+$("year-filter").addEventListener(
+  "change",
+  renderHistory
+);
+
+loadData();
 </script>
-
 </body>
 </html>
