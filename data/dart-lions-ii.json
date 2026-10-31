@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-10-31T22:29+00:00",
+  "stand": "2026-10-31T23:00+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
@@ -31,14 +31,14 @@
     {
       "platz": 3,
       "team": "Dart Warriors FC Pommersfelden III",
-      "begegnungen": "1",
-      "siege": "1",
+      "begegnungen": "2",
+      "siege": "2",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "13:5",
-      "differenz": "+8",
-      "legs": "43:22",
-      "punkte": "2:0"
+      "spiele": "23:13",
+      "differenz": "+10",
+      "legs": "83:55",
+      "punkte": "4:0"
     },
     {
       "platz": 4,
@@ -54,18 +54,6 @@
     },
     {
       "platz": 5,
-      "team": "TSV Hirschaid e.V. - The Deers IV",
-      "begegnungen": "2",
-      "siege": "0",
-      "unentschieden": "1",
-      "niederlagen": "1",
-      "spiele": "16:20",
-      "differenz": "-4",
-      "legs": "69:81",
-      "punkte": "1:3"
-    },
-    {
-      "platz": 6,
       "team": "SpVgg Reuth e.V.",
       "begegnungen": "1",
       "siege": "0",
@@ -75,6 +63,18 @@
       "differenz": "-8",
       "legs": "22:43",
       "punkte": "0:2"
+    },
+    {
+      "platz": 6,
+      "team": "TSV Hirschaid e.V. - The Deers IV",
+      "begegnungen": "3",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "2",
+      "spiele": "24:30",
+      "differenz": "-6",
+      "legs": "102:121",
+      "punkte": "1:5"
     },
     {
       "platz": 7,
