@@ -1,20 +1,20 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-10-31T01:07+00:00",
+  "stand": "2026-10-31T02:39+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
       "platz": 1,
       "team": "Dartclub Steinbach",
-      "begegnungen": "2",
-      "siege": "2",
+      "begegnungen": "3",
+      "siege": "3",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "33:3",
-      "differenz": "+30",
-      "legs": "102:27",
-      "punkte": "4:0"
+      "spiele": "44:10",
+      "differenz": "+34",
+      "legs": "144:51",
+      "punkte": "6:0"
     },
     {
       "platz": 2,
@@ -31,14 +31,14 @@
     {
       "platz": 3,
       "team": "Bollnberch Bomber Maigisch II",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "2",
       "unentschieden": "0",
-      "niederlagen": "0",
-      "spiele": "21:15",
-      "differenz": "+6",
-      "legs": "75:63",
-      "punkte": "4:0"
+      "niederlagen": "1",
+      "spiele": "28:26",
+      "differenz": "+2",
+      "legs": "99:105",
+      "punkte": "4:2"
     },
     {
       "platz": 4,
