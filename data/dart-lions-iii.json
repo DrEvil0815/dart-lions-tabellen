@@ -1,7 +1,7 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-10-31T20:53+00:00",
+  "stand": "2026-10-31T21:59+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
@@ -19,14 +19,14 @@
     {
       "platz": 2,
       "team": "SV Hetzles II",
-      "begegnungen": "2",
-      "siege": "2",
+      "begegnungen": "3",
+      "siege": "3",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "24:12",
-      "differenz": "+12",
-      "legs": "79:60",
-      "punkte": "4:0"
+      "spiele": "37:17",
+      "differenz": "+20",
+      "legs": "120:86",
+      "punkte": "6:0"
     },
     {
       "platz": 3,
@@ -54,39 +54,39 @@
     },
     {
       "platz": 5,
-      "team": "DJK \"Creek Steelers\" Wimmelbach IV",
-      "begegnungen": "2",
+      "team": "Spickersportclub Pinzberg",
+      "begegnungen": "3",
       "siege": "1",
       "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "12:24",
-      "differenz": "-12",
-      "legs": "48:86",
-      "punkte": "2:2"
+      "niederlagen": "2",
+      "spiele": "29:25",
+      "differenz": "+4",
+      "legs": "68:71",
+      "punkte": "2:4"
     },
     {
       "platz": 6,
-      "team": "DC Full Bulls Neunkirchen",
-      "begegnungen": "2",
-      "siege": "0",
+      "team": "DJK \"Creek Steelers\" Wimmelbach IV",
+      "begegnungen": "3",
+      "siege": "1",
       "unentschieden": "0",
       "niederlagen": "2",
-      "spiele": "16:20",
-      "differenz": "-4",
-      "legs": "67:75",
-      "punkte": "0:4"
+      "spiele": "17:37",
+      "differenz": "-20",
+      "legs": "74:127",
+      "punkte": "2:4"
     },
     {
       "platz": 7,
-      "team": "Spickersportclub Pinzberg",
-      "begegnungen": "2",
+      "team": "DC Full Bulls Neunkirchen",
+      "begegnungen": "3",
       "siege": "0",
       "unentschieden": "0",
-      "niederlagen": "2",
-      "spiele": "15:21",
-      "differenz": "-6",
-      "legs": "68:71",
-      "punkte": "0:4"
+      "niederlagen": "3",
+      "spiele": "20:34",
+      "differenz": "-14",
+      "legs": "67:75",
+      "punkte": "0:6"
     },
     {
       "platz": 8,
