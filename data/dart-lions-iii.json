@@ -1,7 +1,7 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-10-31T07:46+00:00",
+  "stand": "2026-10-31T09:12+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
@@ -43,14 +43,14 @@
     {
       "platz": 4,
       "team": "DC Gallier Pettensiedel",
-      "begegnungen": "2",
-      "siege": "1",
+      "begegnungen": "3",
+      "siege": "2",
       "unentschieden": "0",
       "niederlagen": "1",
-      "spiele": "14:22",
-      "differenz": "-8",
-      "legs": "62:77",
-      "punkte": "2:2"
+      "spiele": "25:29",
+      "differenz": "-4",
+      "legs": "104:104",
+      "punkte": "4:2"
     },
     {
       "platz": 5,
@@ -91,14 +91,14 @@
     {
       "platz": 8,
       "team": "Dart Lions Gräfenberg III",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "0",
       "unentschieden": "0",
-      "niederlagen": "2",
-      "spiele": "9:27",
-      "differenz": "-18",
-      "legs": "47:89",
-      "punkte": "0:4"
+      "niederlagen": "3",
+      "spiele": "16:38",
+      "differenz": "-22",
+      "legs": "74:131",
+      "punkte": "0:6"
     }
   ]
 }

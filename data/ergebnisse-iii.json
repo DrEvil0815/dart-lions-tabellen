@@ -2,7 +2,7 @@
   "team": "Dart Lions Gräfenberg III",
   "liga": "4. Bezirksliga Oberfranken H",
   "saison": "2026/27",
-  "stand": "2026-10-31T07:46+00:00",
+  "stand": "2026-10-31T09:12+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528157&championship=OFr+2026%2F27&group=211415",
   "naechstes_spiel": {
     "datum": "21.11.2026",
@@ -12,6 +12,15 @@
     "gast": "Dart Lions Gräfenberg III"
   },
   "spiele": [
+    {
+      "datum": "30.10.2026",
+      "datum_iso": "2026-10-30",
+      "uhrzeit": "20:00",
+      "heim": "DC Gallier Pettensiedel",
+      "gast": "Dart Lions Gräfenberg III",
+      "ergebnis": "11:7",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106696&championship=OFr+2026%2F27&group=211415"
+    },
     {
       "datum": "16.10.2026",
       "datum_iso": "2026-10-16",
