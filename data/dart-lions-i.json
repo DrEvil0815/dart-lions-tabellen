@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken G",
   "team": "Dart Lions Gräfenberg",
-  "stand": "2026-10-30T22:29+00:00",
+  "stand": "2026-10-31T00:13+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
   "rows": [
     {
@@ -31,14 +31,14 @@
     {
       "platz": 3,
       "team": "DJK-SpVgg Effeltrich III",
-      "begegnungen": "1",
-      "siege": "0",
+      "begegnungen": "2",
+      "siege": "1",
       "unentschieden": "1",
       "niederlagen": "0",
-      "spiele": "9:9",
-      "differenz": "0",
-      "legs": "37:33",
-      "punkte": "1:1"
+      "spiele": "19:17",
+      "differenz": "+2",
+      "legs": "74:67",
+      "punkte": "3:1"
     },
     {
       "platz": 4,
@@ -91,14 +91,14 @@
     {
       "platz": 8,
       "team": "DSG Langensendelbach/Marloffstein II",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "0",
       "unentschieden": "0",
-      "niederlagen": "2",
-      "spiele": "10:26",
-      "differenz": "-16",
-      "legs": "50:91",
-      "punkte": "0:4"
+      "niederlagen": "3",
+      "spiele": "18:36",
+      "differenz": "-18",
+      "legs": "84:128",
+      "punkte": "0:6"
     }
   ]
 }

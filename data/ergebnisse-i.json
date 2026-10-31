@@ -2,14 +2,14 @@
   "team": "Dart Lions Gräfenberg",
   "liga": "4. Bezirksliga Oberfranken G",
   "saison": "2026/27",
-  "stand": "2026-10-30T22:29+00:00",
+  "stand": "2026-10-31T00:13+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528139&championship=OFr+2026%2F27&group=211419",
   "naechstes_spiel": {
-    "datum": "30.10.2026",
-    "datum_iso": "2026-10-30",
+    "datum": "20.11.2026",
+    "datum_iso": "2026-11-20",
     "uhrzeit": "20:00",
     "heim": "Dart Lions Gräfenberg",
-    "gast": "Bollnberch Bomber Maigisch"
+    "gast": "DSG Langensendelbach/Marloffstein II"
   },
   "spiele": [
     {
