@@ -1,20 +1,20 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-10-31T09:12+00:00",
+  "stand": "2026-10-31T09:48+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
       "platz": 1,
       "team": "Hopfen Spiggerer Hallerndorf III",
-      "begegnungen": "2",
-      "siege": "2",
+      "begegnungen": "3",
+      "siege": "3",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "24:12",
-      "differenz": "+12",
-      "legs": "86:65",
-      "punkte": "4:0"
+      "spiele": "36:18",
+      "differenz": "+18",
+      "legs": "130:92",
+      "punkte": "6:0"
     },
     {
       "platz": 2,
@@ -42,6 +42,18 @@
     },
     {
       "platz": 4,
+      "team": "DJK \"Creek Steelers\" Wimmelbach III",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "16:20",
+      "differenz": "-4",
+      "legs": "69:71",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 5,
       "team": "TSV Hirschaid e.V. - The Deers IV",
       "begegnungen": "2",
       "siege": "0",
@@ -53,43 +65,7 @@
       "punkte": "1:3"
     },
     {
-      "platz": 5,
-      "team": "Dart Lions Gräfenberg II",
-      "begegnungen": "2",
-      "siege": "0",
-      "unentschieden": "1",
-      "niederlagen": "1",
-      "spiele": "16:20",
-      "differenz": "-4",
-      "legs": "64:77",
-      "punkte": "1:3"
-    },
-    {
       "platz": 6,
-      "team": "Red Steelers Burk",
-      "begegnungen": "1",
-      "siege": "0",
-      "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "6:12",
-      "differenz": "-6",
-      "legs": "26:44",
-      "punkte": "0:2"
-    },
-    {
-      "platz": 7,
-      "team": "DJK \"Creek Steelers\" Wimmelbach III",
-      "begegnungen": "1",
-      "siege": "0",
-      "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "5:13",
-      "differenz": "-8",
-      "legs": "30:41",
-      "punkte": "0:2"
-    },
-    {
-      "platz": 8,
       "team": "SpVgg Reuth e.V.",
       "begegnungen": "1",
       "siege": "0",
@@ -99,6 +75,30 @@
       "differenz": "-8",
       "legs": "22:43",
       "punkte": "0:2"
+    },
+    {
+      "platz": 7,
+      "team": "Dart Lions Gräfenberg II",
+      "begegnungen": "3",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "2",
+      "spiele": "23:31",
+      "differenz": "-8",
+      "legs": "94:116",
+      "punkte": "1:5"
+    },
+    {
+      "platz": 8,
+      "team": "Red Steelers Burk",
+      "begegnungen": "2",
+      "siege": "0",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "12:24",
+      "differenz": "-12",
+      "legs": "53:88",
+      "punkte": "0:4"
     }
   ]
 }
