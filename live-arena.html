@@ -179,6 +179,9 @@ html.presentation .quickstart,html:fullscreen .quickstart{display:none}
 .highlight-sound-enable.ready{display:none}
 @media(max-width:650px){.highlight-toast{min-height:0;flex-direction:column;gap:8px;text-align:center;padding:18px;max-height:85dvh}.highlight-portrait{width:130px;height:145px}.highlight-text strong{font-size:clamp(55px,15vw,88px)}.highlight-text span{font-size:22px;margin-top:8px}.highlight-emoji{display:none}}
 @media(max-height:550px) and (min-width:651px){.highlight-toast{min-height:0;padding:12px 24px}.highlight-portrait{height:45vh;width:150px}}
+
+/* Short-Leg nutzt dieselbe Highlight-Karte, mit angepasster Schriftbreite. */
+.highlight-toast.highlight-long .highlight-text strong{font-size:clamp(36px,5.8vw,84px)}
 </style>
 </head>
 <body class="projector mode-competition">
@@ -766,13 +769,14 @@ function observeHighlights(eventId,games){
   if(!g||g.placeholder||g.abgeschlossen)continue;
   const id=String(eventId)+'|'+String(g.gameId||g.id||[g.boardName,g.spieler1Id||g.spieler1Name,g.spieler2Id||g.spieler2Name].join('|'));
   visible.add(id);
-  const now=[1,2].map(n=>({name:String(g['spieler'+n+'Name']||'Spieler'),count:Math.max(0,Number(g['spieler'+n+'Count180er'])||0),out:Math.max(0,Number(g['spieler'+n+'HighOut'])||0)}));
+  const now=[1,2].map(n=>({name:String(g['spieler'+n+'Name']||'Spieler'),count:Math.max(0,Number(g['spieler'+n+'Count180er'])||0),out:Math.max(0,Number(g['spieler'+n+'HighOut'])||0),best:(()=>{const v=Number(g['spieler'+n+'Best']);return Number.isInteger(v)&&v>0?v:null;})()}));
   const previous=highlightSnapshots.get(id);
   if(previous){
    for(let i=0;i<2;i++){
     const a=now[i],b=previous[i];if(a.name!==b.name)continue;
     if(a.count>b.count){window.DartLionsHighlight.emit({kind:'180',player:a.name,board:String(g.boardName||'Board')});}
     if(a.out>b.out&&a.out>=100){window.DartLionsHighlight.emit({kind:'highfinish',score:a.out,player:a.name,board:String(g.boardName||'Board')});}
+    if(a.best!==null&&a.best<=18&&(b.best===null||a.best<b.best)){window.DartLionsHighlight.emit({kind:'shortleg',score:a.best,player:a.name,board:String(g.boardName||'Board')});}
    }
   }
   highlightSnapshots.set(id,now);
@@ -1043,10 +1047,10 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
  function label(){control.textContent='★ Highlights: '+(enabled?'AN':'AUS');control.setAttribute('aria-pressed',String(enabled));}
  label();control.addEventListener('click',()=>{enabled=!enabled;label();if(!enabled){queue.length=0;clearTimeout(timer);toast.classList.remove('show');displayed=0;}});
  function next(){if(!enabled||!queue.length){displayed=0;toast.classList.remove('show');return;} displayed=1;
- const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':'🏆';title.textContent=entry.kind==='180'?'180!':'HIGHFINISH '+entry.score;
+ const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':entry.kind==='shortleg'?'⚡':'🏆';title.textContent=entry.kind==='180'?'180!':entry.kind==='shortleg'?'SHORT LEG · '+entry.score+' DARTS':'HIGHFINISH '+entry.score;
  detail.textContent=entry.player;subtitle.textContent=entry.board+(entry.demo?' · DEMO':'');
  const photo=typeof playerPhotoUrl==='function'?playerPhotoUrl(entry.player):'';portrait.src=photo||silhouette;portrait.onerror=()=>{portrait.onerror=null;portrait.src=silhouette;};
- toast.classList.add('show');if(entry.kind==='180'&&!entry.demo)speak180();
+ toast.classList.toggle('highlight-long',entry.kind==='shortleg');toast.classList.add('show');if(entry.kind==='180'&&!entry.demo)speak180();
  clearTimeout(timer);timer=setTimeout(()=>{toast.classList.remove('show');timer=setTimeout(next,350);},6500);
  }
  function emit(entry){if(!enabled)return;queue.push(entry);if(queue.length>8)queue.shift();if(!displayed)next();}
