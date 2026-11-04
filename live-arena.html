@@ -639,7 +639,7 @@ function teamHeader(e,m,i){
    `<img class="team-crest" src="${safe(logo)}" alt="Logo ${safe(theirs)}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`:
    '';
  return `<div class="event-bar league-event-bar">
-  <div class="league-kicker">${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · SPIELTAG'}</div>
+  <div class="league-kicker" style="display:flex;justify-content:space-between;gap:12px"><span>${m==='double'?'DOPPELHEIMSPIELTAG · SPIEL '+(i+1):'LIGA · SPIELTAG'}</span><span>${safe(liveGameMode(e))}</span></div>
   <div class="league-match-line">
    <div class="league-team league-team-home"><span class="league-team-name">${safe(ours)}</span></div>
    <div class="league-crest-wrap"><img class="team-crest" src="logos/dart-lions.PNG" alt="Original-Logo Dart Lions"></div>
@@ -649,9 +649,29 @@ function teamHeader(e,m,i){
   </div>
  </div>`;
 }
+// Modus nur aus tatsächlich vorhandenen Live-Spiel-/Turnierdaten anzeigen.
+function liveGameMode(e){
+ if(!e || !visibleGames(e,6).length)return '';
+ const data=e.data?.turnierMain||e.data?.turnierGruppe||{};
+ const mode=(data.tournamentModusEntities||[]).find(x=>x && (x.startScore||x.startpunkte||x.punkte||x.spielmodus||x.checkoutModus||x.outMode))||{};
+ const game=visibleGames(e,6)[0]||{};
+ const score=mode.startScore??mode.startpunkte??mode.punkte??game.startScore??game.startpunkte;
+ const checkout=mode.checkoutModus??mode.outMode??game.checkoutModus??game.outMode;
+ const parts=[];
+ if(Number(score)>0)parts.push(String(score));
+ if(checkout){
+  const raw=String(typeof checkout==='object'?(checkout.name||checkout.bezeichnung||''):checkout).trim();
+  if(raw)parts.push(raw.replace(/([a-z])([A-Z])/g,'$1 $2').toUpperCase());
+ }
+ return parts.join(' · ');
+}
 function sectionHeader(e,m,i){
- if(m==='competition')return `<div class="event-bar"><div><div class="event-small">COMPETITION · LIVE</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">6 BOARDS</div></div>`;
- if(!e)return `<div class="event-bar"><div><div class="event-small">${m==='double'?'LIGASPIEL '+(i+1):'LIGA'}</div><div class="event-title">Noch keine gestartete Ligabegegnung</div></div><div class="match-number">– : –</div></div>`;
+ if(m==='competition'){
+  const label=e?'COMPETITION · LIVE':'COMPETITION';
+  const right=liveGameMode(e);
+  return `<div class="event-bar"><div><div class="event-small">${label}</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">${safe(right)}</div></div>`;
+ }
+ if(!e)return `<div class="event-bar"><div><div class="event-small">${m==='double'?'LIGASPIEL '+(i+1):'LIGA'}</div><div class="event-title">Noch keine gestartete Ligabegegnung</div></div><div class="event-small"></div></div>`;
  return teamHeader(e,m,i);
 }
 function eventSection(e,m,i,allowExpand){
