@@ -446,7 +446,7 @@ function card(g){
  const valid=g&&!g.placeholder;
  const title=valid?(g.boardName||'BOARD'):(g?.boardName||'BOARD FREI');
  if(!valid)return `<article class="game placeholder"><div class="board-top"><span class="board-title">${safe(title)}</span><span class="board-live">BEREIT</span></div><div class="players">Aktuell keine Begegnung auf diesem Board</div></article>`;
- return `<article class="game"><div class="board-top"><span class="board-title">${safe(title)}</span><span class="board-live">● ${g.inGame?'IM SPIEL':'LIVE-DATEN'}</span></div><div class="players">${player(g,1)}${player(g,2)}</div><div class="board-bottom"><span>501 DOUBLE OUT</span><span>${safe(g.bestOfLegs?'BEST OF '+g.bestOfLegs:'LIVE')}</span></div></article>`;
+ return `<article class="game"><div class="board-top"><span class="board-title">${safe(title)}</span><span class="board-live">● ${g.inGame?'IM SPIEL':'LIVE-DATEN'}</span></div><div class="players">${player(g,1)}${player(g,2)}</div><div class="board-bottom"><span>${safe(g.bestOfLegs?'BEST OF '+g.bestOfLegs:'LIVE')}</span></div></article>`;
 }
 function eventName(e){return e?.data?.turnierMain?.bezeichnung||e?.bezeichnung||e?.data?.turnierGruppe?.bezeichnung||'Ligaspiel';}
 function teamNames(e){
@@ -650,7 +650,7 @@ function teamHeader(e,m,i){
  </div>`;
 }
 function sectionHeader(e,m,i){
- if(m==='competition')return `<div class="event-bar"><div><div class="event-small">COMPETITION · LIVE</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">6 BOARDS · 501 DOUBLE OUT</div></div>`;
+ if(m==='competition')return `<div class="event-bar"><div><div class="event-small">COMPETITION · LIVE</div><div class="event-title">${safe(e?eventName(e):'Aktuell keine Competition gestartet')}</div></div><div class="event-small">6 BOARDS</div></div>`;
  if(!e)return `<div class="event-bar"><div><div class="event-small">${m==='double'?'LIGASPIEL '+(i+1):'LIGA'}</div><div class="event-title">Noch keine gestartete Ligabegegnung</div></div><div class="match-number">– : –</div></div>`;
  return teamHeader(e,m,i);
 }
