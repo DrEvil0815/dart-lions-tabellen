@@ -1,11 +1,23 @@
 {
   "liga": "4. Bezirksliga Oberfranken G",
   "team": "Dart Lions Gräfenberg",
-  "stand": "2026-11-07T22:16+00:00",
+  "stand": "2026-11-07T22:54+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
   "rows": [
     {
       "platz": 1,
+      "team": "DJK \"Creek Steelers\" Wimmelbach II",
+      "begegnungen": "3",
+      "siege": "3",
+      "unentschieden": "0",
+      "niederlagen": "0",
+      "spiele": "43:11",
+      "differenz": "+32",
+      "legs": "141:64",
+      "punkte": "6:0"
+    },
+    {
+      "platz": 2,
       "team": "Bollnberch Bomber Maigisch",
       "begegnungen": "3",
       "siege": "3",
@@ -15,18 +27,6 @@
       "differenz": "+14",
       "legs": "120:90",
       "punkte": "6:0"
-    },
-    {
-      "platz": 2,
-      "team": "DJK \"Creek Steelers\" Wimmelbach II",
-      "begegnungen": "2",
-      "siege": "2",
-      "unentschieden": "0",
-      "niederlagen": "0",
-      "spiele": "32:4",
-      "differenz": "+28",
-      "legs": "101:31",
-      "punkte": "4:0"
     },
     {
       "platz": 3,
@@ -42,18 +42,6 @@
     },
     {
       "platz": 4,
-      "team": "Spickersportclub Pinzberg  II",
-      "begegnungen": "2",
-      "siege": "1",
-      "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "16:20",
-      "differenz": "-4",
-      "legs": "65:78",
-      "punkte": "2:2"
-    },
-    {
-      "platz": 5,
       "team": "DJK Walberla Bulls Schlaifhausen II",
       "begegnungen": "2",
       "siege": "0",
@@ -65,7 +53,7 @@
       "punkte": "1:3"
     },
     {
-      "platz": 6,
+      "platz": 5,
       "team": "DC Hellsboch III",
       "begegnungen": "1",
       "siege": "0",
@@ -75,6 +63,18 @@
       "differenz": "-2",
       "legs": "32:38",
       "punkte": "0:2"
+    },
+    {
+      "platz": 6,
+      "team": "Spickersportclub Pinzberg  II",
+      "begegnungen": "3",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "23:31",
+      "differenz": "-8",
+      "legs": "98:118",
+      "punkte": "2:4"
     },
     {
       "platz": 7,

@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-11-07T22:16+00:00",
+  "stand": "2026-11-07T22:54+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
@@ -19,50 +19,50 @@
     {
       "platz": 2,
       "team": "Blue Bulls SV Walsdorf III",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "2",
-      "unentschieden": "0",
+      "unentschieden": "1",
       "niederlagen": "0",
-      "spiele": "23:13",
+      "spiele": "32:22",
       "differenz": "+10",
-      "legs": "87:54",
-      "punkte": "4:0"
+      "legs": "121:88",
+      "punkte": "5:1"
     },
     {
       "platz": 3,
       "team": "Dart Warriors FC Pommersfelden III",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "2",
-      "unentschieden": "0",
+      "unentschieden": "1",
       "niederlagen": "0",
-      "spiele": "23:13",
+      "spiele": "32:22",
       "differenz": "+10",
-      "legs": "83:55",
-      "punkte": "4:0"
+      "legs": "115:91",
+      "punkte": "5:1"
     },
     {
       "platz": 4,
       "team": "DJK \"Creek Steelers\" Wimmelbach III",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "1",
-      "unentschieden": "0",
+      "unentschieden": "1",
       "niederlagen": "1",
-      "spiele": "16:20",
+      "spiele": "25:29",
       "differenz": "-4",
-      "legs": "69:71",
-      "punkte": "2:2"
+      "legs": "105:103",
+      "punkte": "3:3"
     },
     {
       "platz": 5,
       "team": "SpVgg Reuth e.V.",
-      "begegnungen": "1",
+      "begegnungen": "2",
       "siege": "0",
-      "unentschieden": "0",
+      "unentschieden": "1",
       "niederlagen": "1",
-      "spiele": "5:13",
+      "spiele": "14:22",
       "differenz": "-8",
-      "legs": "22:43",
-      "punkte": "0:2"
+      "legs": "56:77",
+      "punkte": "1:3"
     },
     {
       "platz": 6,
