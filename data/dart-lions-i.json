@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken G",
   "team": "Dart Lions Gräfenberg",
-  "stand": "2026-11-14T20:29+00:00",
+  "stand": "2026-11-14T21:10+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
   "rows": [
     {
@@ -31,17 +31,29 @@
     {
       "platz": 3,
       "team": "DJK-SpVgg Effeltrich III",
-      "begegnungen": "2",
+      "begegnungen": "3",
       "siege": "1",
       "unentschieden": "1",
-      "niederlagen": "0",
-      "spiele": "19:17",
-      "differenz": "+2",
-      "legs": "74:67",
-      "punkte": "3:1"
+      "niederlagen": "1",
+      "spiele": "27:27",
+      "differenz": "0",
+      "legs": "108:108",
+      "punkte": "3:3"
     },
     {
       "platz": 4,
+      "team": "DC Hellsboch III",
+      "begegnungen": "2",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "1",
+      "spiele": "18:18",
+      "differenz": "0",
+      "legs": "73:72",
+      "punkte": "2:2"
+    },
+    {
+      "platz": 5,
       "team": "DJK Walberla Bulls Schlaifhausen II",
       "begegnungen": "2",
       "siege": "0",
@@ -51,18 +63,6 @@
       "differenz": "-2",
       "legs": "68:75",
       "punkte": "1:3"
-    },
-    {
-      "platz": 5,
-      "team": "DC Hellsboch III",
-      "begegnungen": "1",
-      "siege": "0",
-      "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "8:10",
-      "differenz": "-2",
-      "legs": "32:38",
-      "punkte": "0:2"
     },
     {
       "platz": 6,
