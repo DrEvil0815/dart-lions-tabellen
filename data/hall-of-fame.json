@@ -1,9 +1,9 @@
 {
-  "stand": "2026-11-13T23:14+00:00",
+  "stand": "2026-11-14T00:07+00:00",
   "quelle": "https://www.darthelfer.de/api/public/eventoperator/7a088d28-63ee-49ac-a1fc-fe726056ddbe",
-  "erkannte_competitions": 43,
-  "ausgewertete_competitions": 43,
-  "finals_erkannt": 43,
+  "erkannte_competitions": 44,
+  "ausgewertete_competitions": 44,
+  "finals_erkannt": 44,
   "historisch_ergaenzte_platzierungen": 3,
   "spielerprofile": 120,
   "fehleranzahl": 0,
@@ -36,16 +36,16 @@
     "siege": [
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Dennis Windisch",
@@ -126,6 +126,19 @@
         "podiumsplaetze": 4
       },
       {
+        "name": "André Seitz",
+        "teilnahmen": 6,
+        "maximums_180": 9,
+        "maximums_171": 0,
+        "bestes_leg": 14,
+        "highfinish": 146,
+        "highfinish_anzahl": 5,
+        "siege": 2,
+        "zweite_plaetze": 3,
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 6
+      },
+      {
         "name": "Maurice Baum",
         "teilnahmen": 9,
         "maximums_180": 3,
@@ -152,21 +165,8 @@
         "podiumsplaetze": 13
       },
       {
-        "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
-        "maximums_171": 0,
-        "bestes_leg": 14,
-        "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
-        "zweite_plaetze": 3,
-        "dritte_plaetze": 1,
-        "podiumsplaetze": 5
-      },
-      {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -174,8 +174,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Domi Heid",
@@ -543,7 +543,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -647,7 +647,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -660,7 +660,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -686,7 +686,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -907,7 +907,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -1076,10 +1076,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -1154,12 +1154,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -1167,7 +1167,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -1310,10 +1310,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -1362,7 +1362,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -1453,7 +1453,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -1518,7 +1518,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -1570,7 +1570,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -1597,6 +1597,19 @@
     ],
     "zweite_plaetze": [
       {
+        "name": "Christian Scheuring",
+        "teilnahmen": 35,
+        "maximums_180": 12,
+        "maximums_171": 0,
+        "bestes_leg": 13,
+        "highfinish": 118,
+        "highfinish_anzahl": 7,
+        "siege": 7,
+        "zweite_plaetze": 6,
+        "dritte_plaetze": 2,
+        "podiumsplaetze": 15
+      },
+      {
         "name": "Sandro Eisenreich",
         "teilnahmen": 28,
         "maximums_180": 8,
@@ -1610,30 +1623,17 @@
         "podiumsplaetze": 13
       },
       {
-        "name": "Christian Scheuring",
-        "teilnahmen": 34,
-        "maximums_180": 12,
-        "maximums_171": 0,
-        "bestes_leg": 13,
-        "highfinish": 118,
-        "highfinish_anzahl": 7,
-        "siege": 7,
-        "zweite_plaetze": 5,
-        "dritte_plaetze": 2,
-        "podiumsplaetze": 14
-      },
-      {
         "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
+        "teilnahmen": 6,
+        "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 14,
         "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
+        "highfinish_anzahl": 5,
+        "siege": 2,
         "zweite_plaetze": 3,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 5
+        "podiumsplaetze": 6
       },
       {
         "name": "Yigit Kara",
@@ -1663,7 +1663,7 @@
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -1671,8 +1671,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Domi Heid",
@@ -1741,7 +1741,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -2118,7 +2118,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -2196,7 +2196,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -2209,7 +2209,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -2235,7 +2235,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -2456,7 +2456,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -2651,10 +2651,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -2729,12 +2729,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -2742,7 +2742,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -2872,10 +2872,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -3015,7 +3015,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -3093,7 +3093,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -3145,7 +3145,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -3172,6 +3172,19 @@
         "podiumsplaetze": 13
       },
       {
+        "name": "Christian Lutz",
+        "teilnahmen": 22,
+        "maximums_180": 9,
+        "maximums_171": 0,
+        "bestes_leg": 18,
+        "highfinish": 157,
+        "highfinish_anzahl": 5,
+        "siege": 1,
+        "zweite_plaetze": 2,
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
+      },
+      {
         "name": "Ronald Rupp",
         "teilnahmen": 16,
         "maximums_180": 2,
@@ -3198,19 +3211,6 @@
         "podiumsplaetze": 8
       },
       {
-        "name": "Christian Lutz",
-        "teilnahmen": 21,
-        "maximums_180": 9,
-        "maximums_171": 0,
-        "bestes_leg": 18,
-        "highfinish": 157,
-        "highfinish_anzahl": 5,
-        "siege": 1,
-        "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
-      },
-      {
         "name": "Dennis Windisch",
         "teilnahmen": 21,
         "maximums_180": 8,
@@ -3225,16 +3225,16 @@
       },
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Michael Welß",
@@ -3251,7 +3251,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -3290,16 +3290,16 @@
       },
       {
         "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
+        "teilnahmen": 6,
+        "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 14,
         "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
+        "highfinish_anzahl": 5,
+        "siege": 2,
         "zweite_plaetze": 3,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 5
+        "podiumsplaetze": 6
       },
       {
         "name": "Arian Schubert",
@@ -3329,7 +3329,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -3667,7 +3667,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -3771,7 +3771,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -3797,7 +3797,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -4005,7 +4005,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -4226,10 +4226,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -4304,12 +4304,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -4330,7 +4330,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -4473,10 +4473,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -4603,7 +4603,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -4668,7 +4668,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -4707,7 +4707,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -4722,16 +4722,16 @@
     "podiumsplaetze": [
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Sandro Eisenreich",
@@ -4773,6 +4773,19 @@
         "podiumsplaetze": 8
       },
       {
+        "name": "Christian Lutz",
+        "teilnahmen": 22,
+        "maximums_180": 9,
+        "maximums_171": 0,
+        "bestes_leg": 18,
+        "highfinish": 157,
+        "highfinish_anzahl": 5,
+        "siege": 1,
+        "zweite_plaetze": 2,
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
+      },
+      {
         "name": "Michi Stavroglou",
         "teilnahmen": 9,
         "maximums_180": 8,
@@ -4786,16 +4799,16 @@
         "podiumsplaetze": 7
       },
       {
-        "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "name": "André Seitz",
+        "teilnahmen": 6,
         "maximums_180": 9,
         "maximums_171": 0,
-        "bestes_leg": 18,
-        "highfinish": 157,
+        "bestes_leg": 14,
+        "highfinish": 146,
         "highfinish_anzahl": 5,
-        "siege": 1,
-        "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
+        "siege": 2,
+        "zweite_plaetze": 3,
+        "dritte_plaetze": 1,
         "podiumsplaetze": 6
       },
       {
@@ -4810,19 +4823,6 @@
         "zweite_plaetze": 1,
         "dritte_plaetze": 4,
         "podiumsplaetze": 6
-      },
-      {
-        "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
-        "maximums_171": 0,
-        "bestes_leg": 14,
-        "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
-        "zweite_plaetze": 3,
-        "dritte_plaetze": 1,
-        "podiumsplaetze": 5
       },
       {
         "name": "Christian Hohe",
@@ -4878,7 +4878,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -5034,7 +5034,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -5385,7 +5385,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -5463,7 +5463,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -5489,7 +5489,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -5684,7 +5684,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -5853,10 +5853,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -5918,12 +5918,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -5931,7 +5931,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -6061,10 +6061,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -6178,7 +6178,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -6230,7 +6230,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -6269,7 +6269,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -6284,20 +6284,33 @@
     "maximums_180": [
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
+      },
+      {
+        "name": "André Seitz",
+        "teilnahmen": 6,
+        "maximums_180": 9,
+        "maximums_171": 0,
+        "bestes_leg": 14,
+        "highfinish": 146,
+        "highfinish_anzahl": 5,
+        "siege": 2,
+        "zweite_plaetze": 3,
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 6
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -6305,8 +6318,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Dennis Windisch",
@@ -6346,19 +6359,6 @@
         "zweite_plaetze": 6,
         "dritte_plaetze": 5,
         "podiumsplaetze": 13
-      },
-      {
-        "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
-        "maximums_171": 0,
-        "bestes_leg": 14,
-        "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
-        "zweite_plaetze": 3,
-        "dritte_plaetze": 1,
-        "podiumsplaetze": 5
       },
       {
         "name": "Yigit Kara",
@@ -6414,7 +6414,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -6492,7 +6492,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -6687,12 +6687,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -6960,7 +6960,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -7051,7 +7051,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -7064,7 +7064,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -7090,7 +7090,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -7259,7 +7259,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -7402,10 +7402,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -7493,7 +7493,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -7597,10 +7597,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -7740,7 +7740,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -7831,7 +7831,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -7846,7 +7846,7 @@
     "maximums_171": [
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -7924,16 +7924,16 @@
       },
       {
         "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
+        "teilnahmen": 6,
+        "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 14,
         "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
+        "highfinish_anzahl": 5,
+        "siege": 2,
         "zweite_plaetze": 3,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 5
+        "podiumsplaetze": 6
       },
       {
         "name": "Andy Braun",
@@ -8132,7 +8132,7 @@
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -8140,8 +8140,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Christian Manicki",
@@ -8158,16 +8158,16 @@
       },
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Dennis Windisch",
@@ -8197,7 +8197,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -8314,7 +8314,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -8340,7 +8340,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -8561,7 +8561,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -8782,10 +8782,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -8886,12 +8886,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -8912,7 +8912,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -9081,10 +9081,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -9133,7 +9133,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -9237,7 +9237,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -9315,7 +9315,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -9380,7 +9380,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -9408,25 +9408,25 @@
     "teilnahmen": [
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -9460,7 +9460,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -9473,7 +9473,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -9486,7 +9486,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -9496,6 +9496,19 @@
         "zweite_plaetze": 0,
         "dritte_plaetze": 1,
         "podiumsplaetze": 1
+      },
+      {
+        "name": "Stefan Kunzmann",
+        "teilnahmen": 25,
+        "maximums_180": 5,
+        "maximums_171": 0,
+        "bestes_leg": 16,
+        "highfinish": 107,
+        "highfinish_anzahl": 2,
+        "siege": 0,
+        "zweite_plaetze": 2,
+        "dritte_plaetze": 2,
+        "podiumsplaetze": 4
       },
       {
         "name": "Steven Schley",
@@ -9509,19 +9522,6 @@
         "zweite_plaetze": 0,
         "dritte_plaetze": 1,
         "podiumsplaetze": 1
-      },
-      {
-        "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
-        "maximums_180": 5,
-        "maximums_171": 0,
-        "bestes_leg": 16,
-        "highfinish": 107,
-        "highfinish_anzahl": 2,
-        "siege": 0,
-        "zweite_plaetze": 2,
-        "dritte_plaetze": 2,
-        "podiumsplaetze": 4
       },
       {
         "name": "Jessica Eisenreich",
@@ -9538,7 +9538,7 @@
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -9546,8 +9546,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Dennis Windisch",
@@ -9563,6 +9563,19 @@
         "podiumsplaetze": 9
       },
       {
+        "name": "Florian Thiel",
+        "teilnahmen": 21,
+        "maximums_180": 0,
+        "maximums_171": 1,
+        "bestes_leg": 24,
+        "highfinish": 101,
+        "highfinish_anzahl": 1,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Jenny Hausner",
         "teilnahmen": 21,
         "maximums_180": 0,
@@ -9576,21 +9589,8 @@
         "podiumsplaetze": 0
       },
       {
-        "name": "Florian Thiel",
-        "teilnahmen": 20,
-        "maximums_180": 0,
-        "maximums_171": 1,
-        "bestes_leg": 24,
-        "highfinish": 101,
-        "highfinish_anzahl": 1,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -9628,6 +9628,19 @@
         "podiumsplaetze": 0
       },
       {
+        "name": "Laurin Ochmann",
+        "teilnahmen": 16,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 24,
+        "highfinish": 106,
+        "highfinish_anzahl": 1,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Ronald Rupp",
         "teilnahmen": 16,
         "maximums_180": 2,
@@ -9648,19 +9661,6 @@
         "bestes_leg": 23,
         "highfinish": null,
         "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Laurin Ochmann",
-        "teilnahmen": 15,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 24,
-        "highfinish": 106,
-        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -9694,7 +9694,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -9888,6 +9888,19 @@
         "podiumsplaetze": 4
       },
       {
+        "name": "André Seitz",
+        "teilnahmen": 6,
+        "maximums_180": 9,
+        "maximums_171": 0,
+        "bestes_leg": 14,
+        "highfinish": 146,
+        "highfinish_anzahl": 5,
+        "siege": 2,
+        "zweite_plaetze": 3,
+        "dritte_plaetze": 1,
+        "podiumsplaetze": 6
+      },
+      {
         "name": "Nick Marsing",
         "teilnahmen": 6,
         "maximums_180": 5,
@@ -9899,19 +9912,6 @@
         "zweite_plaetze": 1,
         "dritte_plaetze": 0,
         "podiumsplaetze": 2
-      },
-      {
-        "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
-        "maximums_171": 0,
-        "bestes_leg": 14,
-        "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
-        "zweite_plaetze": 3,
-        "dritte_plaetze": 1,
-        "podiumsplaetze": 5
       },
       {
         "name": "Andy Braun",
@@ -9990,6 +9990,19 @@
         "zweite_plaetze": 0,
         "dritte_plaetze": 1,
         "podiumsplaetze": 2
+      },
+      {
+        "name": "Sarah Smolny",
+        "teilnahmen": 4,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 26,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
       },
       {
         "name": "Sven Ziegler",
@@ -10109,6 +10122,19 @@
         "podiumsplaetze": 0
       },
       {
+        "name": "Fridrich Luft",
+        "teilnahmen": 3,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 48,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Leonard Sparks",
         "teilnahmen": 3,
         "maximums_180": 6,
@@ -10148,6 +10174,19 @@
         "podiumsplaetze": 0
       },
       {
+        "name": "Melissa Zarbo",
+        "teilnahmen": 3,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 29,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Michael Bezold",
         "teilnahmen": 3,
         "maximums_180": 0,
@@ -10172,19 +10211,6 @@
         "zweite_plaetze": 2,
         "dritte_plaetze": 0,
         "podiumsplaetze": 2
-      },
-      {
-        "name": "Sarah Smolny",
-        "teilnahmen": 3,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 48,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
       },
       {
         "name": "Amrei Schauer",
@@ -10218,19 +10244,6 @@
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 32,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Fridrich Luft",
-        "teilnahmen": 2,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 48,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -10382,11 +10395,11 @@
         "podiumsplaetze": 0
       },
       {
-        "name": "Melissa Zarbo",
+        "name": "Michael Kühnlein",
         "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 27,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -10395,13 +10408,13 @@
         "podiumsplaetze": 0
       },
       {
-        "name": "Michael Kühnlein",
+        "name": "Nicklas Thiem",
         "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 27,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "bestes_leg": 21,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -10831,19 +10844,6 @@
         "bestes_leg": 27,
         "highfinish": null,
         "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Nicklas Thiem",
-        "teilnahmen": 1,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 21,
-        "highfinish": 104,
-        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -10970,7 +10970,7 @@
     "highfinishes": [
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -10983,7 +10983,7 @@
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -10991,8 +10991,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Arian Schubert",
@@ -11009,16 +11009,16 @@
       },
       {
         "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
+        "teilnahmen": 6,
+        "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 14,
         "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
+        "highfinish_anzahl": 5,
+        "siege": 2,
         "zweite_plaetze": 3,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 5
+        "podiumsplaetze": 6
       },
       {
         "name": "Christian Hohe",
@@ -11087,7 +11087,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -11139,16 +11139,16 @@
       },
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Michael Leistner",
@@ -11256,7 +11256,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -11308,7 +11308,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -11334,7 +11334,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -11359,8 +11359,21 @@
         "podiumsplaetze": 4
       },
       {
+        "name": "Nadine Graf",
+        "teilnahmen": 34,
+        "maximums_180": 1,
+        "maximums_171": 0,
+        "bestes_leg": 25,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -11412,7 +11425,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -11633,7 +11646,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -11737,7 +11750,7 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 48,
@@ -12114,10 +12127,10 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 2,
+        "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -12170,19 +12183,6 @@
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 27,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Nadine Graf",
-        "teilnahmen": 33,
-        "maximums_180": 1,
-        "maximums_171": 0,
-        "bestes_leg": 25,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -12296,10 +12296,10 @@
       },
       {
         "name": "Sarah Smolny",
-        "teilnahmen": 3,
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
-        "bestes_leg": 48,
+        "bestes_leg": 26,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -12426,7 +12426,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -12532,16 +12532,16 @@
     "low_darts": [
       {
         "name": "Christian Scheuring",
-        "teilnahmen": 34,
+        "teilnahmen": 35,
         "maximums_180": 12,
         "maximums_171": 0,
         "bestes_leg": 13,
         "highfinish": 118,
         "highfinish_anzahl": 7,
         "siege": 7,
-        "zweite_plaetze": 5,
+        "zweite_plaetze": 6,
         "dritte_plaetze": 2,
-        "podiumsplaetze": 14
+        "podiumsplaetze": 15
       },
       {
         "name": "Timm Kolbenschlag",
@@ -12558,16 +12558,16 @@
       },
       {
         "name": "André Seitz",
-        "teilnahmen": 5,
-        "maximums_180": 7,
+        "teilnahmen": 6,
+        "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 14,
         "highfinish": 146,
-        "highfinish_anzahl": 3,
-        "siege": 1,
+        "highfinish_anzahl": 5,
+        "siege": 2,
         "zweite_plaetze": 3,
         "dritte_plaetze": 1,
-        "podiumsplaetze": 5
+        "podiumsplaetze": 6
       },
       {
         "name": "Michi Stavroglou",
@@ -12636,7 +12636,7 @@
       },
       {
         "name": "Stefan Kunzmann",
-        "teilnahmen": 24,
+        "teilnahmen": 25,
         "maximums_180": 5,
         "maximums_171": 0,
         "bestes_leg": 16,
@@ -12779,7 +12779,7 @@
       },
       {
         "name": "Christian Lutz",
-        "teilnahmen": 21,
+        "teilnahmen": 22,
         "maximums_180": 9,
         "maximums_171": 0,
         "bestes_leg": 18,
@@ -12787,8 +12787,8 @@
         "highfinish_anzahl": 5,
         "siege": 1,
         "zweite_plaetze": 2,
-        "dritte_plaetze": 3,
-        "podiumsplaetze": 6
+        "dritte_plaetze": 4,
+        "podiumsplaetze": 7
       },
       {
         "name": "Dennis Windisch",
@@ -12948,7 +12948,7 @@
       },
       {
         "name": "Tommy Sülflow",
-        "teilnahmen": 18,
+        "teilnahmen": 19,
         "maximums_180": 3,
         "maximums_171": 0,
         "bestes_leg": 20,
@@ -13026,7 +13026,7 @@
       },
       {
         "name": "Nicklas Thiem",
-        "teilnahmen": 1,
+        "teilnahmen": 2,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 21,
@@ -13078,7 +13078,7 @@
       },
       {
         "name": "Dogan Cekic",
-        "teilnahmen": 13,
+        "teilnahmen": 14,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -13104,7 +13104,7 @@
       },
       {
         "name": "Florian Wagner",
-        "teilnahmen": 25,
+        "teilnahmen": 26,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 22,
@@ -13286,7 +13286,7 @@
       },
       {
         "name": "Zoltan Kapocsanyi",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 23,
@@ -13312,7 +13312,7 @@
       },
       {
         "name": "Florian Thiel",
-        "teilnahmen": 20,
+        "teilnahmen": 21,
         "maximums_180": 0,
         "maximums_171": 1,
         "bestes_leg": 24,
@@ -13364,7 +13364,7 @@
       },
       {
         "name": "Laurin Ochmann",
-        "teilnahmen": 15,
+        "teilnahmen": 16,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 24,
@@ -13416,12 +13416,12 @@
       },
       {
         "name": "Nadine Graf",
-        "teilnahmen": 33,
+        "teilnahmen": 34,
         "maximums_180": 1,
         "maximums_171": 0,
         "bestes_leg": 25,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
+        "highfinish": 104,
+        "highfinish_anzahl": 1,
         "siege": 0,
         "zweite_plaetze": 0,
         "dritte_plaetze": 0,
@@ -13508,6 +13508,19 @@
       {
         "name": "Markus Dorneff",
         "teilnahmen": 1,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 26,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
+        "name": "Sarah Smolny",
+        "teilnahmen": 4,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 26,
@@ -13688,6 +13701,19 @@
         "podiumsplaetze": 0
       },
       {
+        "name": "Melissa Zarbo",
+        "teilnahmen": 3,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 29,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Orfeas Ramai",
         "teilnahmen": 2,
         "maximums_180": 0,
@@ -13715,7 +13741,7 @@
       },
       {
         "name": "Sylvia Schauer",
-        "teilnahmen": 27,
+        "teilnahmen": 28,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 30,
@@ -13949,32 +13975,6 @@
       },
       {
         "name": "Fridrich Luft",
-        "teilnahmen": 2,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 48,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Melissa Zarbo",
-        "teilnahmen": 2,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 48,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Sarah Smolny",
         "teilnahmen": 3,
         "maximums_180": 0,
         "maximums_171": 0,
@@ -14067,6 +14067,19 @@
     ]
   },
   "chronik": [
+    {
+      "id": "cb3ed76e-935b-4f38-835c-f91eab283776",
+      "name": "28. Competition 26",
+      "datum": "13.11.2026",
+      "sort_datum": "2026-11-13",
+      "teilnehmer_mit_statistik": 16,
+      "nicht_zugeordnete_statistiken": 0,
+      "sieger": "André Seitz",
+      "zweiter": "Christian Scheuring",
+      "dritter": "Christian Lutz",
+      "platzierung_hinweis": null,
+      "url": "https://www.darthelfer.de/public/tournament/cb3ed76e-935b-4f38-835c-f91eab283776?app=false"
+    },
     {
       "id": "9b1e1a08-22f6-4ea9-99d4-e5490c6cd8dc",
       "name": "27. Competition 26",
