@@ -234,6 +234,27 @@ border-radius:12px!important;z-index:10!important;
 #highlight-toast:not(.winner-in-board) .highlight-text{min-width:0!important;max-width:100%!important;flex:1 1 0!important;}
 @media(max-width:650px){#highlight-toast:not(.winner-in-board) #highlight-title{font-size:clamp(24px,7vw,42px)!important;}}
 </style>
+
+<style id="live-arena-player-photo-sizes">
+/* Freigegebene Spielerbild-Groessen fuer 2, 4 und 6 Boards. */
+.stage.single-active .event-section .player,
+.projector .stage.single-active .event-section .player{grid-template-columns:clamp(125px,12vw,190px) minmax(0,1fr) auto!important;column-gap:clamp(8px,1vw,18px)!important}
+.stage.single-active .event-section .portrait,
+.projector .stage.single-active .event-section .portrait{height:clamp(120px,18vh,195px)!important;width:clamp(115px,11vw,175px)!important;max-width:100%!important;object-fit:cover!important;object-position:center top!important}
+.stage.mode-double .event-section .player,
+.projector .stage.mode-double .event-section .player{grid-template-columns:clamp(115px,10vw,175px) minmax(0,1fr) auto!important;column-gap:clamp(10px,1vw,18px)!important}
+.stage.mode-double .event-section .portrait,
+.projector .stage.mode-double .event-section .portrait{height:clamp(112px,16vh,170px)!important;width:clamp(105px,9vw,160px)!important;max-width:100%!important;object-fit:cover!important;object-position:center top!important}
+.stage.mode-competition .event-section .player,
+.projector .stage.mode-competition .event-section .player{grid-template-columns:clamp(83px,8vw,142px) minmax(0,1fr) auto!important;column-gap:clamp(5px,.7vw,12px)!important}
+.stage.mode-competition .event-section .portrait,
+.projector .stage.mode-competition .event-section .portrait{height:clamp(75px,12vh,130px)!important;width:clamp(78px,7.5vw,138px)!important;max-width:100%!important;object-fit:cover!important;object-position:center top!important}
+.stage.mode-competition .event-section .pinfo,
+.stage.mode-double .event-section .pinfo{min-width:0!important}
+.stage.mode-competition .event-section .pname{font-size:clamp(11px,1.05vw,18px)!important;overflow-wrap:anywhere!important}
+.stage.mode-competition .event-section .rest{font-size:clamp(23px,2.2vw,39px)!important}
+@media(max-width:1000px){.stage.mode-competition .event-section .portrait,.projector .stage.mode-competition .event-section .portrait{height:clamp(65px,10vh,110px)!important;width:clamp(65px,8vw,110px)!important}}
+</style>
 </head>
 <body class="projector mode-competition">
 <div class="shell">
