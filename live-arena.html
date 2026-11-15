@@ -182,6 +182,26 @@ html.presentation .quickstart,html:fullscreen .quickstart{display:none}
 
 /* Short-Leg nutzt dieselbe Highlight-Karte, mit angepasster Schriftbreite. */
 .highlight-toast.highlight-long .highlight-text strong{font-size:clamp(36px,5.8vw,84px)}
+
+/* Größere Spielerporträts – abgestuft nach verfügbarer Boardfläche. */
+.projector .stage.mode-competition .event-section .player,
+.projector.mode-competition .player{grid-template-columns:clamp(66px,5.8vw,104px) minmax(0,1fr) auto}
+.projector .stage.mode-competition .event-section .portrait,
+.projector.mode-competition .portrait{height:clamp(70px,10vh,112px);width:100%}
+.projector .stage.mode-double .event-section .player{grid-template-columns:clamp(78px,7vw,122px) minmax(0,1fr) auto}
+.projector .stage.mode-double .event-section .portrait{height:clamp(90px,14vh,155px);width:100%}
+.projector .stage.single-active .event-section .portrait{height:clamp(125px,22vh,240px);width:100%}
+.projector .stage.single-active .event-section .player{grid-template-columns:clamp(115px,12vw,180px) minmax(0,1fr) auto}
+@media(max-height:740px) and (min-width:781px){
+ .projector .stage.mode-competition .event-section .portrait{height:clamp(49px,8vh,78px)}
+ .projector .stage.mode-competition .event-section .player{grid-template-columns:clamp(48px,5vw,75px) minmax(0,1fr) auto}
+}
+@media(max-width:780px){
+ .projector .stage.mode-competition .event-section .portrait{height:90px}
+ .projector .stage.mode-double .event-section .portrait{height:100px}
+}
+.highlight-toast.highlight-winner .highlight-text strong{font-size:clamp(35px,5.6vw,76px)}
+.highlight-winner-stats{font-size:clamp(14px,1.65vw,23px);color:#fff;margin-top:16px;line-height:1.6}
 </style>
 </head>
 <body class="projector mode-competition">
@@ -404,6 +424,14 @@ function togglePresentation(force){
  document.documentElement.classList.toggle('presentation',make);
  const b=document.getElementById('presentation');if(b)b.textContent=make?'Bedienung einblenden':'Beamer-Ansicht';
 }
+// Vollbild aus echter Benutzeraktion (Browser-Sicherheitsvorgabe).
+document.addEventListener('pointerdown',function arenaFirstFullscreen(e){
+ if(e.target.closest('button,input,select,a,textarea'))return;
+ if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
+  document.documentElement.requestFullscreen().catch(()=>{});
+ }
+ document.removeEventListener('pointerdown',arenaFirstFullscreen);
+},{once:false});
 // Die Taste B schaltet die Bedienleiste ein oder aus, auch im Vollbild.
 // Die Taste B öffnet keine verborgenen Einstellungen mehr.
 document.getElementById('presentation')?.addEventListener('click',()=>togglePresentation());
@@ -766,11 +794,32 @@ function observeHighlights(eventId,games){
  if(!window.DartLionsHighlight||!Array.isArray(games))return;
  const visible=new Set();
  for(const g of games){
-  if(!g||g.placeholder||g.abgeschlossen)continue;
+  if(!g||g.placeholder)continue;
   const id=String(eventId)+'|'+String(g.gameId||g.id||[g.boardName,g.spieler1Id||g.spieler1Name,g.spieler2Id||g.spieler2Name].join('|'));
   visible.add(id);
   const now=[1,2].map(n=>({name:String(g['spieler'+n+'Name']||'Spieler'),count:Math.max(0,Number(g['spieler'+n+'Count180er'])||0),out:Math.max(0,Number(g['spieler'+n+'HighOut'])||0),best:(()=>{const v=Number(g['spieler'+n+'Best']);return Number.isInteger(v)&&v>0?v:null;})()}));
   const previous=highlightSnapshots.get(id);
+  if(g.abgeschlossen){
+   if(previous&&!previous.finished){
+    const a=Number(g.spieler1Legs),b=Number(g.spieler2Legs);
+    const win=a>b?1:b>a?2:0;
+    if(win){
+     const n=win;
+     const avg=g['spieler'+n+'Average'];
+     const best=g['spieler'+n+'Best'];
+     const high=g['spieler'+n+'HighOut'];
+     const count=g['spieler'+n+'Count180er'];
+     const parts=['Legs: '+a+' : '+b];
+     if(avg!=null&&avg!=='')parts.push('AVG: '+Number(avg).toLocaleString('de-DE',{maximumFractionDigits:2}));
+     if(count!=null&&count!=='')parts.push('180er: '+count);
+     if(high!=null&&Number(high)>0)parts.push('Highfinish: '+high);
+     if(best!=null&&Number(best)>0)parts.push('Kürzestes Leg: '+best);
+     window.DartLionsHighlight.emit({kind:'winner',player:String(g['spieler'+n+'Name']||'Sieger'),board:String(g.boardName||'Board'),stats:parts.join('  ·  ')});
+    }
+   }
+   highlightSnapshots.set(id,{finished:true});
+   continue;
+  }
   if(previous){
    for(let i=0;i<2;i++){
     const a=now[i],b=previous[i];if(a.name!==b.name)continue;
@@ -779,7 +828,7 @@ function observeHighlights(eventId,games){
     if(a.best!==null&&a.best<=18&&(b.best===null||a.best<b.best)){window.DartLionsHighlight.emit({kind:'shortleg',score:a.best,player:a.name,board:String(g.boardName||'Board')});}
    }
   }
-  highlightSnapshots.set(id,now);
+  highlightSnapshots.set(id,Object.assign(now,{finished:false}));
  }
  // Entfernte Spiele vergessen, damit sie bei der nächsten Begegnung neu initialisieren.
  for(const key of highlightSnapshots.keys())if(key.startsWith(String(eventId)+'|')&&!visible.has(key))highlightSnapshots.delete(key);
@@ -1047,11 +1096,11 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
  function label(){control.textContent='★ Highlights: '+(enabled?'AN':'AUS');control.setAttribute('aria-pressed',String(enabled));}
  label();control.addEventListener('click',()=>{enabled=!enabled;label();if(!enabled){queue.length=0;clearTimeout(timer);toast.classList.remove('show');displayed=0;}});
  function next(){if(!enabled||!queue.length){displayed=0;toast.classList.remove('show');return;} displayed=1;
- const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':entry.kind==='shortleg'?'⚡':'🏆';title.textContent=entry.kind==='180'?'180!':entry.kind==='shortleg'?'SHORT LEG · '+entry.score+' DARTS':'HIGHFINISH '+entry.score;
- detail.textContent=entry.player;subtitle.textContent=entry.board+(entry.demo?' · DEMO':'');
+ const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':entry.kind==='shortleg'?'⚡':'🏆';title.textContent=entry.kind==='winner'?'MATCHSIEGER':entry.kind==='180'?'180!':entry.kind==='shortleg'?'SHORT LEG · '+entry.score+' DARTS':'HIGHFINISH '+entry.score;
+ detail.textContent=entry.player;subtitle.textContent=entry.board+(entry.demo?' · DEMO':'')+(entry.stats?' · '+entry.stats:'');
  const photo=typeof playerPhotoUrl==='function'?playerPhotoUrl(entry.player):'';portrait.src=photo||silhouette;portrait.onerror=()=>{portrait.onerror=null;portrait.src=silhouette;};
- toast.classList.toggle('highlight-long',entry.kind==='shortleg');toast.classList.add('show');if(entry.kind==='180'&&!entry.demo)speak180();
- clearTimeout(timer);timer=setTimeout(()=>{toast.classList.remove('show');timer=setTimeout(next,350);},6500);
+ toast.classList.toggle('highlight-long',entry.kind==='shortleg');toast.classList.toggle('highlight-winner',entry.kind==='winner');toast.classList.add('show');if(entry.kind==='180'&&!entry.demo)speak180();
+ clearTimeout(timer);timer=setTimeout(()=>{toast.classList.remove('show');timer=setTimeout(next,350);},entry.kind==='winner'?10000:6500);
  }
  function emit(entry){if(!enabled)return;queue.push(entry);if(queue.length>8)queue.shift();if(!displayed)next();}
  window.DartLionsHighlight=Object.freeze({emit});
