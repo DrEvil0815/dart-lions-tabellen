@@ -202,6 +202,37 @@ html.presentation .quickstart,html:fullscreen .quickstart{display:none}
 }
 .highlight-toast.highlight-winner .highlight-text strong{font-size:clamp(35px,5.6vw,76px)}
 .highlight-winner-stats{font-size:clamp(14px,1.65vw,23px);color:#fff;margin-top:16px;line-height:1.6}
+
+/* Siegeranzeige bleibt vollständig innerhalb der betreffenden Board-Kachel. */
+.stage .game{position:relative}
+.highlight-toast.winner-in-board{position:absolute!important;inset:0!important;left:0!important;top:0!important;right:0!important;bottom:0!important;width:100%!important;height:100%!important;max-width:none!important;transform:none!important;border-radius:inherit!important;box-sizing:border-box!important;z-index:100!important;display:flex!important;flex-direction:column!important;gap:clamp(4px,1vh,12px)!important;padding:clamp(8px,1.4vw,20px)!important;overflow:hidden!important}
+.highlight-toast.winner-in-board.show{transform:none!important}
+.highlight-toast.winner-in-board .highlight-text strong{font-size:clamp(18px,2.3vw,38px)!important}
+.highlight-toast.winner-in-board .highlight-text span{font-size:clamp(11px,1.2vw,18px)!important}
+.highlight-toast.winner-in-board .highlight-portrait{max-height:42%!important;max-width:40%!important;object-fit:contain!important}
+
+#highlight-toast.winner-in-board,
+#highlight-toast.winner-in-board.show{
+position:absolute!important;inset:0!important;top:0!important;left:0!important;
+right:0!important;bottom:0!important;transform:none!important;
+width:100%!important;height:100%!important;min-height:0!important;
+max-height:100%!important;max-width:100%!important;
+box-sizing:border-box!important;overflow:hidden!important;
+padding:clamp(6px,1vw,14px)!important;gap:clamp(6px,1vw,16px)!important;
+display:flex!important;flex-direction:row!important;align-items:center!important;
+border-radius:12px!important;z-index:10!important;
+}
+#highlight-toast.winner-in-board .highlight-portrait{width:32%!important;height:80%!important;max-height:100%!important;object-fit:contain!important;flex-shrink:0!important}
+#highlight-toast.winner-in-board .highlight-text{min-width:0!important;flex:1!important;overflow-wrap:anywhere!important}
+#highlight-toast.winner-in-board .highlight-emoji{font-size:20px!important}
+#highlight-toast.winner-in-board #highlight-title{font-size:clamp(15px,2vw,30px)!important}
+#highlight-toast.winner-in-board #highlight-detail{font-size:clamp(13px,1.6vw,24px)!important}
+#highlight-toast.winner-in-board #highlight-subtitle{font-size:clamp(10px,1vw,15px)!important;line-height:1.3!important}
+
+/* Highfinish: lange Überschrift passt sich der verfügbaren Fensterbreite an. */
+#highlight-toast:not(.winner-in-board) #highlight-title{font-size:clamp(26px,5vw,64px)!important;line-height:1.06!important;letter-spacing:0!important;overflow-wrap:anywhere!important;word-break:normal!important;max-width:100%!important;}
+#highlight-toast:not(.winner-in-board) .highlight-text{min-width:0!important;max-width:100%!important;flex:1 1 0!important;}
+@media(max-width:650px){#highlight-toast:not(.winner-in-board) #highlight-title{font-size:clamp(24px,7vw,42px)!important;}}
 </style>
 </head>
 <body class="projector mode-competition">
@@ -425,13 +456,7 @@ function togglePresentation(force){
  const b=document.getElementById('presentation');if(b)b.textContent=make?'Bedienung einblenden':'Beamer-Ansicht';
 }
 // Vollbild aus echter Benutzeraktion (Browser-Sicherheitsvorgabe).
-document.addEventListener('pointerdown',function arenaFirstFullscreen(e){
- if(e.target.closest('button,input,select,a,textarea'))return;
- if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
-  document.documentElement.requestFullscreen().catch(()=>{});
- }
- document.removeEventListener('pointerdown',arenaFirstFullscreen);
-},{once:false});
+
 // Die Taste B schaltet die Bedienleiste ein oder aus, auch im Vollbild.
 // Die Taste B öffnet keine verborgenen Einstellungen mehr.
 document.getElementById('presentation')?.addEventListener('click',()=>togglePresentation());
@@ -1096,19 +1121,58 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
  function label(){control.textContent='★ Highlights: '+(enabled?'AN':'AUS');control.setAttribute('aria-pressed',String(enabled));}
  label();control.addEventListener('click',()=>{enabled=!enabled;label();if(!enabled){queue.length=0;clearTimeout(timer);toast.classList.remove('show');displayed=0;}});
  function next(){if(!enabled||!queue.length){displayed=0;toast.classList.remove('show');return;} displayed=1;
- const entry=queue.shift();icon.textContent=entry.kind==='180'?'🎯':entry.kind==='shortleg'?'⚡':'🏆';title.textContent=entry.kind==='winner'?'MATCHSIEGER':entry.kind==='180'?'180!':entry.kind==='shortleg'?'SHORT LEG · '+entry.score+' DARTS':'HIGHFINISH '+entry.score;
+ const entry=queue.shift();
+ // Matchsieger ausschließlich im zugehörigen Boardfenster anzeigen.
+ if(entry.kind==='winner'){
+   let games=Array.from(document.querySelectorAll('#stage .game'));
+   let target=games.find(el=>el.querySelector('.board-title')?.textContent.trim().toLowerCase()===String(entry.board||'').trim().toLowerCase());
+   if(!target)target=games.find(el=>!el.classList.contains('placeholder'));
+   if(!target)target=games[0];
+   // Ohne Live-Daten: ein eigenes Board als Vorschau erzeugen, statt die
+   // Siegeranzeige über die gesamte Arena zu legen.
+   if(!target){
+     const stage=document.getElementById('stage');
+     if(stage){
+       stage.innerHTML='<section class="event-section"><div class="board-grid"><article class="game" style="min-height:320px"><div class="board-top"><span class="board-title">BOARD 3</span></div></article></div></section>';
+       target=stage.querySelector('.game');
+     }
+   }
+   if(target){
+     target.style.position='relative';
+     target.appendChild(toast);
+     toast.classList.add('winner-in-board');
+   }else{displayed=0;next();return;}
+ }else{
+   toast.classList.remove('winner-in-board');
+   document.body.appendChild(toast);
+ }
+ icon.textContent=entry.kind==='180'?'🎯':entry.kind==='shortleg'?'⚡':'🏆';title.textContent=entry.kind==='winner'?'MATCHSIEGER':entry.kind==='180'?'180!':entry.kind==='shortleg'?'SHORT LEG · '+entry.score+' DARTS':'HIGHFINISH '+entry.score;
  detail.textContent=entry.player;subtitle.textContent=entry.board+(entry.demo?' · DEMO':'')+(entry.stats?' · '+entry.stats:'');
  const photo=typeof playerPhotoUrl==='function'?playerPhotoUrl(entry.player):'';portrait.src=photo||silhouette;portrait.onerror=()=>{portrait.onerror=null;portrait.src=silhouette;};
- toast.classList.toggle('highlight-long',entry.kind==='shortleg');toast.classList.toggle('highlight-winner',entry.kind==='winner');toast.classList.add('show');if(entry.kind==='180'&&!entry.demo)speak180();
+ toast.classList.toggle('highlight-long',entry.kind==='shortleg');toast.classList.toggle('highlight-winner',entry.kind==='winner');toast.classList.add('show');if(entry.kind==='180')speak180();
  clearTimeout(timer);timer=setTimeout(()=>{toast.classList.remove('show');timer=setTimeout(next,350);},entry.kind==='winner'?10000:6500);
  }
  function emit(entry){if(!enabled)return;queue.push(entry);if(queue.length>8)queue.shift();if(!displayed)next();}
  window.DartLionsHighlight=Object.freeze({emit});
- const params=new URLSearchParams(location.search);
- if(params.has('highlightdemo')){
-  const btn=document.createElement('button');btn.type='button';btn.className='highlight-toggle';btn.textContent='▶ Highlight testen';btn.title='Zeigt eine erfundene 180 und ein Highfinish';if(toolbar)toolbar.append(btn);
-  btn.addEventListener('click',()=>{emit({kind:'180',player:'Demo-Spieler',board:'BOARD 3',demo:true});emit({kind:'highfinish',score:121,player:'Demo-Spieler',board:'BOARD 6',demo:true});});
- }
+
+})();
+</script>
+
+<style>
+#arena-fullscreen-toggle{position:fixed;right:14px;bottom:14px;z-index:2147483640;width:42px;height:42px;display:grid;place-items:center;background:rgba(9,13,22,.78);border:1px solid rgba(243,197,92,.55);border-radius:9px;color:#f3c55c;font-size:23px;cursor:pointer;box-shadow:0 3px 12px #0007;opacity:.8;transition:opacity .2s,background .2s}
+#arena-fullscreen-toggle:hover,#arena-fullscreen-toggle:focus-visible{opacity:1;background:#1c2635}
+#arena-fullscreen-hint{position:fixed;bottom:20px;right:66px;z-index:2147483639;color:#b9b9b9;font:11px Arial,sans-serif;pointer-events:none;text-shadow:0 1px 3px #000}
+.arena-demo-start{bottom:68px!important;right:14px!important}
+</style>
+<button id="arena-fullscreen-toggle" type="button" aria-label="Vollbild einschalten" title="Vollbild ein-/ausschalten">⛶</button>
+<div id="arena-fullscreen-hint">ESC: Vollbild verlassen</div>
+<script>
+(function(){
+ const button=document.getElementById('arena-fullscreen-toggle');
+ const hint=document.getElementById('arena-fullscreen-hint');
+ function sync(){const active=!!document.fullscreenElement;button.textContent=active?'⤢':'⛶';button.title=active?'Vollbild verlassen':'Vollbild einschalten';button.setAttribute('aria-label',button.title);hint.style.display=active?'block':'none';}
+ button.addEventListener('click',async function(ev){ev.stopPropagation();try{if(document.fullscreenElement){await document.exitFullscreen();}else{await document.documentElement.requestFullscreen();}}catch(e){console.warn('Vollbild konnte nicht aktiviert werden',e);}sync();});
+ document.addEventListener('fullscreenchange',sync);sync();
 })();
 </script>
 </body>
