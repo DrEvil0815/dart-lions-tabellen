@@ -45,6 +45,13 @@ jobs:
           python update_ergebnisse_ii.py
           python update_ergebnisse_iii.py
 
+      - name: Heimspieltermine an Fan-Wall uebertragen
+        continue-on-error: true
+        env:
+          SUPABASE_FANWALL_URL: ${{ secrets.SUPABASE_FANWALL_URL }}
+          FANWALL_SYNC_TOKEN: ${{ secrets.FANWALL_SYNC_TOKEN }}
+        run: python sync_fanwall.py
+
       - name: Aktualisierte Daten speichern
         run: |
           git config user.name "github-actions[bot]"
