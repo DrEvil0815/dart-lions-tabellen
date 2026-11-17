@@ -1340,22 +1340,30 @@ function preloadPosters(items){
  }
 }
 
+function isTournament(e){
+ const category=String(e.type||e.category||e.kind||'').toLowerCase();
+ const title=String(e.title||'').toLowerCase();
+ // Die wöchentlichen Competitions und Ligaspiele bleiben normale Termine.
+ if(/liga|ligaspiel|competition/.test(category))return false;
+ if(/competition|dart lions [i]{1,3}\s*[–-]|\s[–-]\s*dart lions [i]{1,3}/i.test(title))return false;
+ return /turnier|tournament|open|meisterschaft|weihnachtsspezial|cup|masters|doppelturnier/.test(category+' '+title);
+}
 function rebuild(){
  const upcoming=entries.filter(x=>x&&/^20\d{2}-\d{2}-\d{2}$/.test(x.date)&&(x.end_date||x.date)>=today()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,12);
  const sponsors=[0,1,2,3].filter(i=>typeof WERBEPARTNER!=='undefined'&&WERBEPARTNER[i]);
- const posters=upcoming.filter(e=>typeof e.poster==='string'&&/^https:\/\//.test(e.poster));
+ const tournaments=upcoming.filter(isTournament);
  const regular=[];
  upcoming.forEach((e,i)=>{if(sponsors.length)regular.push({kind:'sponsor',idx:sponsors[i%sponsors.length]});regular.push({kind:'event',...e});});
  if(!regular.length)regular.push(...sponsors.map(idx=>({kind:'sponsor',idx})));
  slides=[];
- let posterIndex=0;
- // Nach maximal drei normalen Folien ein echtes Veranstaltungsplakat zeigen.
- // So bleibt es präsent, ohne die Sponsoren aus der Rotation zu drängen.
+ let tournamentIndex=0;
+ // Nach jeweils zwei normalen Folien erscheint ein Turnier erneut.
+ // Ligaspiele, Competitions und Sponsoren laufen weiterhin regulär durch.
  for(let i=0;i<regular.length;i++){
   slides.push(regular[i]);
-  if(posters.length&&(i+1)%3===0){slides.push({kind:'event',...posters[posterIndex%posters.length]});posterIndex++;}
+  if(tournaments.length&&(i+1)%2===0){slides.push({kind:'event',...tournaments[tournamentIndex%tournaments.length]});tournamentIndex++;}
  }
- if(posters.length&&(!slides.length||regular.length%3!==0))slides.push({kind:'event',...posters[posterIndex%posters.length]});
+ if(tournaments.length&&regular.length%2!==0)slides.push({kind:'event',...tournaments[tournamentIndex%tournaments.length]});
  if(!slides.length)slides=[{kind:'empty'}];
  preloadPosters(upcoming);
  index%=slides.length;if(visible)draw();
