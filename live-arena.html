@@ -1219,5 +1219,73 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
  document.addEventListener('fullscreenchange',sync);sync();
 })();
 </script>
+
+<!-- Dart Lions Fan-Wall: isolierte Test-Erweiterung -->
+<style id="fanwall-addon-style">
+#fanwall-addon{position:fixed;z-index:8500;left:50%;top:clamp(76px,11vh,140px);transform:translateX(-50%);width:min(850px,calc(100vw - 36px));max-height:70vh;display:none;align-items:center;gap:22px;padding:18px 24px;border:2px solid #f3c55c;border-radius:18px;background:linear-gradient(125deg,#111925,#321b22);box-shadow:0 15px 65px #000c;color:white;font-family:system-ui,Arial,sans-serif;pointer-events:none}
+#fanwall-addon.fw-visible{display:flex}
+#fanwall-addon .fw-copy{flex:1;min-width:0}
+#fanwall-addon .fw-kicker{font-size:13px;letter-spacing:.13em;font-weight:900;color:#f3c55c;margin-bottom:8px}
+#fanwall-addon .fw-name{font-size:clamp(20px,2.5vw,34px);font-weight:900;overflow-wrap:anywhere}
+#fanwall-addon .fw-message{font-size:clamp(16px,1.8vw,25px);line-height:1.3;margin-top:10px;overflow-wrap:anywhere;white-space:pre-wrap}
+#fanwall-addon .fw-image{max-width:42%;max-height:46vh;object-fit:contain;border-radius:10px;border:1px solid #8b7352}
+#fanwall-addon .fw-qr{width:145px;height:145px;background:#fff;border:7px solid #fff;border-radius:8px}
+#fanwall-addon .fw-url{font-size:clamp(13px,1.4vw,19px);color:#f3c55c;margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:650px){#fanwall-addon{top:85px;gap:12px;padding:12px;flex-direction:column;text-align:center}#fanwall-addon .fw-image{max-width:85%;max-height:22vh}#fanwall-addon .fw-qr{width:110px;height:110px}}
+</style>
+<div id="fanwall-addon" aria-live="polite">
+ <div class="fw-copy"><div class="fw-kicker" id="fw-kicker">FAN-WALL</div><div class="fw-name" id="fw-name"></div><div class="fw-message" id="fw-message"></div><div class="fw-url" id="fw-url"></div></div>
+ <img class="fw-image" id="fw-image" alt="Freigegebenes Fan-Foto" hidden>
+ <img class="fw-qr" id="fw-qr" alt="QR-Code zur Fan-Wall" hidden src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAACvAQAAAACj6bPYAAAB5klEQVR4nL2XQW7bMBBFHy0DzG7SEzAXKeVdL+VAamSgx6rVk1A3oFcdA4J+F05XTbMyzeVfzAeHf/4fBvHB0e4jFO4C4wDaOBLnOpS4AeS2lL1UdLaVuNkI2SRvSrlDYQ8ZEjAI+B7uVvszOFSWy47TovPda/8H/gXE7fLaP92/9j/He6l4qMdE5og/4i3nEF74muLsWCxwCeGp7S0lSZolEbTivSRtjRtbjzi24r1WCHVoTLmLb3Syedmn+MaP4nqGcGisWNsvlwMs19ewApyW1oqFQZ5tTJ5tTfQaU1vD25EthCfo5ic4oZ9hvV/tj+E4VZL/AuIZluvB4ty6sdmm4n29eWwBU4nNh6RTPJuKB43Js01qS7kHW5fLt+X1FM+A/f5yt9qfKjbOleSYCqEeU2P3kTQSN5uKZk3SLJXWW0HmFiKJvnIzvLZJgvd1KFGaFOcKhOa2votvFvrr4XJ9AQa5nlnaeiyOjbznVh2kja40bqzOJnk2lbhB0tlaeyyebUQbnTxoxKFrLR9JkmNT0VwHPSBJ3rf1uXZybgk20txjpeL5L7n3mprvPpmuaLOpxI1ODrSXD11x6AqZY/JsU3nILc82CejKTbYP+nklzZX0AMN7Fw02QuY2pqmtYsPjf9F/ANrhP3ZnAW4IAAAAAElFTkSuQmCC">
+</div>
+<script id="fanwall-addon-script">
+(function(){
+ "use strict";
+ const FEED="https://lugyxehsiwzipuczcvzc.supabase.co/functions/v1/dynamic-endpoint";
+ const FORM="https://drevil0815.github.io/dart-lions-fanwall/";
+ const root=document.getElementById("fanwall-addon");
+ const kicker=document.getElementById("fw-kicker"),name=document.getElementById("fw-name"),msg=document.getElementById("fw-message"),url=document.getElementById("fw-url"),photo=document.getElementById("fw-image"),qr=document.getElementById("fw-qr");
+ const seen=new Set(),queue=[];
+ let active=null,deadline=0,lastPromo=Date.now(),nextAllowed=Date.now()+12000;
+ function highlightVisible(){return !!document.querySelector(".highlight-toast.show");}
+ function hide(){root.classList.remove("fw-visible");photo.hidden=true;photo.removeAttribute("src");qr.hidden=true;active=null;deadline=0;}
+ function show(item){
+  if(highlightVisible())return;
+  active=item;deadline=Date.now()+(item.promo?10000:item.image_url?12000:8000);
+  kicker.textContent=item.promo?"MITMACHEN":"GRÜSSE AUS DER FAN-WALL";
+  name.textContent=item.promo?"Dein Gruß in unserer Live-Arena":item.name;
+  msg.textContent=item.promo?"Schicke uns deinen Gruß – gerne auch mit Foto!":item.message;
+  url.textContent=item.promo?FORM:"";
+  qr.hidden=!item.promo;photo.hidden=!item.image_url||!!item.promo;
+  if(!photo.hidden){photo.src=item.image_url;photo.onerror=function(){photo.hidden=true;};}
+  root.classList.add("fw-visible");
+ }
+ async function refresh(){
+  try{
+   const res=await fetch(FEED,{cache:"no-store"});
+   if(!res.ok)throw Error("HTTP "+res.status);
+   const data=await res.json();
+   if(!data.success||!Array.isArray(data.messages))return;
+   for(const item of data.messages){
+    if(!item||!item.id||seen.has(item.id))continue;
+    seen.add(item.id);
+    queue.push({id:item.id,name:String(item.name||""),message:String(item.message||""),image_url:item.image_url||null});
+   }
+  }catch(err){console.warn("Fan-Wall: Feed nicht erreichbar",err);}
+ }
+ function tick(){
+  const now=Date.now();
+  if(highlightVisible()){if(active)hide();return;}
+  if(active){if(now>=deadline){hide();nextAllowed=now+1500;}return;}
+  if(now<nextAllowed)return;
+  if(now-lastPromo>=240000){lastPromo=now;show({promo:true});return;}
+  if(queue.length){show(queue.shift());}
+ }
+ const observer=new MutationObserver(function(){if(highlightVisible()&&active)hide();});
+ observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:["class"]});
+ refresh();setInterval(refresh,15000);setInterval(tick,250);
+})();
+</script>
+
 </body>
 </html>
