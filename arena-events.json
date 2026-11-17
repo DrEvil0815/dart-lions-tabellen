@@ -1,12 +1,64 @@
 {
-  "updated_at": "2026-11-17T19:00:00+00:00",
-  "source": "https://www.dart-lions.de/",
+  "updated_at": "2026-11-17T20:31:44.184444+00:00",
+  "source": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque",
   "events": [
-    {"title":"Dart Lions Gräfenberg I – DSG Langensendelbach/Marloffstein II","date":"2026-11-20","time":"20:00","type":"termin","poster":null},
-    {"title":"Dart Lions Gräfenberg II – Hopfen Spigger","date":"2026-11-20","time":"20:00","type":"termin","poster":null},
-    {"title":"SV Hetzles II – Dart Lions Gräfenberg III","date":"2026-11-21","time":"20:00","type":"termin","poster":null},
-    {"title":"Dart Lions Competition","date":"2026-11-27","time":"18:00","type":"termin","poster":null},
-    {"title":"Dart Lions Gräfenberg I – Spickersportclub Pinzberg II","date":"2026-12-04","time":"20:00","type":"termin","poster":null},
-    {"title":"1. Gräfenberg Darts Open","date":"2027-01-09","end_date":"2027-01-10","time":"","type":"poster","poster":"https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTEvMTMvM2FsYWJucTYzMF8xLl9Hcl9mZW5iZXJnZXJfRGFydHNfT3Blbl8xLnBuZyJdXQ/1.%20Gr%C3%A4fenberger%20Darts%20Open%201.png?sha=2c2b2fa6931aae05"}
+    {
+      "title": "4. Bezirksliga G Dart Lions Gräfenberg vs DSG Langensendelbach/Marloffstein II (14)",
+      "date": "2026-11-20",
+      "time": "20:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "Dart Lions Gräfenberg II – Hopfen Spigg…erndorf III",
+      "date": "2026-11-20",
+      "time": "20:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "4. Bezirksliga H SV Hetzles II vs Dart Lions Gräfenberg III (15)",
+      "date": "2026-11-21",
+      "time": "20:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "Competition",
+      "date": "2026-11-27",
+      "time": "18:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "4. Bezirksliga G Dart Lions Gräfenberg vs Spickersportclub Pinzberg II (19)",
+      "date": "2026-12-04",
+      "time": "20:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "2. Weihnachtsspezial 2. Weihnachtsspezial der Dart Lions Gräfenberg",
+      "date": "2026-12-12",
+      "end_date": "2026-12-12",
+      "time": "",
+      "type": "poster",
+      "poster": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTAvMjEvMmpkMWs5bGZ5MF9XZWlobmFjaHRlbl8yMDI2X1NvY2lhbF9NZWRpYV8uUE5HIl1d/Weihnachten%202026%20%28Social-Media%29.PNG?sha=9889f51d42a5e9ea",
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/nyheder/266293"
+    },
+    {
+      "title": "1. Gräfenberg Darts Open",
+      "date": "2027-01-09",
+      "end_date": "2027-01-10",
+      "time": "",
+      "type": "poster",
+      "poster": "https://www.holdsport.dk/media/W1siZiIsIjIwMjYvMTEvMTMvM2FsYWJucTYzMF8xLl9Hcl9mZW5iZXJnZXJfRGFydHNfT3Blbl8xLnBuZyJdXQ/1.%20Gr%C3%A4fenberger%20Darts%20Open%201.png?sha=2c2b2fa6931aae05",
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/nyheder/266160"
+    }
   ]
 }
