@@ -1406,5 +1406,16 @@ async function beat(){
 beat();setInterval(beat,25000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)beat();});
 })();
 </script>
+
+<!-- Layout-Korrektur: Werbeplakate bildschirmfüllend, Steuerung ohne Überlappung -->
+<style id="arena-display-layout-fix">
+#arena-ads.visible{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;box-sizing:border-box!important;overflow:hidden!important}
+#arena-ads .ad-slide{width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;padding:12px 20px!important;margin:0!important}
+#arena-ads .ad-poster{display:block!important;width:auto!important;height:auto!important;max-width:calc(100vw - 40px)!important;max-height:calc(100vh - 32px)!important;max-height:calc(100dvh - 32px)!important;object-fit:contain!important;margin:auto!important;flex-shrink:1!important}
+#highlight-sound-enable{right:74px!important;bottom:14px!important;max-width:calc(100vw - 150px)!important;z-index:2147483641!important}
+#arena-fullscreen-toggle{right:14px!important;bottom:14px!important}
+#arena-fullscreen-hint{right:14px!important;bottom:65px!important}
+@media(max-width:520px){#highlight-sound-enable{font-size:11px!important;padding:7px 8px!important}}
+</style>
 </body>
 </html>
