@@ -1287,5 +1287,66 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
 })();
 </script>
 
+
+<!-- Vollbild-Werbemodus: nur ohne gestartete Darthelfer-Veranstaltung -->
+<style id="arena-ads-style">
+#arena-ads{position:fixed;inset:0;z-index:8000;background:radial-gradient(ellipse at 50% 30%,#332018 0%,#11131b 52%,#07090e 100%);color:#fff;display:none;align-items:center;justify-content:center;overflow:hidden;font-family:system-ui,Arial,sans-serif}
+#arena-ads.visible{display:flex}
+#arena-ads .ad-slide{width:min(92vw,1500px);height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(15px,3vh,36px);animation:ad-appear .65s ease both}
+#arena-ads .ad-eyebrow{color:#f4c45c;font-size:clamp(16px,2vw,29px);font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+#arena-ads .ad-heading{font-size:clamp(38px,5.7vw,95px);font-weight:950;line-height:1.06;max-width:95%;text-wrap:balance}
+#arena-ads .ad-logo{display:block;max-width:min(74vw,1050px);max-height:54vh;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 15px 30px #0009)}
+#arena-ads .ad-sub{font-size:clamp(21px,2.7vw,44px);font-weight:750;max-width:90%;line-height:1.3}
+#arena-ads .ad-footer{position:absolute;bottom:3vh;left:5vw;right:5vw;display:flex;align-items:center;justify-content:space-between;gap:18px;color:#f4c45c;font-size:clamp(14px,1.6vw,24px);font-weight:800;letter-spacing:.07em}
+#arena-ads .ad-line{height:4px;width:min(420px,55vw);background:linear-gradient(90deg,#9e1f28,#e4ad46,#9e1f28);border-radius:4px}
+#arena-ads .ad-date{font-size:clamp(36px,5vw,85px);font-weight:950;color:#f4c45c}
+@keyframes ad-appear{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:scale(1)}}
+/* Bei Werbung keine Fan-Wall, Highlights oder andere Spiel-Overlays einblenden. */
+body.arena-ad-active #fanwall-addon,body.arena-ad-active #highlight-toast{display:none!important}
+@media(prefers-reduced-motion:reduce){#arena-ads .ad-slide{animation:none}}
+</style>
+<div id="arena-ads" aria-label="Sponsor- und Turnierwerbung" aria-live="off"><div class="ad-slide" id="arena-ad-slide"></div><div class="ad-footer"><span>DART LIONS GRÄFENBERG</span><span>GAME ON!</span></div></div>
+<script id="arena-ads-script">
+(function(){
+ 'use strict';
+ const root=document.getElementById('arena-ads'),slide=document.getElementById('arena-ad-slide');
+ const params=new URLSearchParams(location.search);
+ // ?werbevollbild=1: Werbung gezielt testen, auch wenn gerade ein Event läuft.
+ const preview=params.get('werbevollbild')==='1';
+ const slides=[
+  {kind:'sponsor',idx:0},{kind:'sponsor',idx:1},
+  {kind:'turnier',eyebrow:'DART LIONS GRÄFENBERG',title:'1. GRÄFENBERG DART OPEN',date:'9. & 10. JANUAR 2027',sub:'Zwei Tage Darts. Eine große Bühne.'},
+  {kind:'sponsor',idx:2},{kind:'sponsor',idx:3},
+  {kind:'turnier',eyebrow:'JEDEN FREITAG',title:'DART LIONS COMPETITION',date:'START 19:00 UHR',sub:'Einlass ab 18:00 Uhr · Sei dabei!'}
+ ];
+ let current=0,visible=false;
+ const escapeHtml=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function draw(){
+  const item=slides[current];let html='';
+  if(item.kind==='sponsor'){
+   const partner=(typeof WERBEPARTNER!=='undefined'&&WERBEPARTNER[item.idx])||null;
+   if(!partner)return;
+   html='<div class="ad-eyebrow">UNSERE WERBEPARTNER</div><img class="ad-logo" alt="'+escapeHtml(partner.name)+'" src="'+partner.logo+'"><div class="ad-sub">'+escapeHtml(partner.name)+'</div><div class="ad-line"></div><div class="ad-eyebrow">DANKE FÜR EURE UNTERSTÜTZUNG!</div>';
+  }else{
+   html='<div class="ad-eyebrow">'+escapeHtml(item.eyebrow)+'</div><div class="ad-line"></div><div class="ad-heading">'+escapeHtml(item.title)+'</div><div class="ad-date">'+escapeHtml(item.date)+'</div><div class="ad-sub">'+escapeHtml(item.sub)+'</div>';
+  }
+  slide.innerHTML=html;
+ }
+ function shouldShow(){
+  if(preview)return true;
+  // DEMO und explizite Testveranstaltungen haben Vorrang vor der Werbung.
+  if(typeof DEMO!=='undefined'&&DEMO)return false;
+  return typeof events!=='undefined'&&Array.isArray(events)&&events.length===0;
+ }
+ function update(){
+  const on=shouldShow();
+  if(on!==visible){visible=on;root.classList.toggle('visible',on);document.body.classList.toggle('arena-ad-active',on);if(on)draw();}
+ }
+ setInterval(()=>{if(visible){current=(current+1)%slides.length;draw();}},15000);
+ setInterval(update,1000);
+ update();
+})();
+</script>
+
 </body>
 </html>
