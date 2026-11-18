@@ -997,7 +997,7 @@ byId('league-data').addEventListener('click',async()=>{
  finally{btn.disabled=false;btn.textContent=old;}
 });
 byId('reload').addEventListener('click',()=>{if(DEMO){loadDemo();return;}if(events.length)rejoin();else discover();});
-byId('screen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{}});
+byId('screen').addEventListener('click',()=>window.dartLionsToggleFullscreen?.());
 // Manuelle Spieltagsauswahl ohne Eingriff in WebSocket-Verbindung oder Live-Daten.
 const picker=document.getElementById('event-picker');
 const pickerRows=document.getElementById('event-picker-rows');
@@ -1234,10 +1234,38 @@ if(new URLSearchParams(location.search).get('technikcheck')==='1'){if(document.r
 (function(){
  const button=document.getElementById('arena-fullscreen-toggle');
  const hint=document.getElementById('arena-fullscreen-hint');
- function sync(){const active=!!document.fullscreenElement;button.textContent=active?'⤢':'⛶';button.title=active?'Vollbild verlassen':'Vollbild einschalten';button.setAttribute('aria-label',button.title);hint.style.display=active?'block':'none';}
- button.addEventListener('click',async function(ev){ev.stopPropagation();try{if(document.fullscreenElement){await document.exitFullscreen();}else{await document.documentElement.requestFullscreen();}}catch(e){console.warn('Vollbild konnte nicht aktiviert werden',e);}sync();});
- document.addEventListener('fullscreenchange',sync);sync();
-})();
+ const root=document.documentElement;
+ const isFramed=(()=>{try{return window.self!==window.top;}catch(e){return true;}})();
+ function active(){return !!document.fullscreenElement||root.classList.contains('arena-mobile-fullscreen');}
+ function sync(){
+  const on=active();button.textContent=on?'⤢':'⛶';
+  button.title=on?'Vollbild verlassen':(isFramed&&!root.requestFullscreen?'Live-Arena in großem Fenster öffnen':'Vollbild einschalten');
+  button.setAttribute('aria-label',button.title);
+  hint.textContent=root.classList.contains('arena-mobile-fullscreen')?'Erneut tippen: Ansicht verlassen':'ESC: Vollbild verlassen';
+  hint.style.display=on?'block':'none';
+ }
+ async function toggle(){
+  if(document.fullscreenElement){try{await document.exitFullscreen();}catch(e){}sync();return;}
+  if(root.classList.contains('arena-mobile-fullscreen')){root.classList.remove('arena-mobile-fullscreen');sync();return;}
+  // iOS Safari does not support Element.requestFullscreen on ordinary page elements.
+  // Inside an iframe, CSS cannot escape the embedding frame: open the direct arena instead.
+  if(isFramed&&typeof root.requestFullscreen!=='function'){
+   const target=new URL(location.href);target.searchParams.set('mobilearena','1');
+   const popup=window.open(target.href,'_blank');
+   if(!popup)window.location.href=target.href;
+   return;
+  }
+  if(typeof root.requestFullscreen==='function'){
+   try{await root.requestFullscreen();sync();return;}catch(e){}
+  }
+  root.classList.add('arena-mobile-fullscreen');sync();
+ }
+ window.dartLionsToggleFullscreen=toggle;
+ button.addEventListener('click',function(ev){ev.preventDefault();ev.stopPropagation();toggle();});
+ document.addEventListener('fullscreenchange',sync);
+ if(new URLSearchParams(location.search).get('mobilearena')==='1')root.classList.add('arena-mobile-fullscreen');
+ sync();
+})();;
 </script>
 
 <!-- Dart Lions Fan-Wall: isolierte Test-Erweiterung -->
@@ -1436,6 +1464,13 @@ beat();setInterval(beat,25000);document.addEventListener('visibilitychange',()=>
 #arena-fullscreen-toggle{right:14px!important;bottom:14px!important}
 #arena-fullscreen-hint{right:14px!important;bottom:65px!important}
 @media(max-width:520px){#highlight-sound-enable{font-size:11px!important;padding:7px 8px!important}}
+</style>
+
+<style id="arena-mobile-fullscreen-style">
+html.arena-mobile-fullscreen,html.arena-mobile-fullscreen body{margin:0!important;width:100%!important;min-height:100dvh!important;overflow-x:hidden!important}
+html.arena-mobile-fullscreen .shell{min-height:100dvh!important}
+html.arena-mobile-fullscreen #arena-ads.visible{height:100dvh!important}
+@media(max-width:700px){#arena-fullscreen-toggle{right:12px!important;bottom:12px!important;width:48px!important;height:48px!important;touch-action:manipulation}#highlight-sound-enable{right:72px!important;bottom:12px!important}}
 </style>
 </body>
 </html>
