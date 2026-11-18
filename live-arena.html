@@ -255,26 +255,7 @@ border-radius:12px!important;z-index:10!important;
 .stage.mode-competition .event-section .rest{font-size:clamp(23px,2.2vw,39px)!important}
 @media(max-width:1000px){.stage.mode-competition .event-section .portrait,.projector .stage.mode-competition .event-section .portrait{height:clamp(65px,10vh,110px)!important;width:clamp(65px,8vw,110px)!important}}
 </style>
-<style id="arena-idle-responsive-fix">
-/* Live-Arena ohne aktive Spiele: vollwertige Ansicht statt Werbestreifen. */
-#arena-ads.visible{display:flex!important;flex-direction:column!important;justify-content:stretch!important;align-items:stretch!important;min-height:100%!important;background:radial-gradient(ellipse at 50% 44%,#302019 0%,#141925 48%,#080d17 100%)!important}
-#arena-ads .arena-idle-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;padding:clamp(16px,2.7vh,32px) clamp(22px,4vw,72px);border-bottom:1px solid #73502d;background:linear-gradient(90deg,#151a25,#1d1a21);box-shadow:0 4px 28px #0005;z-index:2}
-.arena-idle-brand{display:flex;flex-direction:column;gap:3px}
-.arena-idle-kicker{color:#f3c55c;font-weight:850;font-size:clamp(12px,1.2vw,18px);letter-spacing:.13em}
-.arena-idle-brand strong{font-size:clamp(28px,3.2vw,54px);letter-spacing:.035em;line-height:1.05;color:#fff}
-.arena-idle-status{display:flex;align-items:center;gap:12px;border:1px solid #785f40;border-radius:999px;padding:11px 18px;background:#0e1420;font-size:clamp(13px,1.35vw,20px);font-weight:750;color:#f7dfb0}
-.arena-idle-dot{width:11px;height:11px;border-radius:50%;background:#9ca3af;box-shadow:0 0 0 4px #9ca3af22;flex:none}
-#arena-ads .arena-idle-caption{position:absolute;bottom:clamp(18px,3vh,36px);left:50%;transform:translateX(-50%);font-size:clamp(12px,1.1vw,17px);color:#c6b8a5;text-align:center;white-space:normal;width:calc(100% - 160px);z-index:1;pointer-events:none}
-#arena-ads .ad-slide{flex:1 1 0!important;min-height:0!important;width:100%!important;height:auto!important;max-height:none!important;padding:clamp(12px,2vh,30px) clamp(20px,4vw,60px) 55px!important;gap:clamp(10px,2vh,25px)!important;justify-content:center!important;align-items:center!important;overflow:hidden!important}
-#arena-ads .ad-logo{max-height:min(43dvh,480px)!important;max-width:min(78vw,1050px)!important;width:auto!important;height:auto!important;object-fit:contain!important}
-#arena-ads .ad-poster{max-height:calc(100dvh - 195px)!important;max-width:90vw!important;width:auto!important;height:auto!important;object-fit:contain!important;margin:0!important}
-#arena-ads .ad-heading{font-size:clamp(28px,4.3vw,76px)!important}
-#arena-ads .ad-sub{font-size:clamp(19px,2.4vw,38px)!important}
-#arena-ads .ad-footer{display:none!important}
-#highlight-sound-enable{right:74px!important;bottom:14px!important}
-@media(max-width:700px){#arena-ads .arena-idle-header{flex-direction:column;align-items:flex-start;gap:12px;padding:14px 18px}.arena-idle-brand strong{font-size:30px}.arena-idle-status{padding:7px 12px;font-size:13px}#arena-ads .ad-slide{padding:10px 12px 48px!important}#arena-ads .ad-poster{max-height:calc(100dvh - 200px)!important}#arena-ads .arena-idle-caption{width:calc(100% - 32px);bottom:65px;font-size:11px}}
-@media(max-height:540px) and (min-width:701px){#arena-ads .arena-idle-header{padding:9px 25px}.arena-idle-brand strong{font-size:25px}#arena-ads .ad-slide{padding:5px 15px 32px!important}#arena-ads .ad-poster{max-height:calc(100dvh - 110px)!important}}
-</style>
+
 </head>
 <body class="projector mode-competition">
 <div class="shell">
@@ -1456,21 +1437,24 @@ beat();setInterval(beat,25000);document.addEventListener('visibilitychange',()=>
 </script>
 
 <!-- Layout-Korrektur: Werbeplakate bildschirmfüllend, Steuerung ohne Überlappung -->
-<style id="arena-display-layout-fix">
-#arena-ads.visible{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;box-sizing:border-box!important;overflow:hidden!important}
-#arena-ads .ad-slide{width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;padding:12px 20px!important;margin:0!important}
-#arena-ads .ad-poster{display:block!important;width:auto!important;height:auto!important;max-width:calc(100vw - 40px)!important;max-height:calc(100vh - 32px)!important;max-height:calc(100dvh - 32px)!important;object-fit:contain!important;margin:auto!important;flex-shrink:1!important}
-#highlight-sound-enable{right:74px!important;bottom:14px!important;max-width:calc(100vw - 150px)!important;z-index:2147483641!important}
-#arena-fullscreen-toggle{right:14px!important;bottom:14px!important}
-#arena-fullscreen-hint{right:14px!important;bottom:65px!important}
-@media(max-width:520px){#highlight-sound-enable{font-size:11px!important;padding:7px 8px!important}}
-</style>
+
 
 <style id="arena-mobile-fullscreen-style">
 html.arena-mobile-fullscreen,html.arena-mobile-fullscreen body{margin:0!important;width:100%!important;min-height:100dvh!important;overflow-x:hidden!important}
 html.arena-mobile-fullscreen .shell{min-height:100dvh!important}
 html.arena-mobile-fullscreen #arena-ads.visible{height:100dvh!important}
 @media(max-width:700px){#arena-fullscreen-toggle{right:12px!important;bottom:12px!important;width:48px!important;height:48px!important;touch-action:manipulation}#highlight-sound-enable{right:72px!important;bottom:12px!important}}
+</style>
+<style id="arena-idle-layout-final">
+#arena-ads.visible{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;display:grid!important;grid-template-rows:auto minmax(0,1fr) auto;box-sizing:border-box;overflow:hidden;background:radial-gradient(ellipse at center,#302019,#141925 55%,#080d17)!important}
+#arena-ads .arena-idle-header{grid-row:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,48px);border-bottom:1px solid #73502d;background:#191a23;box-sizing:border-box;width:100%}
+.arena-idle-brand{display:flex;flex-direction:column;gap:3px}.arena-idle-kicker{color:#f3c55c;font-weight:850;letter-spacing:.13em;font-size:clamp(11px,1.2vw,18px)}.arena-idle-brand strong{font-size:clamp(22px,3vw,46px);line-height:1.1}.arena-idle-status{display:flex;align-items:center;gap:10px;border:1px solid #785f40;border-radius:999px;padding:10px 16px;color:#f7dfb0;font-weight:750;font-size:clamp(11px,1.3vw,20px)}.arena-idle-dot{width:10px;height:10px;background:#9ca3af;border-radius:50%;flex:none}
+#arena-ads .ad-slide{grid-row:2;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;box-sizing:border-box;padding:clamp(8px,2vh,24px) clamp(12px,3vw,48px)!important;gap:clamp(5px,1.5vh,18px);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0!important}
+#arena-ads .ad-slide>*{flex-shrink:0}#arena-ads .ad-slide .ad-logo{flex:1 1 0;min-height:0;width:90%!important;max-width:1100px!important;height:0!important;max-height:none!important;object-fit:contain!important}#arena-ads .ad-slide .ad-poster{flex:1 1 0;min-height:0;width:100%!important;height:0!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;margin:0!important}
+#arena-ads .ad-heading{font-size:clamp(23px,4.3vw,76px)}#arena-ads .ad-sub{font-size:clamp(17px,2.4vw,38px)}#arena-ads .ad-eyebrow{font-size:clamp(11px,1.6vw,24px)}#arena-ads .ad-date{font-size:clamp(20px,4vw,65px)}
+#arena-ads .arena-idle-caption{grid-row:3;position:static!important;transform:none!important;width:100%;min-height:64px;padding:12px 240px 12px 16px;box-sizing:border-box;display:flex;justify-content:center;align-items:center;color:#c6b8a5;text-align:center;font-size:clamp(11px,1.1vw,17px)}#arena-ads .ad-footer{display:none!important}
+#highlight-sound-enable{right:74px!important;bottom:14px!important;max-width:calc(100vw - 150px)!important;z-index:2147483641!important}#arena-fullscreen-toggle{right:14px!important;bottom:14px!important}#arena-fullscreen-hint{right:14px!important;bottom:65px!important}
+@media(max-width:700px){#arena-ads .arena-idle-header{flex-wrap:wrap;padding:10px 14px}#arena-ads .arena-idle-caption{padding:5px 10px 52px;min-height:70px}#highlight-sound-enable{font-size:11px!important}}
 </style>
 </body>
 </html>
