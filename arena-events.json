@@ -1,15 +1,7 @@
 {
-  "updated_at": "2026-11-20T20:36:48.289339+00:00",
+  "updated_at": "2026-11-20T21:33:57.215363+00:00",
   "source": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque",
   "events": [
-    {
-      "title": "4. Bezirksliga G Dart Lions Gräfenberg vs DSG Langensendelbach/Marloffstein II (14)",
-      "date": "2026-11-20",
-      "time": "20:00",
-      "type": "termin",
-      "poster": null,
-      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
-    },
     {
       "title": "Dart Lions Gräfenberg II – Hopfen Spigg…erndorf III",
       "date": "2026-11-20",
@@ -38,6 +30,14 @@
       "title": "2. Ranglistenturnier Oberfranken 26/27",
       "date": "2026-11-28",
       "time": "10:00",
+      "type": "termin",
+      "poster": null,
+      "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
+    },
+    {
+      "title": "4. Bezirksliga G Dart Lions Gräfenberg vs Spickersportclub Pinzberg II (19)",
+      "date": "2026-12-04",
+      "time": "20:00",
       "type": "termin",
       "poster": null,
       "url": "https://www.dart-lions.de/klub/dart-lions-tsv-09-graefenberg/sider/dart-lions-tsv-09-grafenberg-lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-integer-sed-semper-sapien-a-faucibus-mauris-mauris-orci-mi-auctor-nec-urna-ac-venenatis-commodo-velit-sed-ultricies-justo-ultrices-suscipit-pellentesque"
