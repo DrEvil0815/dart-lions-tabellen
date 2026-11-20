@@ -1,5 +1,5 @@
 {
-  "stand": "2026-11-20T08:39+00:00",
+  "stand": "2026-11-20T09:56+00:00",
   "quelle": "https://www.darthelfer.de/api/public/eventoperator/7a088d28-63ee-49ac-a1fc-fe726056ddbe",
   "erkannte_competitions": 44,
   "ausgewertete_competitions": 44,
@@ -1076,7 +1076,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -2651,7 +2651,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -4226,7 +4226,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -5853,7 +5853,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -7402,7 +7402,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -8782,7 +8782,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -9940,6 +9940,19 @@
         "podiumsplaetze": 5
       },
       {
+        "name": "Melissa Zarbo",
+        "teilnahmen": 5,
+        "maximums_180": 0,
+        "maximums_171": 0,
+        "bestes_leg": 29,
+        "highfinish": null,
+        "highfinish_anzahl": 0,
+        "siege": 0,
+        "zweite_plaetze": 0,
+        "dritte_plaetze": 0,
+        "podiumsplaetze": 0
+      },
+      {
         "name": "Stefan Ochmann",
         "teilnahmen": 5,
         "maximums_180": 0,
@@ -10166,19 +10179,6 @@
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 27,
-        "highfinish": null,
-        "highfinish_anzahl": 0,
-        "siege": 0,
-        "zweite_plaetze": 0,
-        "dritte_plaetze": 0,
-        "podiumsplaetze": 0
-      },
-      {
-        "name": "Melissa Zarbo",
-        "teilnahmen": 3,
-        "maximums_180": 0,
-        "maximums_171": 0,
-        "bestes_leg": 29,
         "highfinish": null,
         "highfinish_anzahl": 0,
         "siege": 0,
@@ -12127,7 +12127,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -13702,7 +13702,7 @@
       },
       {
         "name": "Melissa Zarbo",
-        "teilnahmen": 3,
+        "teilnahmen": 5,
         "maximums_180": 0,
         "maximums_171": 0,
         "bestes_leg": 29,
@@ -14397,7 +14397,7 @@
       "name": "3. Competition 26",
       "datum": "30.01.2026",
       "sort_datum": "2026-01-30",
-      "teilnehmer_mit_statistik": 19,
+      "teilnehmer_mit_statistik": 20,
       "nicht_zugeordnete_statistiken": 0,
       "sieger": "Johann Schuster",
       "zweiter": "Preissinger Alexander",
@@ -14607,7 +14607,7 @@
       "name": "4. Steeldart Competition",
       "datum": "22.08.2025",
       "sort_datum": "2025-08-22",
-      "teilnehmer_mit_statistik": 21,
+      "teilnehmer_mit_statistik": 22,
       "nicht_zugeordnete_statistiken": 0,
       "sieger": "Udo Sassik",
       "zweiter": "Sandro Eisenreich",
