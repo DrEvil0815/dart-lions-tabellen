@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken G",
   "team": "Dart Lions Gräfenberg",
-  "stand": "2026-11-21T22:09+00:00",
+  "stand": "2026-11-21T22:47+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
   "rows": [
     {
@@ -19,29 +19,17 @@
     {
       "platz": 2,
       "team": "Bollnberch Bomber Maigisch",
-      "begegnungen": "3",
-      "siege": "3",
+      "begegnungen": "4",
+      "siege": "4",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "34:20",
-      "differenz": "+14",
-      "legs": "120:90",
-      "punkte": "6:0"
+      "spiele": "44:28",
+      "differenz": "+16",
+      "legs": "160:123",
+      "punkte": "8:0"
     },
     {
       "platz": 3,
-      "team": "DC Hellsboch III",
-      "begegnungen": "2",
-      "siege": "1",
-      "unentschieden": "0",
-      "niederlagen": "1",
-      "spiele": "18:18",
-      "differenz": "0",
-      "legs": "73:72",
-      "punkte": "2:2"
-    },
-    {
-      "platz": 4,
       "team": "Spickersportclub Pinzberg  II",
       "begegnungen": "4",
       "siege": "2",
@@ -53,7 +41,7 @@
       "punkte": "4:4"
     },
     {
-      "platz": 5,
+      "platz": 4,
       "team": "Dart Lions Gräfenberg",
       "begegnungen": "4",
       "siege": "2",
@@ -63,6 +51,18 @@
       "differenz": "-16",
       "legs": "122:153",
       "punkte": "4:4"
+    },
+    {
+      "platz": 5,
+      "team": "DC Hellsboch III",
+      "begegnungen": "3",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "2",
+      "spiele": "26:28",
+      "differenz": "-2",
+      "legs": "106:112",
+      "punkte": "2:4"
     },
     {
       "platz": 6,
