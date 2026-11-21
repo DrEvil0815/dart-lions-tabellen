@@ -2,7 +2,7 @@
   "team": "Dart Lions Gräfenberg",
   "liga": "4. Bezirksliga Oberfranken G",
   "saison": "2026/27",
-  "stand": "2026-11-20T23:31+00:00",
+  "stand": "2026-11-21T00:20+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528139&championship=OFr+2026%2F27&group=211419",
   "naechstes_spiel": {
     "datum": "04.12.2026",
@@ -12,6 +12,15 @@
     "gast": "Spickersportclub Pinzberg  II"
   },
   "spiele": [
+    {
+      "datum": "20.11.2026",
+      "datum_iso": "2026-11-20",
+      "uhrzeit": "20:00",
+      "heim": "Dart Lions Gräfenberg",
+      "gast": "DSG Langensendelbach/Marloffstein II",
+      "ergebnis": "10:8",
+      "spielbericht": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupMeetingReport?meeting=6106654&championship=OFr+2026%2F27&group=211419"
+    },
     {
       "datum": "30.10.2026",
       "datum_iso": "2026-10-30",
