@@ -1,7 +1,7 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-11-21T22:47+00:00",
+  "stand": "2026-11-21T23:23+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
@@ -31,14 +31,14 @@
     {
       "platz": 3,
       "team": "Bollnberch Bomber Maigisch II",
-      "begegnungen": "3",
-      "siege": "2",
+      "begegnungen": "4",
+      "siege": "3",
       "unentschieden": "0",
       "niederlagen": "1",
-      "spiele": "28:26",
-      "differenz": "+2",
-      "legs": "99:105",
-      "punkte": "4:2"
+      "spiele": "38:34",
+      "differenz": "+4",
+      "legs": "137:137",
+      "punkte": "6:2"
     },
     {
       "platz": 4,
@@ -67,14 +67,14 @@
     {
       "platz": 6,
       "team": "DJK \"Creek Steelers\" Wimmelbach IV",
-      "begegnungen": "3",
+      "begegnungen": "4",
       "siege": "1",
       "unentschieden": "0",
-      "niederlagen": "2",
-      "spiele": "17:37",
-      "differenz": "-20",
-      "legs": "74:127",
-      "punkte": "2:4"
+      "niederlagen": "3",
+      "spiele": "25:47",
+      "differenz": "-22",
+      "legs": "106:165",
+      "punkte": "2:6"
     },
     {
       "platz": 7,

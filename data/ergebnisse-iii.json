@@ -2,13 +2,13 @@
   "team": "Dart Lions Gräfenberg III",
   "liga": "4. Bezirksliga Oberfranken H",
   "saison": "2026/27",
-  "stand": "2026-11-21T22:47+00:00",
+  "stand": "2026-11-21T23:23+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/teamPortrait?teamtable=1528157&championship=OFr+2026%2F27&group=211415",
   "naechstes_spiel": {
-    "datum": "21.11.2026",
-    "datum_iso": "2026-11-21",
-    "uhrzeit": "20:00",
-    "heim": "SV Hetzles II",
+    "datum": "05.12.2026",
+    "datum_iso": "2026-12-05",
+    "uhrzeit": "18:00",
+    "heim": "DJK \"Creek Steelers\" Wimmelbach IV",
     "gast": "Dart Lions Gräfenberg III"
   },
   "spiele": [
