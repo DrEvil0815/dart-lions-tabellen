@@ -1,7 +1,7 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-11-21T13:21+00:00",
+  "stand": "2026-11-21T14:16+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
@@ -43,14 +43,14 @@
     {
       "platz": 4,
       "team": "DJK \"Creek Steelers\" Wimmelbach III",
-      "begegnungen": "3",
-      "siege": "1",
+      "begegnungen": "4",
+      "siege": "2",
       "unentschieden": "1",
       "niederlagen": "1",
-      "spiele": "25:29",
-      "differenz": "-4",
+      "spiele": "38:34",
+      "differenz": "+4",
       "legs": "105:103",
-      "punkte": "3:3"
+      "punkte": "5:3"
     },
     {
       "platz": 5,
@@ -66,18 +66,6 @@
     },
     {
       "platz": 6,
-      "team": "SpVgg Reuth e.V.",
-      "begegnungen": "2",
-      "siege": "0",
-      "unentschieden": "1",
-      "niederlagen": "1",
-      "spiele": "14:22",
-      "differenz": "-8",
-      "legs": "56:77",
-      "punkte": "1:3"
-    },
-    {
-      "platz": 7,
       "team": "TSV Hirschaid e.V. - The Deers IV",
       "begegnungen": "3",
       "siege": "0",
@@ -89,7 +77,7 @@
       "punkte": "1:5"
     },
     {
-      "platz": 8,
+      "platz": 7,
       "team": "Red Steelers Burk",
       "begegnungen": "2",
       "siege": "0",
@@ -99,6 +87,18 @@
       "differenz": "-12",
       "legs": "53:88",
       "punkte": "0:4"
+    },
+    {
+      "platz": 8,
+      "team": "SpVgg Reuth e.V.",
+      "begegnungen": "3",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "2",
+      "spiele": "19:35",
+      "differenz": "-16",
+      "legs": "56:77",
+      "punkte": "1:5"
     }
   ]
 }
