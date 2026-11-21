@@ -1,20 +1,20 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-11-21T07:21+00:00",
+  "stand": "2026-11-21T08:12+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
       "platz": 1,
       "team": "Hopfen Spiggerer Hallerndorf III",
-      "begegnungen": "3",
+      "begegnungen": "4",
       "siege": "3",
       "unentschieden": "0",
-      "niederlagen": "0",
-      "spiele": "36:18",
-      "differenz": "+18",
-      "legs": "130:92",
-      "punkte": "6:0"
+      "niederlagen": "1",
+      "spiele": "44:28",
+      "differenz": "+16",
+      "legs": "160:127",
+      "punkte": "6:2"
     },
     {
       "platz": 2,
@@ -54,6 +54,18 @@
     },
     {
       "platz": 5,
+      "team": "Dart Lions Gräfenberg II",
+      "begegnungen": "4",
+      "siege": "1",
+      "unentschieden": "1",
+      "niederlagen": "2",
+      "spiele": "33:39",
+      "differenz": "-6",
+      "legs": "129:146",
+      "punkte": "3:5"
+    },
+    {
+      "platz": 6,
       "team": "SpVgg Reuth e.V.",
       "begegnungen": "2",
       "siege": "0",
@@ -65,7 +77,7 @@
       "punkte": "1:3"
     },
     {
-      "platz": 6,
+      "platz": 7,
       "team": "TSV Hirschaid e.V. - The Deers IV",
       "begegnungen": "3",
       "siege": "0",
@@ -74,18 +86,6 @@
       "spiele": "24:30",
       "differenz": "-6",
       "legs": "102:121",
-      "punkte": "1:5"
-    },
-    {
-      "platz": 7,
-      "team": "Dart Lions Gräfenberg II",
-      "begegnungen": "3",
-      "siege": "0",
-      "unentschieden": "1",
-      "niederlagen": "2",
-      "spiele": "23:31",
-      "differenz": "-8",
-      "legs": "94:116",
       "punkte": "1:5"
     },
     {
