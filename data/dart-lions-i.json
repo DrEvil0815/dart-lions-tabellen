@@ -1,20 +1,20 @@
 {
   "liga": "4. Bezirksliga Oberfranken G",
   "team": "Dart Lions Gräfenberg",
-  "stand": "2026-11-21T21:25+00:00",
+  "stand": "2026-11-21T22:09+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211419",
   "rows": [
     {
       "platz": 1,
       "team": "DJK \"Creek Steelers\" Wimmelbach II",
-      "begegnungen": "3",
-      "siege": "3",
+      "begegnungen": "4",
+      "siege": "4",
       "unentschieden": "0",
       "niederlagen": "0",
-      "spiele": "43:11",
-      "differenz": "+32",
-      "legs": "141:64",
-      "punkte": "6:0"
+      "spiele": "56:16",
+      "differenz": "+40",
+      "legs": "185:92",
+      "punkte": "8:0"
     },
     {
       "platz": 2,
@@ -66,18 +66,6 @@
     },
     {
       "platz": 6,
-      "team": "DJK Walberla Bulls Schlaifhausen II",
-      "begegnungen": "2",
-      "siege": "0",
-      "unentschieden": "1",
-      "niederlagen": "1",
-      "spiele": "17:19",
-      "differenz": "-2",
-      "legs": "68:75",
-      "punkte": "1:3"
-    },
-    {
-      "platz": 7,
       "team": "DJK-SpVgg Effeltrich III",
       "begegnungen": "4",
       "siege": "1",
@@ -87,6 +75,18 @@
       "differenz": "-4",
       "legs": "134:148",
       "punkte": "3:5"
+    },
+    {
+      "platz": 7,
+      "team": "DJK Walberla Bulls Schlaifhausen II",
+      "begegnungen": "3",
+      "siege": "0",
+      "unentschieden": "1",
+      "niederlagen": "2",
+      "spiele": "22:32",
+      "differenz": "-10",
+      "legs": "96:119",
+      "punkte": "1:5"
     },
     {
       "platz": 8,

@@ -1,7 +1,7 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-11-21T21:25+00:00",
+  "stand": "2026-11-21T22:09+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
@@ -13,7 +13,7 @@
       "niederlagen": "0",
       "spiele": "60:12",
       "differenz": "+48",
-      "legs": "144:51",
+      "legs": "195:65",
       "punkte": "8:0"
     },
     {
@@ -97,7 +97,7 @@
       "niederlagen": "4",
       "spiele": "22:50",
       "differenz": "-28",
-      "legs": "87:118",
+      "legs": "101:169",
       "punkte": "0:8"
     }
   ]
