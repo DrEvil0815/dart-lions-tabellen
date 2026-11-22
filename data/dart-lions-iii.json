@@ -1,7 +1,7 @@
 {
   "liga": "Oberfranken 2026/27 – Staffel 211415",
   "team": "Dart Lions Gräfenberg III",
-  "stand": "2026-11-22T00:04+00:00",
+  "stand": "2026-11-22T01:09+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211415",
   "rows": [
     {
@@ -19,14 +19,14 @@
     {
       "platz": 2,
       "team": "SV Hetzles II",
-      "begegnungen": "3",
+      "begegnungen": "4",
       "siege": "3",
       "unentschieden": "0",
-      "niederlagen": "0",
-      "spiele": "37:17",
-      "differenz": "+20",
-      "legs": "120:86",
-      "punkte": "6:0"
+      "niederlagen": "1",
+      "spiele": "43:29",
+      "differenz": "+14",
+      "legs": "147:127",
+      "punkte": "6:2"
     },
     {
       "platz": 3,
@@ -66,6 +66,18 @@
     },
     {
       "platz": 6,
+      "team": "Dart Lions Gräfenberg III",
+      "begegnungen": "4",
+      "siege": "1",
+      "unentschieden": "0",
+      "niederlagen": "3",
+      "spiele": "28:44",
+      "differenz": "-16",
+      "legs": "115:158",
+      "punkte": "2:6"
+    },
+    {
+      "platz": 7,
       "team": "DJK \"Creek Steelers\" Wimmelbach IV",
       "begegnungen": "4",
       "siege": "1",
@@ -75,18 +87,6 @@
       "differenz": "-22",
       "legs": "106:165",
       "punkte": "2:6"
-    },
-    {
-      "platz": 7,
-      "team": "Dart Lions Gräfenberg III",
-      "begegnungen": "3",
-      "siege": "0",
-      "unentschieden": "0",
-      "niederlagen": "3",
-      "spiele": "16:38",
-      "differenz": "-22",
-      "legs": "74:131",
-      "punkte": "0:6"
     },
     {
       "platz": 8,

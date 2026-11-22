@@ -1,11 +1,23 @@
 {
   "liga": "4. Bezirksliga Oberfranken F",
   "team": "Dart Lions Gräfenberg II",
-  "stand": "2026-11-22T00:04+00:00",
+  "stand": "2026-11-22T01:09+00:00",
   "quelle": "https://bdv-dart.liga.nu/cgi-bin/WebObjects/nuLigaDARTDE.woa/wa/groupPage?championship=OFr+2026%2F27&group=211414",
   "rows": [
     {
       "platz": 1,
+      "team": "Dart Warriors FC Pommersfelden III",
+      "begegnungen": "4",
+      "siege": "3",
+      "unentschieden": "1",
+      "niederlagen": "0",
+      "spiele": "42:30",
+      "differenz": "+12",
+      "legs": "153:129",
+      "punkte": "7:1"
+    },
+    {
+      "platz": 2,
       "team": "Hopfen Spiggerer Hallerndorf III",
       "begegnungen": "4",
       "siege": "3",
@@ -17,28 +29,16 @@
       "punkte": "6:2"
     },
     {
-      "platz": 2,
-      "team": "Blue Bulls SV Walsdorf III",
-      "begegnungen": "3",
-      "siege": "2",
-      "unentschieden": "1",
-      "niederlagen": "0",
-      "spiele": "32:22",
-      "differenz": "+10",
-      "legs": "121:88",
-      "punkte": "5:1"
-    },
-    {
       "platz": 3,
-      "team": "Dart Warriors FC Pommersfelden III",
-      "begegnungen": "3",
+      "team": "Blue Bulls SV Walsdorf III",
+      "begegnungen": "4",
       "siege": "2",
       "unentschieden": "1",
-      "niederlagen": "0",
-      "spiele": "32:22",
-      "differenz": "+10",
-      "legs": "115:91",
-      "punkte": "5:1"
+      "niederlagen": "1",
+      "spiele": "40:32",
+      "differenz": "+8",
+      "legs": "159:126",
+      "punkte": "5:3"
     },
     {
       "platz": 4,
